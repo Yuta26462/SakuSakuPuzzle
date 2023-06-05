@@ -20,13 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractScene.cpp" />
+    <ClCompile Include="End.cpp" />
+    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ranking.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="End.h" />
+    <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Help.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Ranking.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>

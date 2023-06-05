@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
-// ƒ^ƒCƒgƒ‹‚ÉƒfƒoƒbƒNƒƒjƒ…[‚ğ’Ç‰Á
+// ã‚¿ã‚¤ãƒˆãƒ«ã«ãƒ‡ãƒãƒƒã‚¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¿½åŠ 
 //#define TITLE_DEBUG
 
 class Title :
@@ -25,40 +25,40 @@ private:
         "EXIT"
     };
 
-    // ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[
+    // é¸æŠã—ã¦ã„ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼
     int select_menu;
 
 
 #ifdef TITLE_DEBUG
-    // ƒfƒoƒbƒNƒƒjƒ…[‘I‘ğ—pƒtƒ‰ƒO
+    // ãƒ‡ãƒãƒƒã‚¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠç”¨ãƒ•ãƒ©ã‚°
     bool is_select_debug;
 #endif // TITLE_DEBUG
 
-    // ƒtƒHƒ“ƒgƒnƒ“ƒhƒ‹
+    // ãƒ•ã‚©ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«
     int menu_font;
 
-    //‘I‘ğSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
+    //é¸æŠSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
     int select_se;
-    //Œˆ’èSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
+    //æ±ºå®šSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
     int decision_se;
 
-    //‘€ìŠÔŠuŠÔ
+    //æ“ä½œé–“éš”æ™‚é–“
     int input_margin;
 
-    //ƒtƒF[ƒh—pƒJƒEƒ“ƒ^
+    //ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã‚«ã‚¦ãƒ³ã‚¿
     int fade_counter;
 
 public:
 
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     Title();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~Title();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
     void Draw() const override;
 };

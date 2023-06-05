@@ -17,10 +17,10 @@ AbstractScene* SceneManager::Update()
 
 		GetDateTime(&data);
 
-		//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		
 		fopen_s(&fp, "data/ErrLog/ErrLog.txt", "a");
-		//ƒGƒ‰[ƒf[ƒ^‚Ì‘‚«‚İ
-		fprintf_s(fp, "%02d”N %02dŒ %02d“ú %02d %02d•ª %02d•b : %s‚ª‚ ‚è‚Ü‚¹‚ñB\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+		
+		fprintf_s(fp, "%02dï¿½N %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½b : %sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		return nullptr;
 	}

@@ -1,4 +1,4 @@
-#include "Title.h"
+ï»¿#include "Title.h"
 #include "DxLib.h"
 
 
@@ -7,13 +7,13 @@
 
 
 //-----------------------------------
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //-----------------------------------
 Title::Title()
 {
 	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
-	menu_font = CreateFontToHandle("ƒƒCƒŠƒI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	//background_image = LoadGraph("Images/Scene/Titleimage.png");
 
@@ -50,7 +50,7 @@ Title::Title()
 }
 
 //-----------------------------------
-// ƒfƒXƒgƒ‰ƒNƒ^
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //-----------------------------------
 Title::~Title()
 {
@@ -65,7 +65,7 @@ Title::~Title()
 }
 
 //-----------------------------------
-// XV
+// æ›´æ–°
 //-----------------------------------
 AbstractScene* Title::Update()
 {
@@ -81,10 +81,10 @@ AbstractScene* Title::Update()
 	}
 #endif // !TITLE_DEBUG
 
-	// ‘€ìŠÔŠuŠÔ
+	// æ“ä½œé–“éš”æ™‚é–“
 	const int max_input_margin = 15;
 
-	// ƒXƒeƒBƒbƒN‚ÌŠ´“x
+	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ„Ÿåº¦
 	const int stick_sensitivity = 20000;
 
 	if (input_margin < max_input_margin)
@@ -93,21 +93,21 @@ AbstractScene* Title::Update()
 	}
 	else {
 
-		// ƒXƒeƒBƒbƒN‚ÌYÀ•W‚ğæ“¾
+		// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yåº§æ¨™ã‚’å–å¾—
 		//int stick_y = PAD_INPUT::GetLStick().y;
 
 		//if (std::abs(stick_y) > stick_sensitivity) {
 
 		//	PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
 
-		//	// ƒXƒeƒBƒbƒN‚ªã‚ÉˆÚ“®‚µ‚½ê‡
+		//	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸Šã«ç§»å‹•ã—ãŸå ´åˆ
 		//	if (stick_y > 0) {
-		//		// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚Â‘O‚ÉˆÚ“®
+		//		// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤å‰ã«ç§»å‹•
 		//		select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
 		//	}
-		//	// ƒXƒeƒBƒbƒN‚ª‰º‚ÉˆÚ“®‚µ‚½ê‡
+		//	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸‹ã«ç§»å‹•ã—ãŸå ´åˆ
 		//	else if (stick_y < 0) {
-		//		// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚ÂŸ‚ÉˆÚ“®
+		//		// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤æ¬¡ã«ç§»å‹•
 		//		select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
 		//	}
 
@@ -127,52 +127,52 @@ AbstractScene* Title::Update()
 
 	}
 
-//
-//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-//	{
-//
-//		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
-//		while (CheckSoundMem(enter_se)) {}
-//
-//#ifdef TITLE_DEBUG
-//		if (is_select_debug == true) {
-//			return new DotByDot();
-//		}
-//#endif // TITLE_DEBUG
-//
-//
-//		input_margin = 0;
-//		MENU current_selection = static_cast<MENU>(select_menu);
-//
-//		switch (current_selection)
-//		{
-//		case Title::MENU::PLAY:
-//			return new GameMain(1, element_volume, pouch);
-//			break;
-//
-//		case Title::MENU::HELP:
-//		{
-//			GameMain* help = new GameMain(0, element_volume, pouch);
-//			help->SetHelpMode(true);
-//			return help;
-//			break;
-//		}
-//		case Title::MENU::EXIT:
-//			return new Credit();
-//			break;
-//
-//		default:
-//			printfDx("–¢À‘•‚È‹@”\‚Å‚·B\n");
-//			break;
-//		}
-//
-//	}
+	//
+	//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+	//	{
+	//
+	//		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
+	//		while (CheckSoundMem(enter_se)) {}
+	//
+	//#ifdef TITLE_DEBUG
+	//		if (is_select_debug == true) {
+	//			return new DotByDot();
+	//		}
+	//#endif // TITLE_DEBUG
+	//
+	//
+	//		input_margin = 0;
+	//		MENU current_selection = static_cast<MENU>(select_menu);
+	//
+	//		switch (current_selection)
+	//		{
+	//		case Title::MENU::PLAY:
+	//			return new GameMain(1, element_volume, pouch);
+	//			break;
+	//
+	//		case Title::MENU::HELP:
+	//		{
+	//			GameMain* help = new GameMain(0, element_volume, pouch);
+	//			help->SetHelpMode(true);
+	//			return help;
+	//			break;
+	//		}
+	//		case Title::MENU::EXIT:
+	//			return new Credit();
+	//			break;
+	//
+	//		default:
+	//			printfDx("æœªå®Ÿè£…ãªæ©Ÿèƒ½ã§ã™ã€‚\n");
+	//			break;
+	//		}
+	//
+	//	}
 
 	return this;
 }
 
 //-----------------------------------
-// •`‰æ
+// æç”»
 //-----------------------------------
 void Title::Draw()const
 {
@@ -185,28 +185,28 @@ void Title::Draw()const
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{
-		// •¶š—ñ‚ÌÅ¬YÀ•W
+		// æ–‡å­—åˆ—ã®æœ€å°Yåº§æ¨™
 		const int base_y = 400;
 
-		// •¶š—ñ‚ÌYÀ•WŠÔŠu
+		// æ–‡å­—åˆ—ã®Yåº§æ¨™é–“éš”
 		const int margin_y = 100;
 
-		// •¶šF
+		// æ–‡å­—è‰²
 		int color = 0xFFFFFF;
-		// •¶šŠO˜gF
+		// æ–‡å­—å¤–æ è‰²
 		int border_color = 0x000000;
 
-		// “§–¾“x
+		// é€æ˜åº¦
 		int transparency = 180;
 
 #ifdef TITLE_DEBUG
 
-		// •¶šF
+		// æ–‡å­—è‰²
 		int debug_color = 0xFFFFFF;
-		// •¶šŠO˜gF
+		// æ–‡å­—å¤–æ è‰²
 		int debug_border_color = 0x000000;
 
-		// “§–¾“x
+		// é€æ˜åº¦
 		int debug_transparency = 100;
 
 		if (is_select_debug == true) {
@@ -228,7 +228,7 @@ void Title::Draw()const
 
 #else
 
-		// ƒJ[ƒ\ƒ‹‚ª‡‚Á‚Ä‚¢‚éê‡A•¶šF‚Æ•¶šŠO˜gF‚ğ”½“]‚³‚¹‚é
+		// ã‚«ãƒ¼ã‚½ãƒ«ãŒåˆã£ã¦ã„ã‚‹å ´åˆã€æ–‡å­—è‰²ã¨æ–‡å­—å¤–æ è‰²ã‚’åè»¢ã•ã›ã‚‹
 		if (select_menu == i) {
 			color = ~color;
 			border_color = ~border_color;

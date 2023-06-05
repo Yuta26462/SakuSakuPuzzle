@@ -4,8 +4,8 @@
 AbstractScene::AbstractScene() {
 	static short initialized = 0;
 
-	//ƒvƒƒOƒ‰ƒ€ŠJŽnŽž‚É2‰ñŒÄ‚Î‚ê‚é‚Ì‚ð–³Œø‰»
-	if (initialized > 1 ) {
+	//ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹æ™‚ã«2å›žå‘¼ã°ã‚Œã‚‹ã®ã‚’ç„¡åŠ¹åŒ–
+	if (initialized > 1) {
 		CommonProcess();
 	}
 	else {
@@ -15,8 +15,8 @@ AbstractScene::AbstractScene() {
 
 
 void AbstractScene::CommonProcess() {
-	
-	//ƒŠƒ\[ƒX‚ðƒŠƒZƒbƒg
+
+	//ãƒªã‚½ãƒ¼ã‚¹ã‚’ãƒªã‚»ãƒƒãƒˆ
 	InitFontToHandle();
 	InitGraph();
 	InitSoundMem();
@@ -24,7 +24,7 @@ void AbstractScene::CommonProcess() {
 
 int AbstractScene::GetDrawCenterX(const char* string, int font_handle, int margin)const {
 
-	//‰æ–Ê•
+	//ç”»é¢å¹…
 	const int screenX = 1280;
 
 	if (margin >= screenX || margin <= -screenX) {

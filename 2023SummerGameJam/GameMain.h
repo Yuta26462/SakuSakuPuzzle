@@ -1,13 +1,14 @@
 #pragma once
 #include"AbstractScene.h"
 #include "BlockManager.h"
+#include "Bomb.h"
 
 class GameMain :
     public AbstractScene
 {
 private:
     BlockManager* block_manager;
-
+    Bomb* bomb;
 
     //遅延アニメーション用カウンタ
     int delay_animation_count;

@@ -17,7 +17,7 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
 	block_manager = new BlockManager();
-
+	bomb = new Bomb();
 
 	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
@@ -36,6 +36,8 @@ GameMain::~GameMain()
 	//DeleteFontToHandle(title_font);
 	//DeleteFontToHandle(menu_font);
 	SetDrawBright(255, 255, 255);
+	delete block_manager;
+	delete bomb;
 }
 
 //-----------------------------------
@@ -45,7 +47,7 @@ AbstractScene* GameMain::Update()
 {
 
 	block_manager->Update();
-
+	bomb->Update();
 	return this;
 }
 
@@ -62,6 +64,7 @@ void GameMain::Draw()const
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
 	block_manager->Draw();
+	bomb->Draw();
 }
 
 bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)

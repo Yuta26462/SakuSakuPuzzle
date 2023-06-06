@@ -1,6 +1,8 @@
 #include "main.h"
 #include "SceneManager.h"
 #include "Title.h"
+#include "End.h"
+#include "PadInput.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -18,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetAlwaysRunFlag(true);		//常にアクティブにする
 
-	if (DxLib_Init() == -1)return -1;
+	if (DxLib_Init() == -1)return -1;	
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
@@ -31,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 		ClearDrawScreen();		// 画面の初期化
-		//PAD_INPUT::UpdateKey();	//パッドの入力状態の更新
+		PAD_INPUT::UpdateKey();	//パッドの入力状態の更新
 		sceneMng->Draw();
 
 		ScreenFlip();			// 裏画面の内容を表画面に反映

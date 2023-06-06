@@ -1,7 +1,7 @@
 #pragma once
 
 // ブロックのサイズ
-const int BLOCK_SIZE = 20;
+const int BLOCK_SIZE = 80;
 
 class Block
 {

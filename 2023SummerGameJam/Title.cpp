@@ -24,9 +24,9 @@ Title::Title()
 	//	throw "Sounds/BGM/Title.wav";
 	//}
 
-	enter_se = LoadSoundMem("Sounds/SE/enter.mp3");
+	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
 
-	cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3");
+	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
 	select_se = 0;
 	decision_se = 0;
 

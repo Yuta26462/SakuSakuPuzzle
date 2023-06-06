@@ -19,13 +19,13 @@ Help::Help()
 	//	throw "Sounds/BGM/Title.wav";
 	//}
 
-	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
-	//	throw "Sounds/SE/enter.mp3";
+	//if ((enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3")) == -1) {
+	//	throw "Resource/Sounds/SE/enter.mp3";
 	//}
 
-	//if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
+	//if ((cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3")) == -1)
 	//{
-	//	throw "Sounds/SE/cursor_move.mp3";
+	//	throw "Resource/Sounds/SE/cursor_move.mp3";
 	//}
 
 

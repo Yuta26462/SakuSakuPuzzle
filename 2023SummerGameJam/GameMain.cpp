@@ -1,5 +1,6 @@
 #include "GameMain.h"
 #include "DxLib.h"
+#include "PadInput.h"
 
 #define FADE_TIME 300
 
@@ -45,6 +46,10 @@ AbstractScene* GameMain::Update()
 {
 
 	block_manager->Update();
+
+	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		block_manager->GenerationExsampleBlock();
+	}
 
 	return this;
 }

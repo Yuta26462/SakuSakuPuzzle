@@ -2,6 +2,12 @@
 #include <vector>
 #include "Block.h"
 
+struct POSITION
+{
+	int x;
+	int y;
+};
+
 class BlockManager
 {
 private:
@@ -14,7 +20,7 @@ private:
 	int splitNum = 3;
 
 public:
-	BlockManager();
+	BlockManager(POSITION posittion = {1500,700});
 	~BlockManager();
 	void Draw();
 	void Update();

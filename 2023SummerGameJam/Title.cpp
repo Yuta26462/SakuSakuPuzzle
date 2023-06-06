@@ -18,7 +18,7 @@ Title::Title()
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	//background_image = LoadGraph("Images/Scene/Titleimage.png");
+	background_image = LoadGraph("Resource/Images/Scene/title.png");
 
 	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
 	//	throw "Sounds/BGM/Title.wav";
@@ -140,6 +140,7 @@ AbstractScene* Title::Update()
 //-----------------------------------
 void Title::Draw()const
 {
+	DrawGraph(0, 0, background_image, FALSE);
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
@@ -150,7 +151,7 @@ void Title::Draw()const
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{
 		// 文字列の最小Y座標
-		const int base_y = 400;
+		const int base_y = 600;
 
 		// 文字列のY座標間隔
 		const int margin_y = 100;

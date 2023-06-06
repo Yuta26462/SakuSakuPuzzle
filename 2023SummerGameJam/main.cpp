@@ -20,13 +20,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetAlwaysRunFlag(true);		//常にアクティブにする
 
-	if (DxLib_Init() == -1)return -1;
+	if (DxLib_Init() == -1)return -1;	
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	SceneManager* sceneMng;
 
-	sceneMng = new SceneManager((AbstractScene*)new END());
+	sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	// ゲームループ
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {

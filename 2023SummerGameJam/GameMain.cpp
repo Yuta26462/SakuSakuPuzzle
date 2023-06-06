@@ -14,6 +14,8 @@ GameMain::GameMain()
 
 	//menu_font = CreateFontToHandle("ƒƒCƒŠƒI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+
 	block_manager = new BlockManager();
 
 
@@ -41,6 +43,7 @@ GameMain::~GameMain()
 //-----------------------------------
 AbstractScene* GameMain::Update()
 {
+
 	block_manager->Update();
 
 	return this;
@@ -51,6 +54,13 @@ AbstractScene* GameMain::Update()
 //-----------------------------------
 void GameMain::Draw()const
 {
+	DrawGraph(0, 0, background_image, TRUE);
+
+	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 400, 1080, 0x000000);
+	DrawBox(0, 720, 1920, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 1600, 1920, 1080, 0x000000);
+
 	block_manager->Draw();
 }
 

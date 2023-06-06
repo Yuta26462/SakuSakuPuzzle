@@ -2,13 +2,14 @@
 #include "DxLib.h"
 
 
-BlockManager::BlockManager()
+BlockManager::BlockManager(POSITION posittion)
 {
+
     // 初期のブロックの生成
     for (int i = 0; i < 6; i++) {
         Block block;
-        block.x = i * BLOCK_SIZE;
-        block.y = 0;
+        block.x = i * BLOCK_SIZE + posittion.x;
+        block.y = 0 + posittion.y;
         block.shape = GetRand(1); // 0または1のランダムな値
         block.rotation = 0;
         sampleBlocks.push_back(block);
@@ -18,8 +19,8 @@ BlockManager::BlockManager()
     for (Block const& sampleBlock : sampleBlocks) {
         for (int i = 0; i < splitNum; i++) {
             Block block;
-            block.x = sampleBlock.x + (i * BLOCK_SIZE / splitNum);
-            block.y = sampleBlock.y;
+            block.x = sampleBlock.x + (i * BLOCK_SIZE / splitNum) + posittion.x;
+            block.y = sampleBlock.y + posittion.y;
             block.shape = sampleBlock.shape;
             block.rotation = sampleBlock.rotation;
             playerBlocks.push_back(block);

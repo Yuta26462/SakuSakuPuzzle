@@ -26,6 +26,7 @@
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Help.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="PadInput.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="SceneManager.h" />

@@ -11,7 +11,7 @@ private:
 	int cursor_x, cursor_y;			//カーソル位置
 	int uses_remaining;	//残り仕様回数
 	BOMB_STATE state;	//状態
-	int a;
+	
 	int BmImage;		//爆弾画像
 	int ExImage;		//爆発画像
 

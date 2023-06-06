@@ -9,7 +9,11 @@ Bomb::Bomb()
 	state = BOMB_STATE::NOT_SELECT;
 	cursor_x = 100;
 	cursor_y = 100;
-	//爆発画像の読み込み
+	//各画像の読み込み
+	if ((BmImage = LoadGraph("Resource/Images/2-4a/アセット 6.png")) == -1)
+	{
+		throw "Resource/Images/2-4a/アセット 6.png";
+	}
 	if ((ExImage = LoadGraph("Resource/Images/Explosion.png")) == -1)
 	{
 		throw "Resource/Images/Explosion.png";
@@ -74,7 +78,7 @@ void Bomb::Draw()const
 	{
 	case BOMB_STATE::SELECT:
 		//現在のカーソルの位置に爆弾の画像を表示
-		DrawString(cursor_x, cursor_y, "爆弾選択中", 0xff0000);
+		DrawRotaGraph(cursor_x, cursor_y, 0.25, 0, BmImage, TRUE);
 		break;
 
 	case BOMB_STATE::EXPROSION:
@@ -83,7 +87,7 @@ void Bomb::Draw()const
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, (bomb_effect * 5));
 
 		//現在のカーソルの位置に爆発の画像を表示
-		DrawRotaGraph(cursor_x, cursor_y ,0.5,0,ExImage, TRUE);
+		DrawRotaGraph(cursor_x, cursor_y ,0.25,0,ExImage, TRUE);
 
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

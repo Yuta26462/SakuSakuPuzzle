@@ -48,12 +48,12 @@ AbstractScene* GameMain::Update()
 {
 
 	block_manager->Update();
+	bomb->Update();
 
 	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
 		block_manager->GenerationExsampleBlock();
 	}
 
-	bomb->Update();
 	return this;
 }
 

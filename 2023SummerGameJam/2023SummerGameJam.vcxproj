@@ -23,6 +23,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockManager.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Help.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockManager.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="End.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Help.h" />

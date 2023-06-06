@@ -4,6 +4,10 @@
 #include "PadInput.h"
 #include <iostream>
 
+#include"Result.h"
+
+
+
 
 #define FADE_TIME 300
 

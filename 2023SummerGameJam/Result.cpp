@@ -86,6 +86,7 @@ Result::~Result()
 //-----------------------------------
 AbstractScene* Result::Update()
 {
+
 	if (fade_counter < FADE_TIME)
 	{
 		fade_counter++;
@@ -193,6 +194,18 @@ AbstractScene* Result::Update()
 //-----------------------------------
 void Result::Draw()const//処理したものをここに表示　Clear数の表示はここ
 {
+	/*追加したもの*/
+
+	SceneManager* sceneMng;
+
+	int gScore = 3;//仮変数
+
+	SetFontSize(100);
+	DrawFormatString(550, 250, 0x4f455c, "%d", gScore); //スコア数表示（仮）
+	WaitTimer(3000);//３秒たったら
+
+	sceneMng = new SceneManager((AbstractScene*)new NameInput());//sceneMngをNemeInputに更新
+	sceneMng->Draw();//更新を描画する
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
@@ -203,21 +216,6 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
 
 	
-
-	/*追加したもの*/
-
-	//if (++WaitTime > 180)//時間指定
-	//{
-	//	sceneMng = new SceneManager((AbstractScene*)new NameInput());//sceneMngをNemeInputに更新
-	//	sceneMng->Draw()//更新を描画する
-	//}
-
-	int gScore = 3;//仮変数
-
-	SetFontSize(100);
-	DrawFormatString(550, 250, 0x4f455c, "%d", gScore); //スコア数表示（仮）
-
-
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)//iが3（静的キャスト）より小さいなら
 	{

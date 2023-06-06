@@ -1,13 +1,24 @@
 #include "Result.h"
+#include "GameMain.h"//scoreが言っている変数を持ってきたいため
+#include "SceneManager.h"
+
+#include <math.h>
 #include "DxLib.h"
 #define FADE_TIME 300
 
+/*メモ*/
 
+//インターフェイ　複数のオブジェクトに関して共通する機能を実装させる
+//静的メンバ変数はオブジェクトに属するメンバ変数ではなく、クラスに属するメンバ変数。グローバル変数と変わりなし
+//mSeneは今のシーン
+//Newがついているものが移動先として指定
+
+/*メモ*/
 
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
-Result::Result()
+Result::Result()//クラス　リザルト
 {
 	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
@@ -15,13 +26,19 @@ Result::Result()
 
 	//background_image = LoadGraph("Images/Scene/Titleimage.png");
 
+	//↑画像を差し込む
+
 	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
 	//	throw "Sounds/BGM/Title.wav";
 	//}
 
+	//↑音楽を差し込む
+
 	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
 	//	throw "Sounds/SE/enter.mp3";
 	//}
+
+	//↑SEを差し込む
 
 	//if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
 	//{
@@ -39,7 +56,9 @@ Result::Result()
 #endif // TITLE_DEBUG
 
 
-	select_menu = static_cast<int>(MENU::PLAY);
+	select_menu = static_cast<int>(MENU::PLAY);//メニューの中のplayをグーグル化select_menuとする
+
+	//↑静的な型の式を別の静的な型のオブジェクトの値に変更します。
 
 	fade_counter = 0;
 
@@ -172,16 +191,35 @@ AbstractScene* Result::Update()
 //-----------------------------------
 // 描画
 //-----------------------------------
-void Result::Draw()const
+void Result::Draw()const//処理したものをここに表示　Clear数の表示はここ
 {
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
 
+	
+
 	//DrawGraph(0, 0, background_image, FALSE);
 	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
 
-	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
+	
+
+	/*追加したもの*/
+
+	//if (++WaitTime > 180)//時間指定
+	//{
+	//	sceneMng = new SceneManager((AbstractScene*)new NameInput());//sceneMngをNemeInputに更新
+	//	sceneMng->Draw()//更新を描画する
+	//}
+
+	int gScore = 3;//仮変数
+
+	SetFontSize(100);
+	DrawFormatString(550, 250, 0x4f455c, "%d", gScore); //スコア数表示（仮）
+
+
+
+	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)//iが3（静的キャスト）より小さいなら
 	{
 		// 文字列の最小Y座標
 		const int base_y = 400;
@@ -227,11 +265,11 @@ void Result::Draw()const
 #else
 
 		// カーソルが合っている場合、文字色と文字外枠色を反転させる
-		if (select_menu == i) {
+		/*if (select_menu == i) {
 			color = ~color;
 			border_color = ~border_color;
 			transparency = 255;
-		}
+		}*/
 
 #endif // TITLE_DEBUG
 

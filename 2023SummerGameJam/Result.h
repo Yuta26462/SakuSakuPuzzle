@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 class Result :
-    public AbstractScene
+    public AbstractScene 
 {
 private:
 

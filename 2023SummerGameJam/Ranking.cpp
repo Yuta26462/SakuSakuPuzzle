@@ -1,8 +1,9 @@
 #include "Ranking.h"
 #include "DxLib.h"
 #define FADE_TIME 300
-
-
+#include "GameMain.h"
+#include "PadInput.h"
+#include "Title.h"
 
 //-----------------------------------
 // コンストラクタ
@@ -165,6 +166,9 @@ AbstractScene* Ranking::Update()
 	//		}
 	//
 	//	}
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		return new Title();
+	}
 
 	return this;
 }

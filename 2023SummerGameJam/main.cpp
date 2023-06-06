@@ -3,7 +3,7 @@
 #include "Title.h"
 #include "PadInput.h"
 #include "Help.h"
-#include "End.h"
+#include "Ranking.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SceneManager* sceneMng;
 
-	sceneMng = new SceneManager((AbstractScene*)new END());
+	sceneMng = new SceneManager((AbstractScene*)new Ranking());
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {

@@ -3,6 +3,7 @@
 #include "Title.h"
 #include "PadInput.h"
 #include "GameMain.h"
+#include "End.h"
 
 //-----------------------------------
 // コンストラクタ
@@ -101,7 +102,7 @@ AbstractScene* END::Update()
 	}
 	*/
 	if (++WaitTime > 300) {
-		return new GameMain();
+		return nullptr;
 	}
 
 	return this;

@@ -58,8 +58,8 @@ void GameMain::Draw()const
 
 	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 0, 400, 1080, 0x000000);
-	DrawBox(0, 720, 1920, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 1600, 1920, 1080, 0x000000);
+	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
 	block_manager->Draw();
 }

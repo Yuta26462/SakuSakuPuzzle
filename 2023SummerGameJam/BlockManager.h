@@ -20,7 +20,7 @@ private:
 	int splitNum = 3;
 
 public:
-	BlockManager(POSITION posittion = {1500,700});
+	BlockManager(POSITION posittion = {1000,760});
 	~BlockManager();
 	void Draw();
 	void Update();

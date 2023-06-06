@@ -181,6 +181,8 @@ void GameMain::Draw()const
 	//DrawGraph(0, 0, background_image, FALSE);
 	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
 
+	DrawBox(0, 0, 1920, 1080, 0x0000, TRUE);
+
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{
 		// 文字列の最小Y座標

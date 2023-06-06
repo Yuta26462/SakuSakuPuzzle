@@ -1,5 +1,6 @@
 ﻿#include "Title.h"
 #include "DxLib.h"
+#include "GameMain.h"
 
 
 #define FADE_TIME 300
@@ -77,7 +78,7 @@ AbstractScene* Title::Update()
 #ifndef TITLE_DEBUG
 	if (fade_counter < FADE_TIME)
 	{
-		return this;
+		return new GameMain();
 	}
 #endif // !TITLE_DEBUG
 
@@ -179,7 +180,7 @@ void Title::Draw()const
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
-
+	
 	//DrawGraph(0, 0, background_image, FALSE);
 	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
 

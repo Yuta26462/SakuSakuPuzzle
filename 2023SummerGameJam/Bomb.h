@@ -8,8 +8,13 @@ enum class BOMB_STATE {
 
 class Bomb{
 private:
+	int cursor_x, cursor_y;			//カーソル位置
 	int uses_remaining;	//残り仕様回数
 	BOMB_STATE state;	//状態
+
+	int BmImage;		//爆弾画像
+	int ExImage;		//爆発画像
+
 	int bomb_effect;	//爆発アニメーション用
 public:
 	//コンストラクタ
@@ -25,7 +30,10 @@ public:
 	void Draw()const;
 
 	//爆弾を選択した状態にする
-	void SelectBomb(){ state = BOMB_STATE::SELECT; }
+	void SelectBomb();
+
+	//カーソルの座標を取得する
+	void SetPos(int x, int y);
 
 	//状態を取得する
 	BOMB_STATE GetState(){ return state; }

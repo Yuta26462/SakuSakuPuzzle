@@ -22,40 +22,40 @@ private:
         "EXIT"
     };
 
-    // é¸æŠã—ã¦ã„ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+    // ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[
     int select_menu;
 
 
 #ifdef TITLE_DEBUG
-    // ãƒ‡ãƒãƒƒã‚¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠç”¨ãƒ•ãƒ©ã‚°
+    // ƒfƒoƒbƒNƒƒjƒ…[‘I‘ğ—pƒtƒ‰ƒO
     bool is_select_debug;
 #endif // TITLE_DEBUG
 
-    // ãƒ•ã‚©ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«
+    // ƒtƒHƒ“ƒgƒnƒ“ƒhƒ‹
     int menu_font;
 
-    //é¸æŠSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
+    //‘I‘ğSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
     int select_se;
-    //æ±ºå®šSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
+    //Œˆ’èSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
     int decision_se;
 
-    //æ“ä½œé–“éš”æ™‚é–“
+    //‘€ìŠÔŠuŠÔ
     int input_margin;
 
-    //ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã‚«ã‚¦ãƒ³ã‚¿
+    //ƒtƒF[ƒh—pƒJƒEƒ“ƒ^
     int fade_counter;
 
 public:
 
-    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
     Ranking();
 
-    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒfƒXƒgƒ‰ƒNƒ^
     ~Ranking();
 
-    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
+    //•`‰æˆÈŠO‚ÌXV‚ğÀs
     AbstractScene* Update() override;
 
-    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
+    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
     void Draw() const override;
 };

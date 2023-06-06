@@ -6,17 +6,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	double dNextTime = GetNowCount();
 
-	SetMainWindowText("ã•ãã•ããƒ‘ã‚ºãƒ«");
+	SetMainWindowText("‚³‚­‚³‚­ƒpƒYƒ‹");
 	SetMainWindowClassName("SakuSakuPuzzle");
 
 
-	SetOutApplicationLogValidFlag(FALSE);   //ãƒ­ã‚°å‡ºåŠ›ã‚’ç„¡åŠ¹ã«ã™ã‚‹
+	SetOutApplicationLogValidFlag(FALSE);   //ƒƒOo—Í‚ğ–³Œø‚É‚·‚é
 
 	SetGraphMode(1920, 1080, 32);
 
 	ChangeFontType(DX_FONTTYPE_ANTIALIASING_4X4);
 
-	SetAlwaysRunFlag(true);		//å¸¸ã«ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+	SetAlwaysRunFlag(true);		//í‚ÉƒAƒNƒeƒBƒu‚É‚·‚é
 
 	if (DxLib_Init() == -1)return -1;
 
@@ -26,30 +26,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	sceneMng = new SceneManager((AbstractScene*)new Title());
 
-	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
+	// ƒQ[ƒ€ƒ‹[ƒv
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
 
-		ClearDrawScreen();		// ç”»é¢ã®åˆæœŸåŒ–
-		//PAD_INPUT::UpdateKey();	//ãƒ‘ãƒƒãƒ‰ã®å…¥åŠ›çŠ¶æ…‹ã®æ›´æ–°
+		ClearDrawScreen();		// ‰æ–Ê‚Ì‰Šú‰»
+		//PAD_INPUT::UpdateKey();	//ƒpƒbƒh‚Ì“ü—Íó‘Ô‚ÌXV
 		sceneMng->Draw();
 
-		ScreenFlip();			// è£ç”»é¢ã®å†…å®¹ã‚’è¡¨ç”»é¢ã«åæ˜ 
-		SetWindowVisibleFlag(TRUE);// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºã•ã›ã‚‹
+		ScreenFlip();			// — ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
+		SetWindowVisibleFlag(TRUE);// ƒEƒBƒ“ƒhƒE‚ğ•\¦‚³‚¹‚é
 
-		//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®è¨­å®š
+		//ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ìİ’è
 		dNextTime += static_cast<double>(1.0 / 60.0 * 1000.0);
 		if (dNextTime > GetNowCount()) {
 			WaitTimer(static_cast<int>(dNextTime) - GetNowCount());
 		}
-		else { dNextTime = GetNowCount(); }		//è£œæ­£
+		else { dNextTime = GetNowCount(); }		//•â³
 
 
 	}
 
-	InitFontToHandle();	//å…¨ã¦ã®ãƒ•ã‚©ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
-	InitGraph();		//èª­ã¿è¾¼ã‚“ã å…¨ã¦ã®ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
-	InitSoundMem();		//èª­ã¿è¾¼ã‚“ã å…¨ã¦ã®ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
+	InitFontToHandle();	//‘S‚Ä‚ÌƒtƒHƒ“ƒgƒf[ƒ^‚ğíœ
+	InitGraph();		//“Ç‚İ‚ñ‚¾‘S‚Ä‚ÌƒOƒ‰ƒtƒBƒbƒNƒf[ƒ^‚ğíœ
+	InitSoundMem();		//“Ç‚İ‚ñ‚¾‘S‚Ä‚ÌƒTƒEƒ“ƒhƒf[ƒ^‚ğíœ
 	DxLib_End();
 	return 0;
 }

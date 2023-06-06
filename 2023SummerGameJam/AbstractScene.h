@@ -3,27 +3,27 @@
 class AbstractScene
 {
 public:
-	//コンストラクタ
+	//�R���X�g���N�^
 	AbstractScene();
-	// CommonProcessを実行しないようにする引数有りの空コンストラクタ
+	// CommonProcess�����s���Ȃ��悤�ɂ�������L��̋�R���X�g���N�^
 	AbstractScene(bool not_initialized) {};
-	//デストラクタ
+	//�f�X�g���N�^
 	virtual ~AbstractScene() {};
-	//描画以外の更新を実行
+	//�`��ȊO�̍X�V�����s
 	virtual AbstractScene* Update() = 0;
-	//描画に関することを実装
+	//�`��Ɋւ��邱�Ƃ�����
 	virtual void Draw() const = 0;
 
 	/// <summary>
-	/// 全シーン共通のコンストラクタで行う処理
+	/// �S�V�[�����ʂ̃R���X�g���N�^�ōs������
 	/// </summary>
 	void CommonProcess();
 
 	/// <summary>
-	/// 文字の描画するX座標が中心になるX座標を取得する。
+	/// �����̕`�悷��X���W�����S�ɂȂ�X���W���擾����B
 	/// </summary>
-	/// <param name="string">描画する文字列</param>
-	/// <param name="font_handle">描画に使用するフォントハンドル(未入力又は0の場合はデフォルトフォントハンドルを使用</param>
-	/// <param name="margin">中央のX座標に間隔を空ける値</param>
+	/// <param name="string">�`�悷�镶����</param>
+	/// <param name="font_handle">�`��Ɏg�p����t�H���g�n���h��(�����͖���0�̏ꍇ�̓f�t�H���g�t�H���g�n���h�����g�p</param>
+	/// <param name="margin">������X���W�ɊԊu���󂯂�l</param>
 	int GetDrawCenterX(const char* string, int font_handle = 0, int margin = 0)const;
 };

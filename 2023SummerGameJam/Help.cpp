@@ -5,13 +5,13 @@
 
 
 //-----------------------------------
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 //-----------------------------------
 Help::Help()
 {
 	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
-	menu_font = CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = CreateFontToHandle("ƒƒCƒŠƒI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	//background_image = LoadGraph("Images/Scene/Titleimage.png");
 
@@ -19,13 +19,13 @@ Help::Help()
 	//	throw "Sounds/BGM/Title.wav";
 	//}
 
-	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
-	//	throw "Sounds/SE/enter.mp3";
+	//if ((enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3")) == -1) {
+	//	throw "Resource/Sounds/SE/enter.mp3";
 	//}
 
-	//if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
+	//if ((cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3")) == -1)
 	//{
-	//	throw "Sounds/SE/cursor_move.mp3";
+	//	throw "Resource/Sounds/SE/cursor_move.mp3";
 	//}
 
 
@@ -48,7 +48,7 @@ Help::Help()
 }
 
 //-----------------------------------
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 //-----------------------------------
 Help::~Help()
 {
@@ -63,7 +63,7 @@ Help::~Help()
 }
 
 //-----------------------------------
-// æ›´æ–°
+// XV
 //-----------------------------------
 AbstractScene* Help::Update()
 {
@@ -79,10 +79,10 @@ AbstractScene* Help::Update()
 	}
 #endif // !TITLE_DEBUG
 
-	// æ“ä½œé–“éš”æ™‚é–“
+	// ‘€ìŠÔŠuŠÔ
 	const int max_input_margin = 15;
 
-	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ„Ÿåº¦
+	// ƒXƒeƒBƒbƒN‚ÌŠ´“x
 	const int stick_sensitivity = 20000;
 
 	if (input_margin < max_input_margin)
@@ -91,21 +91,21 @@ AbstractScene* Help::Update()
 	}
 	else {
 
-		// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yåº§æ¨™ã‚’å–å¾—
+		// ƒXƒeƒBƒbƒN‚ÌYÀ•W‚ğæ“¾
 		//int stick_y = PAD_INPUT::GetLStick().y;
 
 		//if (std::abs(stick_y) > stick_sensitivity) {
 
 		//	PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
 
-		//	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸Šã«ç§»å‹•ã—ãŸå ´åˆ
+		//	// ƒXƒeƒBƒbƒN‚ªã‚ÉˆÚ“®‚µ‚½ê‡
 		//	if (stick_y > 0) {
-		//		// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤å‰ã«ç§»å‹•
+		//		// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚Â‘O‚ÉˆÚ“®
 		//		select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
 		//	}
-		//	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸‹ã«ç§»å‹•ã—ãŸå ´åˆ
+		//	// ƒXƒeƒBƒbƒN‚ª‰º‚ÉˆÚ“®‚µ‚½ê‡
 		//	else if (stick_y < 0) {
-		//		// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤æ¬¡ã«ç§»å‹•
+		//		// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚ÂŸ‚ÉˆÚ“®
 		//		select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
 		//	}
 
@@ -160,7 +160,7 @@ AbstractScene* Help::Update()
 	//			break;
 	//
 	//		default:
-	//			printfDx("æœªå®Ÿè£…ãªæ©Ÿèƒ½ã§ã™ã€‚\n");
+	//			printfDx("–¢À‘•‚È‹@”\‚Å‚·B\n");
 	//			break;
 	//		}
 	//
@@ -170,7 +170,7 @@ AbstractScene* Help::Update()
 }
 
 //-----------------------------------
-// æç”»
+// •`‰æ
 //-----------------------------------
 void Help::Draw()const
 {
@@ -183,28 +183,28 @@ void Help::Draw()const
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{
-		// æ–‡å­—åˆ—ã®æœ€å°Yåº§æ¨™
+		// •¶š—ñ‚ÌÅ¬YÀ•W
 		const int base_y = 400;
 
-		// æ–‡å­—åˆ—ã®Yåº§æ¨™é–“éš”
+		// •¶š—ñ‚ÌYÀ•WŠÔŠu
 		const int margin_y = 100;
 
-		// æ–‡å­—è‰²
+		// •¶šF
 		int color = 0xFFFFFF;
-		// æ–‡å­—å¤–æ è‰²
+		// •¶šŠO˜gF
 		int border_color = 0x000000;
 
-		// é€æ˜åº¦
+		// “§–¾“x
 		int transparency = 180;
 
 #ifdef TITLE_DEBUG
 
-		// æ–‡å­—è‰²
+		// •¶šF
 		int debug_color = 0xFFFFFF;
-		// æ–‡å­—å¤–æ è‰²
+		// •¶šŠO˜gF
 		int debug_border_color = 0x000000;
 
-		// é€æ˜åº¦
+		// “§–¾“x
 		int debug_transparency = 100;
 
 		if (is_select_debug == true) {
@@ -226,7 +226,7 @@ void Help::Draw()const
 
 #else
 
-		// ã‚«ãƒ¼ã‚½ãƒ«ãŒåˆã£ã¦ã„ã‚‹å ´åˆã€æ–‡å­—è‰²ã¨æ–‡å­—å¤–æ è‰²ã‚’åè»¢ã•ã›ã‚‹
+		// ƒJ[ƒ\ƒ‹‚ª‡‚Á‚Ä‚¢‚éê‡A•¶šF‚Æ•¶šŠO˜gF‚ğ”½“]‚³‚¹‚é
 		if (select_menu == i) {
 			color = ~color;
 			border_color = ~border_color;

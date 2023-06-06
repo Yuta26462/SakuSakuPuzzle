@@ -1,61 +1,44 @@
 #pragma once
 #include"AbstractScene.h"
+#include "BlockManager.h"
+
 class GameMain :
     public AbstractScene
 {
 private:
+    BlockManager* block_manager;
 
-    enum class MENU
+
+    //’x‰„ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒ^
+    int delay_animation_count;
+
+    enum class DELAY_ANIMATION_TYPE
     {
-        PLAY,
-        //OPTION,
-        HELP,
-        EXIT,
-        MENU_SIZE
+        FADE_IN,
+        FADE_OUT,
+        DELAY_ANIMATION_TYPE_SIZE
     };
 
-    const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "PLAY",
-        //"OPTION",
-        "HELP",
-        "EXIT"
-    };
-
-    // é¸æŠã—ã¦ã„ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼
-    int select_menu;
-
-
-#ifdef TITLE_DEBUG
-    // ãƒ‡ãƒãƒƒã‚¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠç”¨ãƒ•ãƒ©ã‚°
-    bool is_select_debug;
-#endif // TITLE_DEBUG
-
-    // ãƒ•ã‚©ãƒ³ãƒˆãƒãƒ³ãƒ‰ãƒ«
-    int menu_font;
-
-    //é¸æŠSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
-    int select_se;
-    //æ±ºå®šSEç”¨ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ãƒ‰ãƒ«
-    int decision_se;
-
-    //æ“ä½œé–“éš”æ™‚é–“
-    int input_margin;
-
-    //ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã‚«ã‚¦ãƒ³ã‚¿
-    int fade_counter;
 
 public:
 
-    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
     GameMain();
 
-    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒfƒXƒgƒ‰ƒNƒ^
     ~GameMain();
 
-    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
+    //•`‰æˆÈŠO‚ÌXV‚ğÀs
     AbstractScene* Update() override;
 
-    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
+    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
     void Draw() const override;
-};
 
+
+        /// <summary>
+    /// ƒV[ƒ“Ø‘Ö‘O‚Ì’x‰„ƒAƒjƒ[ƒVƒ‡ƒ“
+    /// </summary>
+    /// <returns></returns>
+    /// <remarks>ƒV[ƒ“Ø‘Ö‘O‚É’x‰„ƒAƒjƒ[ƒVƒ‡ƒ“‚ğs‚¤</remarks>
+    bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
+};

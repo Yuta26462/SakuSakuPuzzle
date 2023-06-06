@@ -1,54 +1,30 @@
 #include "GameMain.h"
 #include "DxLib.h"
+
 #define FADE_TIME 300
 
 
 
 //-----------------------------------
-// コンストラクタ
+// �R���X�g���N�^
 //-----------------------------------
 GameMain::GameMain()
 {
-	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = CreateFontToHandle("���C���I", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
-	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	//menu_font = CreateFontToHandle("���C���I", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	//background_image = LoadGraph("Images/Scene/Titleimage.png");
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
-	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
-	//	throw "Sounds/BGM/Title.wav";
-	//}
+	block_manager = new BlockManager();
 
-	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
-	//	throw "Sounds/SE/enter.mp3";
-	//}
-
-	//if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
-	//{
-	//	throw "Sounds/SE/cursor_move.mp3";
-	//}
-
-
-	select_se = 0;
-	decision_se = 0;
-
-	input_margin = 0;
-
-#ifdef TITLE_DEBUG
-	is_select_debug = false;
-#endif // TITLE_DEBUG
-
-
-	select_menu = static_cast<int>(MENU::PLAY);
-
-	fade_counter = 0;
 
 	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
 //-----------------------------------
-// デストラクタ
+// �f�X�g���N�^
 //-----------------------------------
 GameMain::~GameMain()
 {
@@ -58,189 +34,72 @@ GameMain::~GameMain()
 	//DeleteSoundMem(enter_se);
 	//DeleteSoundMem(cursor_move_se);
 	//DeleteFontToHandle(title_font);
-	DeleteFontToHandle(menu_font);
+	//DeleteFontToHandle(menu_font);
 	SetDrawBright(255, 255, 255);
 }
 
 //-----------------------------------
-// 更新
+// �X�V
 //-----------------------------------
 AbstractScene* GameMain::Update()
 {
-	if (fade_counter < FADE_TIME)
-	{
-		fade_counter++;
-	}
 
-#ifndef TITLE_DEBUG
-	if (fade_counter < FADE_TIME)
-	{
-		return this;
-	}
-#endif // !TITLE_DEBUG
-
-	// 操作間隔時間
-	const int max_input_margin = 15;
-
-	// スティックの感度
-	const int stick_sensitivity = 20000;
-
-	if (input_margin < max_input_margin)
-	{
-		input_margin++;
-	}
-	else {
-
-		// スティックのY座標を取得
-		//int stick_y = PAD_INPUT::GetLStick().y;
-
-		//if (std::abs(stick_y) > stick_sensitivity) {
-
-		//	PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-
-		//	// スティックが上に移動した場合
-		//	if (stick_y > 0) {
-		//		// メニュー選択肢を一つ前に移動
-		//		select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-		//	// スティックが下に移動した場合
-		//	else if (stick_y < 0) {
-		//		// メニュー選択肢を一つ次に移動
-		//		select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-
-		//	input_margin = 0;
-
-		//}
-
-#ifdef TITLE_DEBUG
-		if (std::abs(PAD_INPUT::GetLStick().x) > stick_sensitivity) {
-
-			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-			is_select_debug = !is_select_debug;
-			input_margin = 0;
-
-		}
-#endif // TITLE_DEBUG
-
-	}
-
-	//
-	//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-	//	{
-	//
-	//		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
-	//		while (CheckSoundMem(enter_se)) {}
-	//
-	//#ifdef TITLE_DEBUG
-	//		if (is_select_debug == true) {
-	//			return new DotByDot();
-	//		}
-	//#endif // TITLE_DEBUG
-	//
-	//
-	//		input_margin = 0;
-	//		MENU current_selection = static_cast<MENU>(select_menu);
-	//
-	//		switch (current_selection)
-	//		{
-	//		case Title::MENU::PLAY:
-	//			return new GameMain(1, element_volume, pouch);
-	//			break;
-	//
-	//		case Title::MENU::HELP:
-	//		{
-	//			GameMain* help = new GameMain(0, element_volume, pouch);
-	//			help->SetHelpMode(true);
-	//			return help;
-	//			break;
-	//		}
-	//		case Title::MENU::EXIT:
-	//			return new Credit();
-	//			break;
-	//
-	//		default:
-	//			printfDx("未実装な機能です。\n");
-	//			break;
-	//		}
-	//
-	//	}
+	block_manager->Update();
 
 	return this;
 }
 
 //-----------------------------------
-// 描画
+// �`��
 //-----------------------------------
 void GameMain::Draw()const
 {
+	DrawGraph(0, 0, background_image, TRUE);
 
-	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
-	SetDrawBright(bright, bright, bright);
+	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 400, 1080, 0x000000);
+	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
-	//DrawGraph(0, 0, background_image, FALSE);
-	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
+	block_manager->Draw();
+}
+
 
 	DrawBox(0, 0, 1920, 1080, 0x0000, TRUE);
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
+
+bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
+{
+	//�A�j���[�V�����̒x��
+	if (delay_animation_count < static_cast<int>(time))
 	{
-		// 文字列の最小Y座標
-		const int base_y = 400;
-
-		// 文字列のY座標間隔
-		const int margin_y = 100;
-
-		// 文字色
-		int color = 0xFFFFFF;
-		// 文字外枠色
-		int border_color = 0x000000;
-
-		// 透明度
-		int transparency = 180;
-
-#ifdef TITLE_DEBUG
-
-		// 文字色
-		int debug_color = 0xFFFFFF;
-		// 文字外枠色
-		int debug_border_color = 0x000000;
-
-		// 透明度
-		int debug_transparency = 100;
-
-		if (is_select_debug == true) {
-			debug_color = ~color;
-			debug_border_color = ~border_color;
-			debug_transparency = 255;
-
-		}
-		else if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
+		int bright;
+		switch (type)
+		{
+		case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
+			// �t�F�[�h�C��
+			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
+			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
+			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
+			break;
+		case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
+			// �t�F�[�h�A�E�g
+			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
+			SetDrawBright(bright, bright, bright);
+			break;
+		default:
+			break;
 		}
 
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, debug_transparency);
-		DrawStringToHandle(100, 600, "DEBUG", debug_color, menu_font, debug_border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-#else
-
-		// カーソルが合っている場合、文字色と文字外枠色を反転させる
-		if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
-		}
-
-#endif // TITLE_DEBUG
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		delay_animation_count++;
+		return false;
+	}
+	else
+	{
+		delay_animation_count = 0;
+		return true;
 	}
 
-
-}
+	return false;
+}	

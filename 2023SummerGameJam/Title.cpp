@@ -14,11 +14,12 @@
 //-----------------------------------
 Title::Title()
 {
-	title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
+	
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	background_image = LoadGraph("Resource/Images/Scene/title.png");
+	background_image = LoadGraph("Resource/Images/Scene/title1.png");
 
 	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
 	//	throw "Sounds/BGM/Title.wav";
@@ -158,7 +159,7 @@ void Title::Draw()const
 		const int margin_y = 100;
 
 		// 文字色
-		int color = 0xFFFFFF;
+		int color = 0xec6964;
 		// 文字外枠色
 		int border_color = 0x000000;
 

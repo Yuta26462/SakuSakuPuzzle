@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
-// ƒ^ƒCƒgƒ‹‚ÉƒfƒoƒbƒNƒƒjƒ…[‚ğ’Ç‰Á
+// ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½Éƒfï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ç‰ï¿½
 //#define TITLE_DEBUG
 
 class Title :
@@ -25,40 +25,40 @@ private:
         "EXIT"
     };
 
-    // ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[
+    // ï¿½Iï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éƒï¿½jï¿½ï¿½ï¿½[
     int select_menu;
 
 
 #ifdef TITLE_DEBUG
-    // ƒfƒoƒbƒNƒƒjƒ…[‘I‘ğ—pƒtƒ‰ƒO
+    // ï¿½fï¿½oï¿½bï¿½Nï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½pï¿½tï¿½ï¿½ï¿½O
     bool is_select_debug;
 #endif // TITLE_DEBUG
 
-    // ƒtƒHƒ“ƒgƒnƒ“ƒhƒ‹
+    // ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
     int menu_font;
 
-    //‘I‘ğSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
+    //ï¿½Iï¿½ï¿½SEï¿½pï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
     int select_se;
-    //Œˆ’èSE—pƒTƒEƒ“ƒhƒnƒ“ƒhƒ‹
+    //ï¿½ï¿½ï¿½ï¿½SEï¿½pï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
     int decision_se;
 
-    //‘€ìŠÔŠuŠÔ
+    //ï¿½ï¿½ï¿½ï¿½ÔŠuï¿½ï¿½ï¿½ï¿½
     int input_margin;
 
-    //ƒtƒF[ƒh—pƒJƒEƒ“ƒ^
+    //ï¿½tï¿½Fï¿½[ï¿½hï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½^
     int fade_counter;
 
 public:
 
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     Title();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~Title();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };

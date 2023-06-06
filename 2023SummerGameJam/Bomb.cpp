@@ -3,12 +3,12 @@
 
 Bomb::Bomb()
 {
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	uses_remaining = 1;
 	bomb_effect = 0;
 	state = BOMB_STATE::NOT_SELECT;
 
-	//”š”­‰æ‘œ‚Ì“Ç‚Ýž‚Ý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œï¿½Ì“Ç‚Ýï¿½ï¿½ï¿½
 	if ((ExImage = LoadGraph("Resource/Images/Explosion.png")) == -1)
 	{
 		throw "Resource/Images/Explosion.png";
@@ -22,48 +22,48 @@ Bomb::~Bomb()
 
 int Bomb::Update()
 {
-	//Xƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½•Žc‚èÁ‹Ž‰ñ”‚ªŽc‚Á‚Ä‚¢‚éŽž‚É”š’e‘I‘ðó‘Ô‚Ö
+	//Xï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ”‚ï¿½ï¿½cï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éŽžï¿½É”ï¿½ï¿½eï¿½Iï¿½ï¿½ï¿½Ô‚ï¿½
 	if (state == BOMB_STATE::NOT_SELECT && PAD_INPUT::OnPressed(KEY_INPUT_X) && uses_remaining > 0)
 	{
 		state == BOMB_STATE::SELECT;
 	}
 
-	//”š’e‚ª‘I‘ð‚³‚ê‚Ä‚¢‚éŽž‚Ìˆ—
+	//ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éŽžï¿½Ìï¿½ï¿½ï¿½
 	if (state == BOMB_STATE::SELECT)
 	{
-		//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+		//Aï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
 		if (PAD_INPUT::OnPressed(KEY_INPUT_A))
 		{
-			//Žc‚èŽg—p‰ñ”‚ðŒ¸‚ç‚·
+			//ï¿½cï¿½ï¿½gï¿½pï¿½ñ”‚ï¿½ï¿½ï¿½ç‚·
 			uses_remaining--;
-			//ó‘Ô‚ð"”š”­’†"‚É‚·‚é
+			//ï¿½ï¿½Ô‚ï¿½"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½É‚ï¿½ï¿½ï¿½
 			state = BOMB_STATE::EXPROSION;
-			//”š”­ƒGƒtƒFƒNƒgŠJŽn
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½Jï¿½n
 			bomb_effect = 51;
-			//Á‹Ž¬Œ÷
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			return true;
 		}
 
-		//Bƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+		//Bï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
 		if (PAD_INPUT::OnPressed(KEY_INPUT_B))
 		{
-			//”š’e‚ª‘I‘ð‚³‚ê‚Ä‚¢‚éó‘Ô‚ð‰ðœ‚·‚é
+			//ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			state = BOMB_STATE::NOT_SELECT;
 		}
 	}
 
-	//”š’e‚ª”š”­’†‚Ìˆ—
+	//ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
 	if (state == BOMB_STATE::EXPROSION)
 	{
-		//ƒGƒtƒFƒNƒg—p•Ï”‚ª0ˆÈ‰º‚É‚È‚Á‚½‚ç@
+		//ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½pï¿½Ïï¿½ï¿½ï¿½0ï¿½È‰ï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½@
 		if (--bomb_effect <= 0)
 		{
-			//”š”­’†‚©‚ç”š’e‚ª‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢ó‘Ô‚É–ß‚é
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç”šï¿½eï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½Ô‚É–ß‚ï¿½
 			state = BOMB_STATE::NOT_SELECT;
 		}
 	}
 
-	//ƒuƒƒbƒNÁ‹ŽŽ¸”s
+	//ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
 	return false;
 }
 
@@ -73,16 +73,16 @@ void Bomb::Draw()const
 	{
 
 	case BOMB_STATE::SELECT:
-		//Œ»Ý‚ÌƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚É”š’e‚Ì‰æ‘œ‚ð•\Ž¦
-		DrawString(cursor_x, cursor_y, "‚Î‚­‚¾‚ñ", 0xff0000);
+		//ï¿½ï¿½ï¿½Ý‚ÌƒJï¿½[ï¿½\ï¿½ï¿½ï¿½ÌˆÊ’uï¿½É”ï¿½ï¿½eï¿½Ì‰æ‘œï¿½ï¿½\ï¿½ï¿½
+		DrawString(cursor_x, cursor_y, "ï¿½Î‚ï¿½ï¿½ï¿½ï¿½ï¿½", 0xff0000);
 		break;
 
 	case BOMB_STATE::EXPROSION:
 
-		//ƒGƒtƒFƒNƒg•Ï”‚Ì’l‚É‰ž‚¶‚Ä‚¾‚ñ‚¾‚ñ“§‚¯‚Ä‚¢‚­
+		//ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½Ïï¿½ï¿½Ì’lï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ñ‚¾‚ñ“§‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - (bomb_effect * 5));
 
-		//Œ»Ý‚ÌƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚É”š”­‚Ì‰æ‘œ‚ð•\Ž¦
+		//ï¿½ï¿½ï¿½Ý‚ÌƒJï¿½[ï¿½\ï¿½ï¿½ï¿½ÌˆÊ’uï¿½É”ï¿½ï¿½ï¿½ï¿½Ì‰æ‘œï¿½ï¿½\ï¿½ï¿½
 		DrawGraph(cursor_x, cursor_y, ExImage, TRUE);
 
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

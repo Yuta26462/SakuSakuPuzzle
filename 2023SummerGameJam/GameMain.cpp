@@ -7,13 +7,13 @@
 
 
 //-----------------------------------
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 //-----------------------------------
 GameMain::GameMain()
 {
-	title_font = CreateFontToHandle("ƒƒCƒŠƒI", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = CreateFontToHandle("ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½I", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
-	//menu_font = CreateFontToHandle("ƒƒCƒŠƒI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	//menu_font = CreateFontToHandle("ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½I", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
@@ -25,7 +25,7 @@ GameMain::GameMain()
 }
 
 //-----------------------------------
-// ƒfƒXƒgƒ‰ƒNƒ^
+// ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 //-----------------------------------
 GameMain::~GameMain()
 {
@@ -40,7 +40,7 @@ GameMain::~GameMain()
 }
 
 //-----------------------------------
-// XV
+// ï¿½Xï¿½V
 //-----------------------------------
 AbstractScene* GameMain::Update()
 {
@@ -55,7 +55,7 @@ AbstractScene* GameMain::Update()
 }
 
 //-----------------------------------
-// •`‰æ
+// ï¿½`ï¿½ï¿½
 //-----------------------------------
 void GameMain::Draw()const
 {
@@ -71,20 +71,20 @@ void GameMain::Draw()const
 
 bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
 {
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì’x‰„
+	//ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ì’xï¿½ï¿½
 	if (delay_animation_count < static_cast<int>(time))
 	{
 		int bright;
 		switch (type)
 		{
 		case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
-			// ƒtƒF[ƒhƒCƒ“
+			// ï¿½tï¿½Fï¿½[ï¿½hï¿½Cï¿½ï¿½
 			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
 			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
 			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
 			break;
 		case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
-			// ƒtƒF[ƒhƒAƒEƒg
+			// ï¿½tï¿½Fï¿½[ï¿½hï¿½Aï¿½Eï¿½g
 			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
 			SetDrawBright(bright, bright, bright);
 			break;

@@ -3,32 +3,32 @@
 
 #define BUTTONS 16
 
-//ƒXƒeƒBƒbƒN
+//ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 struct Stick
 {
-	short x;	//‰¡²’l
-	short y;	//c²’l
+	short x;	//ï¿½ï¿½ï¿½ï¿½ï¿½l
+	short y;	//ï¿½cï¿½ï¿½ï¿½l
 };
 
 class PAD_INPUT
 {
 private:
 
-	static char now_key[BUTTONS]; //¡‰ñ‚Ì“ü—ÍƒL[
-	static char old_key[BUTTONS]; //‘O‰ñ‚Ì“ü—ÍƒL[
-	static XINPUT_STATE input; //ƒpƒbƒh
-	static Stick r_stick; //‰EƒXƒeƒBƒbƒN
-	static Stick l_stick; //¶ƒXƒeƒBƒbƒN
+	static char now_key[BUTTONS]; //ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+	static char old_key[BUTTONS]; //ï¿½Oï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[
+	static XINPUT_STATE input; //ï¿½pï¿½bï¿½h
+	static Stick r_stick; //ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½N
+	static Stick l_stick; //ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 private:
 
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	PAD_INPUT() = default;
 public:
 
-	//ƒpƒbƒhî•ñ‚ÌXV
+	//ï¿½pï¿½bï¿½hï¿½ï¿½ï¿½ÌXï¿½V
 	static void UpdateKey()
 	{
-		// “ü—ÍƒL[æ“¾
+		// ï¿½ï¿½ï¿½ÍƒLï¿½[ï¿½æ“¾
 		GetJoypadXInputState(DX_INPUT_KEY_PAD1, &input);
 
 		for (int i = 0; i < BUTTONS; i++)
@@ -37,43 +37,43 @@ public:
 			now_key[i] = input.Buttons[i];
 		}
 
-		//‰EƒXƒeƒBƒbƒN
+		//ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½N
 		r_stick.x = input.ThumbRX;
 		r_stick.y = input.ThumbRY;
 
-		//¶ƒXƒeƒBƒbƒN
+		//ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½N
 		l_stick.x = input.ThumbLX;
 		l_stick.y = input.ThumbLY;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚³‚ê‚½uŠÔ
+	//ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½uï¿½ï¿½
 	static bool OnButton(int button)
 	{
 		bool ret = (now_key[button] == 1 && old_key[button] == 0);
 		return ret;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚éŠÔ
+	//ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½
 	static bool OnPressed(int button)
 	{
 		bool ret = (now_key[button] == 1);
 		return ret;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ—£‚µ‚½uŠÔ
+	//ï¿½{ï¿½^ï¿½ï¿½ï¿½ğ—£‚ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½
 	static bool OnRelease(int button)
 	{
 		bool ret = (now_key[button] == 0 && old_key[button] == 1);
 		return ret;
 	}
 
-	//‰EƒXƒeƒBƒbƒN‚Ìæ“¾
+	//ï¿½Eï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ìæ“¾
 	static Stick GetRStick()
 	{
 		return r_stick;
 	}
 
-	//¶ƒXƒeƒBƒbƒN‚Ìæ“¾
+	//ï¿½ï¿½ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Ìæ“¾
 	static Stick GetLStick()
 	{
 		return l_stick;

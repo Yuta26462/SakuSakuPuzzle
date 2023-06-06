@@ -6,17 +6,17 @@ BlockManager::BlockManager(POSITION posittion)
 {
     POSITION sample_posittion = { 200,200};
 
-    // ‰Šú‚ÌƒuƒƒbƒN‚Ì¶¬
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ìï¿½ï¿½ï¿½
     for (int i = 0; i < 6; i++) {
         Block block;
         block.x = i * BLOCK_SIZE + sample_posittion.x;
         block.y = 0 + sample_posittion.y;
-        block.shape = GetRand(1); // 0‚Ü‚½‚Í1‚Ìƒ‰ƒ“ƒ_ƒ€‚È’l
+        block.shape = GetRand(1); // 0ï¿½Ü‚ï¿½ï¿½ï¿½1ï¿½Ìƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½È’l
         block.rotation = 0;
         sampleBlocks.push_back(block);
     }
 
-    // ‚¨è–{‚ÌƒuƒƒbƒN‚ğsplitNum‚Ì’l‚É‰‚¶‚Ä•ªŠ„‚µAƒvƒŒƒCƒ„[‚ÌƒuƒƒbƒN‚Æ‚µ‚ÄŠi”[
+    // ï¿½ï¿½ï¿½ï¿½{ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½splitNumï¿½Ì’lï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Æ‚ï¿½ï¿½ÄŠiï¿½[
     for (Block const& sampleBlock : sampleBlocks) {
         for (int i = 0; i < 1; i++) {
             Block block;
@@ -35,7 +35,7 @@ BlockManager::~BlockManager() = default;
 void BlockManager::Draw()
 {
 
-    // ƒuƒƒbƒN‚Ì•`‰æ
+    // ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ì•`ï¿½ï¿½
     for (Block& block : sampleBlocks) {
         block.Draw();
     }
@@ -46,8 +46,8 @@ void BlockManager::Draw()
 
 void BlockManager::Update()
 {
-    // Œ`ó‚Ìƒ}ƒbƒ`ƒ“ƒO‚ÆƒXƒRƒA‚ÌXV
-        // TODO: ‚¨è–{‚ÌƒuƒƒbƒN‚ÆƒvƒŒƒCƒ„[‚ÌƒuƒƒbƒN‚ªˆê’v‚µ‚Ä‚¢‚é‚©Šm”F‚µAƒXƒRƒA‚ğXV
+    // ï¿½`ï¿½ï¿½Ìƒ}ï¿½bï¿½`ï¿½ï¿½ï¿½Oï¿½ÆƒXï¿½Rï¿½Aï¿½ÌXï¿½V
+        // TODO: ï¿½ï¿½ï¿½ï¿½{ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Æƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½mï¿½Fï¿½ï¿½ï¿½Aï¿½Xï¿½Rï¿½Aï¿½ï¿½Xï¿½V
 
         bool isMatch = false;
     for (int i = 0; i < sampleBlocks.size(); i++) {
@@ -58,10 +58,10 @@ void BlockManager::Update()
         }
     }
     if (isMatch) {
-        // ƒXƒRƒA‚ğ‰ÁZ
-        // TODO: V‚µ‚¢‚¨è–{‚ÌƒuƒƒbƒN‚ğ¶¬
+        // ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½Z
+        // TODO: ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ğ¶ï¿½
     }
-    // ƒXƒRƒA‚ª‘‚¦‚é‚½‚Ñ‚ÉƒuƒƒbƒN‚Ì•ªŠ„”‚ğ‘‚â‚·
+    // ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚½ï¿½Ñ‚Éƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ğ‘‚â‚·
 
 }
 
@@ -73,17 +73,17 @@ void BlockManager::GenerationExsampleBlock()
     POSITION posittion = { 1000,760 };
     POSITION sample_posittion = { 200,200 };
 
-    // ‰Šú‚ÌƒuƒƒbƒN‚Ì¶¬
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ìï¿½ï¿½ï¿½
     for (int i = 0; i < 6; i++) {
         Block block;
         block.x = i * BLOCK_SIZE + sample_posittion.x;
         block.y = 0 + sample_posittion.y;
-        block.shape = GetRand(1); // 0‚Ü‚½‚Í1‚Ìƒ‰ƒ“ƒ_ƒ€‚È’l
+        block.shape = GetRand(1); // 0ï¿½Ü‚ï¿½ï¿½ï¿½1ï¿½Ìƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½È’l
         block.rotation = 0;
         sampleBlocks.push_back(block);
     }
 
-    // ‚¨è–{‚ÌƒuƒƒbƒN‚ğsplitNum‚Ì’l‚É‰‚¶‚Ä•ªŠ„‚µAƒvƒŒƒCƒ„[‚ÌƒuƒƒbƒN‚Æ‚µ‚ÄŠi”[
+    // ï¿½ï¿½ï¿½ï¿½{ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½splitNumï¿½Ì’lï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Æ‚ï¿½ï¿½ÄŠiï¿½[
     for (Block const& sampleBlock : sampleBlocks) {
         for (int i = 0; i < 1; i++) {
             Block block;
@@ -102,7 +102,7 @@ void BlockManager::GenerationPlayerBlock()
     playerBlocks.clear();
 	POSITION posittion = { 1000,760 };
 	POSITION sample_posittion = { 200,200 };
-	// ‚¨è–{‚ÌƒuƒƒbƒN‚ğsplitNum‚Ì’l‚É‰‚¶‚Ä•ªŠ„‚µAƒvƒŒƒCƒ„[‚ÌƒuƒƒbƒN‚Æ‚µ‚ÄŠi”[
+	// ï¿½ï¿½ï¿½ï¿½{ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½splitNumï¿½Ì’lï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Æ‚ï¿½ï¿½ÄŠiï¿½[
     for (Block const& sampleBlock : sampleBlocks) {
         for (int i = 0; i < 1; i++) {
 			Block block;
@@ -117,17 +117,17 @@ void BlockManager::GenerationPlayerBlock()
 
 void BlockManager::Split()
 {
-	// ƒuƒƒbƒN‚Ì•ªŠ„
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ì•ï¿½ï¿½ï¿½
 }
 
 void BlockManager::Merge()
 {
-	// ƒuƒƒbƒN‚ÌŒ‹‡
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ÌŒï¿½ï¿½ï¿½
 }
 
 void BlockManager::Rotate()
 {
-	// ƒuƒƒbƒN‚Ì‰ñ“]
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ì‰ï¿½]
     for (Block const& playerBlock : playerBlocks) {
         //playerBlock.rotation(
     }
@@ -135,11 +135,11 @@ void BlockManager::Rotate()
 
 void BlockManager::Move()
 {
-	// ƒuƒƒbƒN‚ÌˆÚ“®
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ÌˆÚ“ï¿½
 }
 
 void BlockManager::Reset()
 {
-	// ƒuƒƒbƒN‚ÌƒŠƒZƒbƒg
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ìƒï¿½ï¿½Zï¿½bï¿½g
 }
 

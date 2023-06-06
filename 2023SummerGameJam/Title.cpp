@@ -24,16 +24,9 @@ Title::Title()
 	//	throw "Sounds/BGM/Title.wav";
 	//}
 
-	if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
-		;;
-	}
+	enter_se = LoadSoundMem("Sounds/SE/enter.mp3");
 
-	if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
-	{
-		;;
-	}
-
-
+	cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3");
 	select_se = 0;
 	decision_se = 0;
 
@@ -72,13 +65,6 @@ AbstractScene* Title::Update()
 	{
 		fade_counter++;
 	}
-
-#ifndef TITLE_DEBUG
-	if (fade_counter < FADE_TIME)
-	{
-		return this;
-	}
-#endif // !TITLE_DEBUG
 
 	// 操作間隔時間
 	const int max_input_margin = 15;
@@ -159,7 +145,7 @@ void Title::Draw()const
 	SetDrawBright(bright, bright, bright);
 
 	//DrawGraph(0, 0, background_image, FALSE);
-	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "", 0x66290E, title_font, 0xFFFFFF);
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{

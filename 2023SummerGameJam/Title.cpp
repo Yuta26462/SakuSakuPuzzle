@@ -26,7 +26,8 @@ Title::Title()
 
 	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
 
-	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
+	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/Cursor_Move.mp3");
+	title_bgm = LoadSoundMem("Resource/Sounds/BGM/Title.mp3");
 	select_se = 0;
 	decision_se = 0;
 
@@ -37,7 +38,7 @@ Title::Title()
 
 	fade_counter = 0;
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(title_bgm, DX_PLAYTYPE_LOOP, TRUE);
 
 }
 
@@ -48,7 +49,7 @@ Title::~Title()
 {
 	//DeleteGraph(background_image);
 	//StopSoundMem(background_music);
-	//DeleteSoundMem(background_music);
+	DeleteSoundMem(title_bgm);
 	DeleteSoundMem(enter_se);
 	DeleteSoundMem(cursor_move_se);
 	DeleteFontToHandle(title_font);

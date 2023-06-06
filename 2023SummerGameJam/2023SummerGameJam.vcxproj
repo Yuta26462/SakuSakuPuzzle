@@ -24,6 +24,7 @@
     <ClCompile Include="BlockManager.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="End.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
@@ -31,7 +32,6 @@
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Title.cpp" />
-    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />

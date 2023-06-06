@@ -70,7 +70,7 @@ AbstractScene* Title::Update()
 #ifndef TITLE_DEBUG
 	if (fade_counter < FADE_TIME)
 	{
-		return new GameMain();
+		return this;
 	}
 #endif // !TITLE_DEBUG
 

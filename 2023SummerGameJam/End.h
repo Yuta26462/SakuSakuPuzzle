@@ -33,6 +33,8 @@ private:
 
     //操作間隔時間
     int input_margin;
+
+    int WaitTime = 0;
 public:
 
     //コンストラクタ

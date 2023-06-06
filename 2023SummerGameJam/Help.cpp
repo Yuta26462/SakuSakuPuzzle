@@ -1,8 +1,10 @@
 #include "Help.h"
 #include "DxLib.h"
 #define FADE_TIME 300
-
-
+#include "SceneManager.h"
+#include "PadInput.h"
+#include "GameMain.h"
+#include "Title.h"
 
 //-----------------------------------
 // コンストラクタ
@@ -166,6 +168,14 @@ AbstractScene* Help::Update()
 	//
 	//	}
 
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)){
+		return new GameMain();
+	}
+
+	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_B)) {
+		return new Title();
+	}
+
 	return this;
 }
 
@@ -239,6 +249,9 @@ void Help::Draw()const
 		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
+	
 
+	
+	
 
 }

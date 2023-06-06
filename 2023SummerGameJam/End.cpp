@@ -2,13 +2,14 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "PadInput.h"
+#include "GameMain.h"
 
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
 END::END()
 {
-	title_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	//title_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
@@ -19,18 +20,18 @@ END::END()
 	decision_se = 0;
 
 	input_margin = 0;
-
+	
 	select_menu = static_cast<int>(MENU::TITLE);
 
 	/*if ((background_music = LoadSoundMem("Sounds/BGM/end.mp3")) == -1) {
 		;;
 	}*/
 
-	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
+	//enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
 
-	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
+	//cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
 
-	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
@@ -41,8 +42,8 @@ END::~END()
 {
 	/*StopSoundMem(background_music);
 	DeleteSoundMem(background_music);*/
-	DeleteSoundMem(enter_se);
-	DeleteSoundMem(cursor_move_se);
+	//DeleteSoundMem(enter_se);
+	//DeleteSoundMem(cursor_move_se);
 	//DeleteGraph(background_image);
 	DeleteFontToHandle(title_font);
 	DeleteFontToHandle(menu_font);
@@ -63,19 +64,19 @@ AbstractScene* END::Update()
 	{
 		input_margin++;
 	}
-	else {
+	//else {
 
-		if (std::abs(PAD_INPUT::GetLStick().y) > stick_sensitivity) {
+		//if (std::abs(PAD_INPUT::GetLStick().y) > stick_sensitivity) {
 
-			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-			select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
-			input_margin = 0;
+			//PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
+			//select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
+			//input_margin = 0;
 
-		}
-	}
+		//}
+	//}
 
 
-	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+	/*if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 	{
 		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
 		while (CheckSoundMem(enter_se)) {}
@@ -98,8 +99,10 @@ AbstractScene* END::Update()
 		}
 
 	}
-
-
+	*/
+	if (++WaitTime > 300) {
+		return new GameMain();
+	}
 
 	return this;
 }

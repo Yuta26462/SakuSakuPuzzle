@@ -24,7 +24,7 @@ Result::Result()//クラス　リザルト
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	//background_image = LoadGraph("Images/Scene/Titleimage.png");
+	background_image = LoadGraph("Resource/Images/Scene/clear.png");
 
 	//↑画像を差し込む
 
@@ -71,7 +71,7 @@ Result::Result()//クラス　リザルト
 //-----------------------------------
 Result::~Result()
 {
-	//DeleteGraph(background_image);
+	DeleteGraph(background_image);
 	//StopSoundMem(background_music);
 	//DeleteSoundMem(background_music);
 	//DeleteSoundMem(enter_se);
@@ -194,22 +194,24 @@ AbstractScene* Result::Update()
 //-----------------------------------
 void Result::Draw()const//処理したものをここに表示　Clear数の表示はここ
 {
-	/*追加したもの*/
 
+	/*追加したもの*/
+	DrawGraph(0, 0, background_image, TRUE);
 	int gScore = 3;//仮変数
 
 	SetFontSize(100);
-	DrawFormatString(550, 250, 0x4f455c, "%d", gScore); //スコア数表示（仮）
+	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
+
 	WaitTimer(3000);//３秒たったら
+	new GameMain();
 
-	return new GameMain();
 
-	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
-	SetDrawBright(bright, bright, bright);
+	/*int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
+	SetDrawBright(bright, bright, bright);*/
 
 	
 
-	//DrawGraph(0, 0, background_image, FALSE);
+	
 	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
 
 	

@@ -22,7 +22,8 @@ private:
         DELAY_ANIMATION_TYPE_SIZE
     };
 
-
+    int time_image;    //制限時間画像用
+    int time_circle_image;    //制限時間画像用
 public:
 
     //コンストラクタ

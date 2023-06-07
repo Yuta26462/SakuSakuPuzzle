@@ -5,6 +5,7 @@ class Result :
 {
 private:
     int count;
+
     enum class MENU
     {
         PLAY,
@@ -31,7 +32,11 @@ private:
 #endif // TITLE_DEBUG
 
     // フォントハンドル
+
     int menu_font;
+    int Result_font;
+
+    int Result_BGM;
 
     //選択SE用サウンドハンドル
     int select_se;

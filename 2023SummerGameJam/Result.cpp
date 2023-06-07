@@ -2,19 +2,12 @@
 #include "GameMain.h"//scoreが言っている変数を持ってきたいため
 #include "SceneManager.h"
 #include"Ranking.h"
+#include"GameMain.h"
+#include"PadInput.h"
 
 #include <math.h>
 #include "DxLib.h"
 #define FADE_TIME 300
-
-/*メモ*/
-
-//インターフェイ　複数のオブジェクトに関して共通する機能を実装させる
-//静的メンバ変数はオブジェクトに属するメンバ変数ではなく、クラスに属するメンバ変数。グローバル変数と変わりなし
-//mSeneは今のシーン
-//Newがついているものが移動先として指定
-
-/*メモ*/
 
 //-----------------------------------
 // コンストラクタ
@@ -28,12 +21,9 @@ Result::Result()//クラス　リザルト
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/clear.png");
-
 	//↑画像を差し込む
-
-	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
-	//	throw "Sounds/BGM/Title.wav";
-	//}
+	Result_BGM = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
+	PlaySoundMem(Result_BGM, DX_PLAYTYPE_LOOP, TRUE);
 
 	//↑音楽を差し込む
 
@@ -48,25 +38,9 @@ Result::Result()//クラス　リザルト
 	//	throw "Sounds/SE/cursor_move.mp3";
 	//}
 
-
-	select_se = 0;
-	decision_se = 0;
-
-	input_margin = 0;
-
 #ifdef TITLE_DEBUG
 	is_select_debug = false;
 #endif // TITLE_DEBUG
-
-
-	select_menu = static_cast<int>(MENU::PLAY);//メニューの中のplayをグーグル化select_menuとする
-
-	//↑静的な型の式を別の静的な型のオブジェクトの値に変更します。
-
-	fade_counter = 0;
-
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
-
 }
 
 //-----------------------------------
@@ -89,15 +63,15 @@ Result::~Result()
 //-----------------------------------
 AbstractScene* Result::Update()
 {
-	if (count < 180)
+	if (count < 60)
 	{
 		count++;
 		
 	}
-	else
+	//if(count1>180 && ランキング5位よりスコアが上なら){   return new InputName();  
+	if (count>=60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												//}else{ return new Ranking}
 	{
-
-		return new Ranking();
+		return new Ranking();//ボタンAが押されたらランキング、または名前入力画面に遷移
 	}
 
 	printfDx("%d\n", count);
@@ -126,28 +100,6 @@ AbstractScene* Result::Update()
 	}
 	else {
 
-		// スティックのY座標を取得
-		//int stick_y = PAD_INPUT::GetLStick().y;
-
-		//if (std::abs(stick_y) > stick_sensitivity) {
-
-		//	PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-
-		//	// スティックが上に移動した場合
-		//	if (stick_y > 0) {
-		//		// メニュー選択肢を一つ前に移動
-		//		select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-		//	// スティックが下に移動した場合
-		//	else if (stick_y < 0) {
-		//		// メニュー選択肢を一つ次に移動
-		//		select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-
-		//	input_margin = 0;
-
-		//}
-
 #ifdef TITLE_DEBUG
 		if (std::abs(PAD_INPUT::GetLStick().x) > stick_sensitivity) {
 
@@ -159,48 +111,6 @@ AbstractScene* Result::Update()
 #endif // TITLE_DEBUG
 
 	}
-
-	//
-	//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-	//	{
-	//
-	//		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
-	//		while (CheckSoundMem(enter_se)) {}
-	//
-	//#ifdef TITLE_DEBUG
-	//		if (is_select_debug == true) {
-	//			return new DotByDot();
-	//		}
-	//#endif // TITLE_DEBUG
-	//
-	//
-	//		input_margin = 0;
-	//		MENU current_selection = static_cast<MENU>(select_menu);
-	//
-	//		switch (current_selection)
-	//		{
-	//		case Title::MENU::PLAY:
-	//			return new GameMain(1, element_volume, pouch);
-	//			break;
-	//
-	//		case Title::MENU::HELP:
-	//		{
-	//			GameMain* help = new GameMain(0, element_volume, pouch);
-	//			help->SetHelpMode(true);
-	//			return help;
-	//			break;
-	//		}
-	//		case Title::MENU::EXIT:
-	//			return new Credit();
-	//			break;
-	//
-	//		default:
-	//			printfDx("未実装な機能です。\n");
-	//			break;
-	//		}
-	//
-	//	}
-
 	return this;
 }
 
@@ -218,35 +128,8 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
 
 	
-
-	new GameMain();
-
-
-	/*int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
-	SetDrawBright(bright, bright, bright);*/
-
-	
-
-	
-	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
-
-	
-
-	//for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)//iが3（静的キャスト）より小さいなら
-	//{
-	//	// 文字列の最小Y座標
-	//	const int base_y = 400;
-
-	//	// 文字列のY座標間隔
-	//	const int margin_y = 100;
-
-	//	// 文字色
-	//	int color = 0xFFFFFF;
-	//	// 文字外枠色
-	//	int border_color = 0x000000;
-
-	//	// 透明度
-	//	int transparency = 180;
+	/*DrawString(1550, 665,"Aボタンで画面を移動",0xffffff);*/
+	//DrawStringToHandle(DrawFormatString(1450,565,0xffffff,"%d",gScore, Result_font), 100, "%d",gScore, 0xffffff, Result_font, 0xFFFFFF);
 
 #ifdef TITLE_DEBUG
 
@@ -277,16 +160,7 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 #else
 
-		// カーソルが合っている場合、文字色と文字外枠色を反転させる
-		/*if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
-		}*/
-
+		
 #endif // TITLE_DEBUG
 
-		/*SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);*/
 	}

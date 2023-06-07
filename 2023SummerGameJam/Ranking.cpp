@@ -75,7 +75,7 @@ AbstractScene* Ranking::Update()
 #ifndef TITLE_DEBUG
 	if (fade_counter < FADE_TIME)
 	{
-		return this;
+
 	}
 #endif // !TITLE_DEBUG
 
@@ -112,16 +112,6 @@ AbstractScene* Ranking::Update()
 		//	input_margin = 0;
 
 		//}
-
-#ifdef TITLE_DEBUG
-		if (std::abs(PAD_INPUT::GetLStick().x) > stick_sensitivity) {
-
-			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-			is_select_debug = !is_select_debug;
-			input_margin = 0;
-
-		}
-#endif // TITLE_DEBUG
 
 	}
 

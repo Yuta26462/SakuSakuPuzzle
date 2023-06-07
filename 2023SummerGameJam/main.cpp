@@ -2,7 +2,6 @@
 #include "SceneManager.h"
 #include "Title.h"
 #include "PadInput.h"
-#include "GameMain.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 

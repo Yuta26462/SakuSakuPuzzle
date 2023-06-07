@@ -16,8 +16,6 @@ Result::Result()//クラス　リザルト
 {
 	count = 0;
 
-	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
-
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/clear.png");
@@ -68,8 +66,10 @@ AbstractScene* Result::Update()
 		count++;
 		
 	}
-	//if(count1>180 && ランキング5位よりスコアが上なら){   return new InputName();  
-	if (count>=60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												//}else{ return new Ranking}
+
+	//if(count1>180 && ランキング5位よりスコアが上なら){   return new InputName();  //}else{ return new Ranking}
+
+	if (count>=60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												
 	{
 		return new Ranking();//ボタンAが押されたらランキング、または名前入力画面に遷移
 	}
@@ -126,10 +126,6 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 	SetFontSize(100);
 	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
-
-	
-	/*DrawString(1550, 665,"Aボタンで画面を移動",0xffffff);*/
-	//DrawStringToHandle(DrawFormatString(1450,565,0xffffff,"%d",gScore, Result_font), 100, "%d",gScore, 0xffffff, Result_font, 0xFFFFFF);
 
 #ifdef TITLE_DEBUG
 

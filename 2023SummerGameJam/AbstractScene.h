@@ -9,6 +9,7 @@ protected:
 
 	//SE&BGM
 	int background_music;
+	int gamemain_music;
 
 	int cursor_move_se;
 	int enter_se;

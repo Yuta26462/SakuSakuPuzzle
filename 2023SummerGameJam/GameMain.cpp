@@ -221,6 +221,14 @@ void GameMain::Draw()const
 	DrawCircleGauge(250, 660, 50.0, time_circle_image, 25.0);
 	DrawFormatString(237, 647, 0x000000, "%.2d", Time);
 
+	DrawString(150, 20, "‚¨‘è", 0x000000);
+
+	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
+
+
+	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
+
+
 	bomb->Draw();
 
 	// ƒJ[ƒ\ƒ‹•`‰æ

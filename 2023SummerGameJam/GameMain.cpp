@@ -4,7 +4,7 @@
 
 #define FADE_TIME 300
 
-#define Limit 60
+#define LIMIT 60
 #define HEIGHT 9
 #define WIDTH 10
 
@@ -52,9 +52,12 @@ int r = 0;
 //-----------------------------------
 GameMain::GameMain()
 {
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
 	block_manager = new BlockManager();
 	cursor = new Cursor();
@@ -68,7 +71,7 @@ GameMain::GameMain()
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(gamemain_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
@@ -147,13 +150,14 @@ AbstractScene* GameMain::Update()
 	cursor->Update();
 
 	//êßå¿éûä‘
-	TimeCount++;
-	if (TimeCount % 60 == 0) {
-		Time++;
+	TimeCount--;
+	if (TimeCount<=0) {
+		TimeCount = 60;
+		Time--;
 	}
 
-	if (Time > Limit) {
-		Time = 0;
+	if (Time <= 0) {
+		Time = LIMIT;
 	}
 
 	bomb->Update();
@@ -169,8 +173,8 @@ void GameMain::Draw()const
 {
 
 	DrawBox(0, 0, 1920, 1080, 0xffffff, TRUE);
-	DrawBox(0, 0, 500, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 0, 500, 1080, 0x000000);
+	DrawBox(0, 0, 525, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 525, 1080, 0x000000);
 	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 

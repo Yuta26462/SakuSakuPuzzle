@@ -176,7 +176,7 @@ void GameMain::Draw()const
 	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 
-	DrawRotaGraph(250, 665, 0.25, 0, time_image, true);
+	DrawRotaGraph(255, 655, 0.27, 0, time_image, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWÉuÉçÉbÉNÇï`âÊ
 	for (int i = 0; i < 4; i++) {
@@ -215,19 +215,12 @@ void GameMain::Draw()const
 	}
 
 
-
 	SetFontSize(40);
 	DrawStringToHandle(150, 20, "Ç®ëË", 0x000000, title_font);
-	DrawCircleGauge(250, 660, 50.0, time_circle_image, 25.0);
-	DrawFormatString(237, 647, 0x000000, "%.2d", Time);
-
-	DrawString(150, 20, "Ç®ëË", 0x000000);
 
 	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
 
-
 	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
-
 
 	bomb->Draw();
 

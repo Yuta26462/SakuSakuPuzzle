@@ -2,6 +2,7 @@
 #include"AbstractScene.h"
 #include "BlockManager.h"
 #include "Bomb.h"
+#include "Cursor.h"
 
 class GameMain :
     public AbstractScene
@@ -9,6 +10,7 @@ class GameMain :
 private:
     BlockManager* block_manager;
     Bomb* bomb;
+    Cursor* cursor;
 
     //遅延アニメーション用カウンタ
     int delay_animation_count;

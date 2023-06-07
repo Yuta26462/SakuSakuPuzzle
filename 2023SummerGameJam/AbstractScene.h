@@ -4,31 +4,29 @@ class AbstractScene
 {
 protected:
 
-	//�w�i�摜
+	//画像
 	int background_image;
 
-	//�w�i���y
+	//SE&BGM
 	int background_music;
 
 	int cursor_move_se;
 	int enter_se;
 
-	int title_bgm;
-
 	int title_font;
 
-	//�X�e�[�W�ԍ�
+	//
 	short stage_num = 0;
 
 public:
 
-	//�f�X�g���N�^
+	//デストラクタ
 	virtual ~AbstractScene();
 
-	//�`��ȊO�̍X�V����s
+	//描画以外の更新を実行
 	virtual AbstractScene* Update() = 0;
 
-	//�`��Ɋւ��邱�Ƃ����
+	//描画に関することを実装
 	virtual void Draw() const = 0;
 
 	int GetDrawCenterX(const char* string, int font_handle)const;

@@ -2,8 +2,6 @@
 #include "SceneManager.h"
 #include "Title.h"
 #include "PadInput.h"
-#include "Help.h"
-#include "Ranking.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -27,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SceneManager* sceneMng;
 
-	sceneMng = new SceneManager((AbstractScene*)new Ranking());
+	sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {

@@ -17,7 +17,7 @@ Title::Title()
 {
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s240.dft");
 
-	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
+	menu_font = LoadFontDataToHandle("Resource/Fonts/NicoMoji_s100_.dft");
 
 	background_image = LoadGraph("Resource/Images/Scene/title.png");
 

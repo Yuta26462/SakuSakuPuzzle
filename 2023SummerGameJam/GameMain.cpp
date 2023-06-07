@@ -238,7 +238,6 @@ void GameMain::Draw()const
 	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
 
 
-
 	bomb->Draw();
 
 	// ƒJ[ƒ\ƒ‹•`‰æ

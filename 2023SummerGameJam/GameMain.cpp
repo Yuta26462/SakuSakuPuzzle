@@ -4,7 +4,7 @@
 
 #define FADE_TIME 300
 
-#define Limit 60
+#define LIMIT 60
 #define HEIGHT 9
 #define WIDTH 10
 
@@ -153,13 +153,14 @@ AbstractScene* GameMain::Update()
 	cursor->Update();
 
 	//êßå¿éûä‘
-	TimeCount++;
-	if (TimeCount % 60 == 0) {
-		Time++;
+	TimeCount--;
+	if (TimeCount<=0) {
+		TimeCount = 60;
+		Time--;
 	}
 
-	if (Time > Limit) {
-		Time = 0;
+	if (Time <= 0) {
+		Time = LIMIT;
 	}
 
 	block_manager->Update();
@@ -185,12 +186,12 @@ void GameMain::Draw()const
 	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
 	DrawBox(0, 0, 1920, 1080, 0xffffff, TRUE);
-	DrawBox(0, 0, 500, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 0, 500, 1080, 0x000000);
+	DrawBox(0, 0, 525, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 525, 1080, 0x000000);
 	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 
-	DrawRotaGraph(250, 665,0.25,0, time_image, true);
+	DrawRotaGraph(255, 654,0.27,0, time_image, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWÉuÉçÉbÉNÇï`âÊ
 	for (int i = 0; i < 4; i++) {
@@ -232,8 +233,11 @@ void GameMain::Draw()const
 
 	SetFontSize(40);
 	DrawString(150, 20, "Ç®ëË", 0x000000);
-	DrawCircleGauge(250, 660, 50.0, time_circle_image, 25.0);
-	DrawFormatString(237, 647, 0x000000, "%.2d", Time);
+
+	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
+
+
+	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
 
 
 	block_manager->Draw();

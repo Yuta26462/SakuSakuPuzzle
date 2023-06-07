@@ -96,7 +96,6 @@ int Bomb::Update()
 
 void Bomb::Draw()const
 {
-	DrawString(10,10,"bomb",0xff0000);
 	switch (state)
 	{
 	case BOMB_STATE::SELECT:

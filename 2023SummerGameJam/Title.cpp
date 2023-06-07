@@ -68,6 +68,8 @@ Title::~Title()
 //-----------------------------------
 AbstractScene* Title::Update()
 {
+	return new GameMain;
+
 	if (fade_counter < FADE_TIME)
 	{
 		fade_counter++;

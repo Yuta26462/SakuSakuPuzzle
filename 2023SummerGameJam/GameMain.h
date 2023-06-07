@@ -41,6 +41,8 @@ public:
     //描画するブロックの確認
 
     void CheckBlock();
+    void CreateBlock();
+    void DrawBlock();
 
         /// <summary>
     /// シーン切替前の遅延アニメーション

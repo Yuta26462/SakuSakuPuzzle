@@ -52,9 +52,12 @@ int r = 0;
 //-----------------------------------
 GameMain::GameMain()
 {
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	//menu_font = CreateFontToHandle("ƒƒCƒŠƒI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
 	block_manager = new BlockManager();
 	cursor = new Cursor();
@@ -68,7 +71,7 @@ GameMain::GameMain()
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(gamemain_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
@@ -78,12 +81,12 @@ GameMain::GameMain()
 GameMain::~GameMain()
 {
 	//DeleteGraph(background_image);
-	//StopSoundMem(background_music);
-	//DeleteSoundMem(background_music);
 	//DeleteSoundMem(enter_se);
 	//DeleteSoundMem(cursor_move_se);
 	//DeleteFontToHandle(title_font);
 	//DeleteFontToHandle(menu_font);
+	StopSoundMem(gamemain_music);
+	DeleteSoundMem(gamemain_music);
 	SetDrawBright(255, 255, 255);
 	delete block_manager;
 	delete bomb;
@@ -159,7 +162,6 @@ AbstractScene* GameMain::Update()
 		Time = 0;
 	}
 
-	block_manager->Update();
 	block_manager->Update();
 	bomb->Update();
 

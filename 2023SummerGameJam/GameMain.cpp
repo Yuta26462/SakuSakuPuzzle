@@ -176,14 +176,18 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw()const
 {
 
-	DrawGraph(0, 0, background_image, TRUE);
+	////DrawGraph(0, 0, background_image, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+	//DrawBox(0, 0, 1920, 1080, 0x000000, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
+	DrawBox(0, 0, 1920, 1080, 0xffffff, TRUE);
 	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 0, 400, 1080, 0x000000);
 	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWÉuÉçÉbÉNÇï`âÊ
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j <4; j++) {

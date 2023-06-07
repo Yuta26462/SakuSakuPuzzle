@@ -1,14 +1,14 @@
 #include"Bomb.h"
 #include"PadInput.h"
 
-Bomb::Bomb()
+Bomb::Bomb(Cursor* cursor)
 {
+	this->cursor = cursor;
+
 	//初期化
 	uses_remaining = 1;
 	bomb_effect = 0;
 	state = BOMB_STATE::NOT_SELECT;
-	cursor_x = 100;
-	cursor_y = 100;
 	//各画像の読み込み
 	if ((BmImage = LoadGraph("Resource/Images/2-4a/アセット 6.png")) == -1)
 	{
@@ -27,6 +27,7 @@ Bomb::~Bomb()
 
 int Bomb::Update()
 {
+	cursor_pos = cursor->GetMousePos();
 	//Xボタンが押された＆残り消去回数が残っている時に爆弾選択状態へ
 	if (state == BOMB_STATE::NOT_SELECT && PAD_INPUT::OnButton(XINPUT_BUTTON_X)&& uses_remaining > 0)
 	{
@@ -78,7 +79,7 @@ void Bomb::Draw()const
 	{
 	case BOMB_STATE::SELECT:
 		//現在のカーソルの位置に爆弾の画像を表示
-		DrawRotaGraph(cursor_x, cursor_y, 0.25, 0, BmImage, TRUE);
+		DrawRotaGraph(cursor_pos.x, cursor_pos.y, 0.25, 0, BmImage, TRUE);
 		break;
 
 	case BOMB_STATE::EXPROSION:
@@ -87,16 +88,10 @@ void Bomb::Draw()const
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, (bomb_effect * 5));
 
 		//現在のカーソルの位置に爆発の画像を表示
-		DrawRotaGraph(cursor_x, cursor_y ,0.25,0,ExImage, TRUE);
+		DrawRotaGraph(cursor_pos.x, cursor_pos.y ,0.25,0,ExImage, TRUE);
 
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 		break;
 	}
-}
-
-void Bomb::SetPos(int x, int y)
-{
-	cursor_x = x;
-	cursor_y = y;
 }

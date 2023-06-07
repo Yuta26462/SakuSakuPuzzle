@@ -18,8 +18,9 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
 	block_manager = new BlockManager();
-	bomb = new Bomb();
 	cursor = new Cursor();
+	bomb = new Bomb(cursor);
+	
 
 	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 

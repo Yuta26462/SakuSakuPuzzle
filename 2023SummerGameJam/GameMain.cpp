@@ -98,7 +98,6 @@ GameMain::~GameMain()
 AbstractScene* GameMain::Update()
 {
 
-
 	//ブロック作成
 	//新しいブロックをセット＆次のブロックを生成
 	//一回だけ作るようにする

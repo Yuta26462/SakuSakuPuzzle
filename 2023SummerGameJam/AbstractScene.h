@@ -4,29 +4,31 @@ class AbstractScene
 {
 protected:
 
-	//”wŒi‰æ‘œ
+	//ï¿½wï¿½iï¿½æ‘œ
 	int background_image;
 
-	//”wŒi‰¹Šy
+	//ï¿½wï¿½iï¿½ï¿½ï¿½y
 	int background_music;
 
 	int cursor_move_se;
 	int enter_se;
 
+	int title_bgm;
+
 	int title_font;
 
-	//ƒXƒe[ƒW”Ô†
+	//ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½
 	short stage_num = 0;
 
 public:
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	virtual ~AbstractScene();
 
-	//•`‰æˆÈŠO‚ÌXV‚ğÀs
+	//ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½s
 	virtual AbstractScene* Update() = 0;
 
-	//•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+	//ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
 	virtual void Draw() const = 0;
 
 	int GetDrawCenterX(const char* string, int font_handle)const;

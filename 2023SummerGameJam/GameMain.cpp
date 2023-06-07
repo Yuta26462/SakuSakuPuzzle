@@ -1,5 +1,6 @@
 #include "GameMain.h"
 #include "DxLib.h"
+#include "PadInput.h"
 
 #define FADE_TIME 300
 
@@ -51,13 +52,16 @@ int r = 0;
 //-----------------------------------
 GameMain::GameMain()
 {
-	title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	//menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
 	block_manager = new BlockManager();
+	cursor = new Cursor();
+	bomb = new Bomb(cursor);
+	
 	backImg = LoadGraph("img/backimg.png");
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
@@ -79,6 +83,9 @@ GameMain::~GameMain()
 	//DeleteFontToHandle(title_font);
 	//DeleteFontToHandle(menu_font);
 	SetDrawBright(255, 255, 255);
+	delete block_manager;
+	delete bomb;
+	delete cursor;
 }
 
 
@@ -138,6 +145,7 @@ AbstractScene* GameMain::Update()
 	}
 
 
+	cursor->Update();
 
 	//制限時間
 	TimeCount++;
@@ -151,6 +159,12 @@ AbstractScene* GameMain::Update()
 	}
 
 		block_manager->Update();
+	block_manager->Update();
+	bomb->Update();
+
+	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		block_manager->GenerationExsampleBlock();
+	}
 
 		return this;
 	
@@ -161,6 +175,7 @@ AbstractScene* GameMain::Update()
 //-----------------------------------
 void GameMain::Draw()const
 {
+
 	DrawGraph(0, 0, background_image, TRUE);
 
 	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
@@ -214,7 +229,10 @@ void GameMain::Draw()const
 
 
 	block_manager->Draw();
+	bomb->Draw();
 
+	// カーソル描画
+	cursor->Draw();
 }
 
 

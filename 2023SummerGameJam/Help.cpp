@@ -11,7 +11,7 @@ Help::Help()
 {
 	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
-	menu_font = CreateFontToHandle("ÉÅÉCÉäÉI", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
 
 	//background_image = LoadGraph("Images/Scene/Titleimage.png");
 

@@ -8,9 +8,9 @@
 //-----------------------------------
 END::END()
 {
-	title_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
-	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
 
 	//background_image = LoadGraph("Images/Scene/end.png");
 

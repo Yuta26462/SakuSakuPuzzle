@@ -19,10 +19,10 @@ private:
     };
 
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "PLAY",
+        "‚Õ‚ê‚¢",
         //"OPTION",
-        "HELP",
-        "EXIT"
+        "‚Ö‚é‚Õ",
+        "‚µ‚ã‚¤‚è‚å‚¤"
     };
 
     // ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[

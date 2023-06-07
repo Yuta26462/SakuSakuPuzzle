@@ -101,6 +101,7 @@ void Bomb::Draw()const
 	{
 	case BOMB_STATE::SELECT:
 		//現在のカーソルの位置に爆弾の画像を表示
+		DrawFormatString(0, 100, 0x000000, "x%d", cursor_pos.x);
 		DrawRotaGraph(cursor_pos.x, cursor_pos.y, 0.25, 0, BmImage, TRUE);
 		break;
 

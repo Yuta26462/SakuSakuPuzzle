@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Block.h"
+#include "Cursor.h"
 
 struct POSITION
 {
@@ -8,11 +9,13 @@ struct POSITION
 	int y;
 };
 
+
 class BlockManager
 {
+
 private:
-
-
+	Cursor* cursor;
+	Block* block;
 	// お手本のブロックを格納するベクター
 	std::vector<Block> sampleBlocks;
 	// プレイヤーのブロックを格納するベクター
@@ -50,14 +53,19 @@ private:
 public:
 
 	int blockimg[6];
-	int r = 1;
+	int r = 0;
+	int BtnFlg=0;
 
 	//std::vector<std::vector<int>> CompBlock;
 
-	BlockManager(POSITION posittion = {1000,760});
+	BlockManager();
 	~BlockManager();
 	void Draw();
 	void Update();
+
+
+
+
 	/// <summary>
 	/// お手本ブロックを生成
 	/// </summary>
@@ -75,6 +83,9 @@ public:
 		splitNum = num; 
 	};
 	
+	//パーツをつかむよう
+	void holdblock(int& bx,int& by);
+
 	void Split();
 	void Merge();
 	void Rotate();

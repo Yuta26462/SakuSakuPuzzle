@@ -3,6 +3,7 @@
 #include "PadInput.h"
 #include "Cursor.h"
 #include "Bomb.h"
+#include "Block.h"
 
 #define FADE_TIME 300
 
@@ -48,6 +49,7 @@ int r = 2;
 
 int BtnFlg = FALSE;
 
+
 struct Blockp {
 	int x, y;	//座標
 	int px, py;	//パーツ座標
@@ -70,12 +72,11 @@ GameMain::GameMain()
 
 	block_manager = new BlockManager();
 	cursor = new Cursor();
+	block = new Block(cursor);
 	bomb = new Bomb(cursor);
 	
 	backImg = LoadGraph("img/backimg.png");
 	//LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
-
-
 	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
@@ -100,8 +101,6 @@ GameMain::~GameMain()
 
 
 
-
-
 //-----------------------------------
 // 更新
 //-----------------------------------
@@ -114,15 +113,14 @@ AbstractScene* GameMain::Update()
 	cursor_pos.x;
 	cursor_pos.y;
 
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1)
-	//{
-	//	BtnFlg=TRUE;
-
-	//}
-	//else{
-	//	BlockPos[0][0].px = cursor_pos.x;
-	//	BlockPos[0][0].py = cursor_pos.y;
-	//}
+	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == 1)
+	{
+		BtnFlg=TRUE;
+	}
+	else{
+		BlockPos[0][0].px = cursor_pos.x;
+		BlockPos[0][0].py = cursor_pos.y;
+	}*/
 
 	//制限時間
 	TimeCount++;
@@ -135,12 +133,13 @@ AbstractScene* GameMain::Update()
 		Time = 0;
 	}
 
-		block_manager->Update();
 	block_manager->Update();
 	bomb->Update();
+	block->Update();
 
 	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		block_manager->GenerationExsampleBlock();
+		//block_manager->GenerationExsampleBlock();
+
 	}
 
 		return this;

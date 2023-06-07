@@ -1,14 +1,19 @@
 #include "BlockManager.h"
 #include "DxLib.h"
+#include "PadInput.h"
 
-BlockManager::BlockManager(POSITION posittion)
+Block fff;
+
+int a;
+
+BlockManager::BlockManager()
 {
 
     LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
-    POSITION sample_posittion = { 200,200};
+    //POSITION sample_posittion = { 200,200};
 
-   
+    //cursor = new Cursor();
 
     // 初期のブロックの生成
     for (int i = 0; i < 4; i++) {
@@ -16,12 +21,12 @@ BlockManager::BlockManager(POSITION posittion)
         for (int j = 0; j < 4; j++) {
 
             Block block;
-            block.CompBlock[r][i][j] = CompblockList[r][i][j];
+            block.CompBlock[0][i][j] = CompblockList[r][i][j];
 
             block.x = 90 * (j + 11);
             block.y = 90 * (i + 2);
 
-            if (block.CompBlock[r][i][j] <= 2) {
+            if (block.CompBlock[0][i][j] <= 2) {
                 block.shape = 1;
             }
             else {
@@ -34,15 +39,16 @@ BlockManager::BlockManager(POSITION posittion)
     }
 
 
+    //パーツ作成
     for (int i = 0; i < 4; i++)
     {
-        Block block;
         for (int j = 0; j < 4; j++)
         {
+            Block block;
             block.PartsBlock[0][i][j] = PBlockList[r][i][j];
 
-            block.xp =(j+3) * BLOCK_SIZE + (i*270);
-            block.yp = (j+5) * BLOCK_SIZE;
+            block.xp =(j+6) * BLOCK_SIZE;
+            block.yp = 10 * BLOCK_SIZE;
 
             if (block.PartsBlock[0][i][j] <= 2) {
                 block.shape = 1;
@@ -51,13 +57,10 @@ BlockManager::BlockManager(POSITION posittion)
                 block.shape = 0;
             }
             block.rotation = 0;
+            playerBlocks.push_back(block);
         }
 
-        playerBlocks.push_back(block);
     }
-
-
-
 
     //// お手本のブロックをsplitNumの値に応じて分割し、プレイヤーのブロックとして格納
     //for (Block const& sampleBlock : sampleBlocks) {
@@ -70,6 +73,16 @@ BlockManager::BlockManager(POSITION posittion)
     //        playerBlocks.push_back(block);
     //    }
     //}
+
+    /*for (int i = 0; i < sampleBlocks.size(); i++) {
+        if (sampleBlocks[i].x != playerBlocks[i].x || sampleBlocks[i].y != playerBlocks[i].y ||
+            sampleBlocks[i].shape != playerBlocks[i].shape || sampleBlocks[i].rotation != playerBlocks[i].rotation) {
+            
+            
+        }
+    }*/
+
+
 }
 
 
@@ -77,34 +90,58 @@ BlockManager::~BlockManager() = default;
 
 void BlockManager::Draw()
 {
+
+    for (int i = 0; i <2; i++) {
+     
+            DrawBox(playerBlocks[i].xp, playerBlocks[i].yp, playerBlocks[i].xp + BLOCK_SIZE, playerBlocks[i].yp + BLOCK_SIZE,0x000000,TRUE);
+
+            DrawFormatString(400, 30*i, 0x000000, "plblocksX%d", playerBlocks[i].xp);
+            //DrawFormatString(600, 30*i, 0x000000, "plblocksY%d", playerBlocks[i].yp);
+    }
+
+
+    DrawFormatString(0, 50, 0x000000, "BtnFlg%d", BtnFlg);
+
+    if (a == 1) {
+
+        DrawFormatString(300, 300, 0x000000, "当たってるぞい");
+    }
+    else {
+
+        DrawFormatString(300, 300, 0x000000, "当たってねえ");
+    }
+
     // ブロックの描画
     for (Block& block : sampleBlocks) {
         block.Draw();
     }
     for (Block& block : playerBlocks) {
-        block.Draw();
+        block.Drawp();
     }
 }
 
 void BlockManager::Update()
 {
-    // 形状のマッチングとスコアの更新
-        // TODO: お手本のブロックとプレイヤーのブロックが一致しているか確認し、スコアを更新
+    
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && BtnFlg == 0)
+    {
+        BtnFlg = 1;
+        fff.flg(1);
+    }else if(PAD_INPUT::OnButton(XINPUT_BUTTON_A)&&BtnFlg == 1) 
+    {
+            BtnFlg = 0;
+            fff.flg(0);
+        }
+    
 
-    //    bool isMatch = false;
-    //for (int i = 0; i < sampleBlocks.size(); i++) {
-    //    if (sampleBlocks[i].x != playerBlocks[i].x || sampleBlocks[i].y != playerBlocks[i].y ||
-    //        sampleBlocks[i].shape != playerBlocks[i].shape || sampleBlocks[i].rotation != playerBlocks[i].rotation) {
-    //        isMatch = false;
-    //        break;
-    //    }
-    //}
-    //if (isMatch) {
-    //    // スコアを加算
-    //    // TODO: 新しいお手本のブロックを生成
-    //}
-    // スコアが増えるたびにブロックの分割数を増やす
+    
 
+
+   /* if (BtnFlg == 1) {
+        if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+            BtnFlg = 0;
+        }
+    }*/
 }
 
 void BlockManager::GenerationExsampleBlock()
@@ -207,7 +244,10 @@ void BlockManager::Rotate()
 
 void BlockManager::Move()
 {
-	// ブロックの移動
+    // ブロックの移動
+
+
+
 }
 
 void BlockManager::Reset()
@@ -215,3 +255,21 @@ void BlockManager::Reset()
 	// ブロックのリセット
 }
 
+
+void BlockManager::holdblock(int& bx, int& by) {
+
+    for (int i = 0; i < 2; i++) {
+        if (bx >= playerBlocks[i].xp-12 && bx <= (playerBlocks[i].xp + BLOCK_SIZE) &&
+            by >= playerBlocks[i].yp && by <= (playerBlocks[i].yp + BLOCK_SIZE))
+        {
+            a = 1;
+        }
+        else
+        {
+            a = 0;
+
+
+        }
+    }
+    
+}

@@ -40,13 +40,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		SetWindowVisibleFlag(TRUE);// ウィンドウを表示させる
 
 		//フレームレートの設定
-		dNextTime += static_cast<double>(1.0 / 60.0 * 1000.0);
+		dNextTime += 1.0 / 60.0 * 1000.0;
 		if (dNextTime > GetNowCount()) {
 			WaitTimer(static_cast<int>(dNextTime) - GetNowCount());
 		}
 		else { dNextTime = GetNowCount(); }		//補正
 
 
+		// エスケープキーで終了
+		if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+			break;
+		}
 	}
 
 	InitFontToHandle();	//全てのフォントデータを削除

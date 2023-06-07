@@ -4,6 +4,8 @@
 #include "GameMain.h"
 #include "PadInput.h"
 #include <iostream>
+#include"Ranking.h"
+#include"Help.h"
 
 #include"Result.h"
 
@@ -126,6 +128,11 @@ AbstractScene* Title::Update()
 				return new GameMain();
 				break;
 
+			case Title::MENU::HELP:
+				return new Help;
+
+			case Title::MENU::RANKING:
+				return new Ranking;
 
 			case Title::MENU::EXIT:
 				return nullptr;

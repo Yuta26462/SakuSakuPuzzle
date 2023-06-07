@@ -38,6 +38,10 @@ public:
     void Draw() const override;
 
 
+    //描画するブロックの確認
+
+    void CheckBlock();
+
         /// <summary>
     /// シーン切替前の遅延アニメーション
     /// </summary>

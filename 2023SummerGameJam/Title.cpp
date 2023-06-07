@@ -1,6 +1,7 @@
 ﻿#include "Title.h"
 #include "GameMain.h"
 #include "DxLib.h"
+#include "GameMain.h"
 #include "PadInput.h"
 #include <iostream>
 
@@ -39,6 +40,9 @@ Title::Title()
 
 	input_margin = 0;
 
+	// 明るさをリセット
+	SetDrawBright(0, 0, 0);
+
 
 	select_menu = static_cast<int>(MENU::PLAY);
 
@@ -72,6 +76,13 @@ AbstractScene* Title::Update()
 	{
 		fade_counter++;
 	}
+
+#ifndef TITLE_DEBUG
+	if (fade_counter < FADE_TIME)
+	{
+		return this;
+	}
+#endif // !TITLE_DEBUG
 
 	// 操作間隔時間
 	const int max_input_margin = 15;
@@ -151,7 +162,7 @@ void Title::Draw()const
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
-
+	
 	//DrawGraph(0, 0, background_image, FALSE);
 	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "さくさくパズル", 0x66290E, title_font, 0xFFFFFF);
 

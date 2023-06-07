@@ -196,16 +196,13 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 {
 	/*追加したもの*/
 
-	SceneManager* sceneMng;
-
 	int gScore = 3;//仮変数
 
 	SetFontSize(100);
 	DrawFormatString(550, 250, 0x4f455c, "%d", gScore); //スコア数表示（仮）
 	WaitTimer(3000);//３秒たったら
 
-	sceneMng = new SceneManager((AbstractScene*)new NameInput());//sceneMngをNemeInputに更新
-	sceneMng->Draw();//更新を描画する
+	return new GameMain();
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
@@ -217,21 +214,21 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 	
 
-	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)//iが3（静的キャスト）より小さいなら
-	{
-		// 文字列の最小Y座標
-		const int base_y = 400;
+	//for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)//iが3（静的キャスト）より小さいなら
+	//{
+	//	// 文字列の最小Y座標
+	//	const int base_y = 400;
 
-		// 文字列のY座標間隔
-		const int margin_y = 100;
+	//	// 文字列のY座標間隔
+	//	const int margin_y = 100;
 
-		// 文字色
-		int color = 0xFFFFFF;
-		// 文字外枠色
-		int border_color = 0x000000;
+	//	// 文字色
+	//	int color = 0xFFFFFF;
+	//	// 文字外枠色
+	//	int border_color = 0x000000;
 
-		// 透明度
-		int transparency = 180;
+	//	// 透明度
+	//	int transparency = 180;
 
 #ifdef TITLE_DEBUG
 
@@ -271,10 +268,7 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 #endif // TITLE_DEBUG
 
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
+		/*SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);*/
 	}
-
-
-}

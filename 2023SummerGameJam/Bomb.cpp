@@ -9,6 +9,7 @@ Bomb::Bomb(Cursor* cursor)
 	uses_remaining = 1;
 	bomb_effect = 0;
 	state = BOMB_STATE::NOT_SELECT;
+
 	//各画像の読み込み
 	if ((BmImage = LoadGraph("Resource/Images/2-4a/アセット 6.png")) == -1)
 	{
@@ -37,15 +38,24 @@ int Bomb::Update()
 	//爆弾が選択されている時の処理
 	if (state == BOMB_STATE::SELECT)
 	{
+		//カーソルを非表示にする
+		cursor->SetMouseDisplay(false);
+
 		//Aボタンが押されたら
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			//残り使用回数を減らす
 			uses_remaining--;
+
 			//状態を"爆発中"にする
 			state = BOMB_STATE::EXPROSION;
+
+			//カーソルを動かないようにする
+			cursor->SetMouseMove(true);
+
 			//爆発エフェクト開始
 			bomb_effect = 51;
+
 			//消去成功
 			return true;
 		}
@@ -53,6 +63,9 @@ int Bomb::Update()
 		//Bボタンが押されたら
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
 		{
+			//カーソルを表示する
+			cursor->SetMouseDisplay(true);
+
 			//爆弾が選択されている状態を解除する
 			state = BOMB_STATE::NOT_SELECT;
 		}
@@ -61,12 +74,21 @@ int Bomb::Update()
 	//爆弾が爆発中の処理
 	if (state == BOMB_STATE::EXPROSION)
 	{
+
 		//エフェクト用変数が0以下になったら　
 		if (--bomb_effect <= 0)
 		{
 			//爆発中から爆弾が選択されていない状態に戻る
 			state = BOMB_STATE::NOT_SELECT;
+
+			//カーソルを動くようにする
+			cursor->SetMouseMove(false);
+
+			//カーソルを表示する
+			cursor->SetMouseDisplay(true);
+
 		}
+
 	}
 	//ブロック消去失敗
 	return false;

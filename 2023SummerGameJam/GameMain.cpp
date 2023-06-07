@@ -59,7 +59,7 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
-	block_manager = new BlockManager();
+
 	cursor = new Cursor();
 	bomb = new Bomb(cursor);
 	
@@ -88,7 +88,6 @@ GameMain::~GameMain()
 	StopSoundMem(gamemain_music);
 	DeleteSoundMem(gamemain_music);
 	SetDrawBright(255, 255, 255);
-	delete block_manager;
 	delete bomb;
 	delete cursor;
 }
@@ -163,13 +162,12 @@ AbstractScene* GameMain::Update()
 		Time = LIMIT;
 	}
 
-	block_manager->Update();
 	bomb->Update();
 
-	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		block_manager->GenerationExsampleBlock();
+	//スタートボタンで盤面リセット
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_START)) {
+		Reset();
 	}
-
 		return this;
 	
 }
@@ -191,7 +189,7 @@ void GameMain::Draw()const
 	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 
-	DrawRotaGraph(255, 654,0.27,0, time_image, true);
+	DrawRotaGraph(255, 654,0.27,0, time_image, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWブロックを描画
 	for (int i = 0; i < 4; i++) {
@@ -240,7 +238,7 @@ void GameMain::Draw()const
 	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
 
 
-	block_manager->Draw();
+
 	bomb->Draw();
 
 	// カーソル描画
@@ -282,3 +280,8 @@ bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
 
 	return false;
 }	
+
+void GameMain::Reset()
+{
+
+}

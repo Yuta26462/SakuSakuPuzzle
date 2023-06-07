@@ -10,15 +10,18 @@ enum class BOMB_STATE {
 class Bomb{
 private:
 	int uses_remaining;	//残り仕様回数
+
 	BOMB_STATE state;	//状態
 	Cursor::POSITION cursor_pos;
-
 	Cursor* cursor;
 	
+	int bomb_effect;	//爆発アニメーション用
+
 	int BmImage;		//爆弾画像
 	int ExImage;		//爆発画像
 
-	int bomb_effect;	//爆発アニメーション用
+	int ExSE;	//爆発音
+
 public:
 
 	Bomb() = default;

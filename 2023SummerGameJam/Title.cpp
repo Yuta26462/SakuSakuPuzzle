@@ -35,6 +35,9 @@ Title::Title()
 
 	input_margin = 0;
 
+	// 明るさをリセット
+	SetDrawBright(0, 0, 0);
+
 
 	select_menu = static_cast<int>(MENU::PLAY);
 

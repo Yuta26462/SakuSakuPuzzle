@@ -12,7 +12,6 @@ private:
     enum class MENU
     {
         PLAY,
-        //OPTION,
         HELP,
         EXIT,
         MENU_SIZE
@@ -20,19 +19,12 @@ private:
 
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
         "ぷれい",
-        //"OPTION",
         "へるぷ",
         "しゅうりょう"
     };
 
     // 選択しているメニュー
     int select_menu;
-
-
-#ifdef TITLE_DEBUG
-    // デバックメニュー選択用フラグ
-    bool is_select_debug;
-#endif // TITLE_DEBUG
 
     // フォントハンドル
     int menu_font;
@@ -54,7 +46,7 @@ public:
     Title();
 
     //デストラクタ
-    ~Title();
+    ~Title() final;
 
     //描画以外の更新を実行
     AbstractScene* Update() override;

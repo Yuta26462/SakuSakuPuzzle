@@ -52,16 +52,18 @@ int r = 0;
 //-----------------------------------
 GameMain::GameMain()
 {
-	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	//menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
 	block_manager = new BlockManager();
 	cursor = new Cursor();
 	bomb = new Bomb(cursor);
 	
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+	time_image = LoadGraph("Resource/Images/Scene/Timer.png");
+	time_circle_image = LoadGraph("Resource/Images/TestCircle.png");
 	backImg = LoadGraph("img/backimg.png");
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
@@ -149,8 +151,7 @@ AbstractScene* GameMain::Update()
 
 	//制限時間
 	TimeCount++;
-	if (TimeCount > 60) {
-		TimeCount = 0;
+	if (TimeCount % 60 == 0) {
 		Time++;
 	}
 
@@ -158,7 +159,7 @@ AbstractScene* GameMain::Update()
 		Time = 0;
 	}
 
-		block_manager->Update();
+	block_manager->Update();
 	block_manager->Update();
 	bomb->Update();
 
@@ -176,14 +177,19 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw()const
 {
 
-	DrawGraph(0, 0, background_image, TRUE);
+	////DrawGraph(0, 0, background_image, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+	//DrawBox(0, 0, 1920, 1080, 0x000000, TRUE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
-	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 0, 400, 1080, 0x000000);
-	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 850, 1920, 1080, 0x000000);
+	DrawBox(0, 0, 1920, 1080, 0xffffff, TRUE);
+	DrawBox(0, 0, 500, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 500, 1080, 0x000000);
+	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+	DrawRotaGraph(250, 665,0.25,0, time_image, true);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j <4; j++) {
@@ -224,8 +230,8 @@ void GameMain::Draw()const
 
 	SetFontSize(40);
 	DrawString(150, 20, "お題", 0x000000);
-	DrawString(120, 400, "制限時間", 0x000000);
-	DrawFormatString(120, 500, 0x000000, "%d", Time);
+	DrawCircleGauge(250, 660, 50.0, time_circle_image, 25.0);
+	DrawFormatString(237, 647, 0x000000, "%.2d", Time);
 
 
 	block_manager->Draw();

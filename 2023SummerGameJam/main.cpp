@@ -1,7 +1,6 @@
 #include "main.h"
 #include "SceneManager.h"
 #include "Title.h"
-#include "End.h"
 #include "PadInput.h"
 #include "Result.h"
 
@@ -11,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetMainWindowText("さくさくパズル");
 	SetMainWindowClassName("SakuSakuPuzzle");
-
+	SetDXArchiveKeyString("map_chips90.png");	
 
 	SetOutApplicationLogValidFlag(FALSE);   //ログ出力を無効にする
 

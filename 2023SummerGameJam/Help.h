@@ -17,7 +17,7 @@ private:
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
         "PLAY",
         //"OPTION",
-        "HELP",
+        "TITLE",
         "EXIT"
     };
 
@@ -44,6 +44,7 @@ private:
     //フェード用カウンタ
     int fade_counter;
 
+    int WaitTime = 0;
 public:
 
     //コンストラクタ

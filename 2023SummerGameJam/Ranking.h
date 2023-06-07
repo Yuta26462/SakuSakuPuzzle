@@ -25,7 +25,17 @@ private:
     // 選択しているメニュー
     int select_menu;
 
+    //int MoziSelectW;
+    //int MoziSelectH;
 
+    //char MoziSmall;
+    //char MoziBig;
+    //char MoziNumber;
+
+    //char MoziFrame;
+    //char MoziWork;
+   //  #define RANKING_DATA
+   // struct RankingData		gRanking[RANKING_DATA];
 #ifdef TITLE_DEBUG
     // デバックメニュー選択用フラグ
     bool is_select_debug;

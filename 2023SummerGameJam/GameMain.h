@@ -8,7 +8,7 @@ class GameMain :
     public AbstractScene
 {
 private:
-    BlockManager* block_manager;
+
     Bomb* bomb;
     Cursor* cursor;
 
@@ -49,4 +49,6 @@ public:
     /// <returns></returns>
     /// <remarks>シーン切替前に遅延アニメーションを行う</remarks>
     bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
+
+    void Reset();
 };

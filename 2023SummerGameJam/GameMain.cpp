@@ -59,7 +59,6 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
-	block_manager = new BlockManager();
 	cursor = new Cursor();
 	bomb = new Bomb(cursor);
 
@@ -85,7 +84,6 @@ GameMain::~GameMain()
 	DeleteSoundMem(background_music);
 	DeleteFontToHandle(title_font);
 	SetDrawBright(255, 255, 255);
-	delete block_manager;
 	delete bomb;
 	delete cursor;
 }

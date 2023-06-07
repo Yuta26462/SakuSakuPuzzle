@@ -13,8 +13,6 @@ protected:
 	int cursor_move_se;
 	int enter_se;
 
-	int title_bgm;
-
 	int title_font;
 
 	//�X�e�[�W�ԍ�

@@ -15,22 +15,16 @@
 //-----------------------------------
 Title::Title()
 {
-	//title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
-	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s240.dft");
 
-	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
-	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 
 	background_image = LoadGraph("Resource/Images/Scene/title.png");
-
-	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
-	//	throw "Sounds/BGM/Title.wav";
-	//}
 
 	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
 
 	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/Cursor_Move.mp3");
-	title_bgm = LoadSoundMem("Resource/Sounds/BGM/Title.mp3");
+	background_music = LoadSoundMem("Resource/Sounds/BGM/Title.mp3");
 	select_se = 0;
 	decision_se = 0;
 
@@ -44,7 +38,7 @@ Title::Title()
 
 	fade_counter = 0;
 
-	PlaySoundMem(title_bgm, DX_PLAYTYPE_LOOP, TRUE);
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 
 }
 
@@ -53,9 +47,9 @@ Title::Title()
 //-----------------------------------
 Title::~Title()
 {
-	//DeleteGraph(background_image);
-	//StopSoundMem(background_music);
-	DeleteSoundMem(title_bgm);
+	
+	StopSoundMem(background_music);
+	DeleteGraph(background_image);
 	DeleteSoundMem(enter_se);
 	DeleteSoundMem(cursor_move_se);
 	DeleteFontToHandle(title_font);
@@ -73,12 +67,6 @@ AbstractScene* Title::Update()
 		fade_counter++;
 	}
 
-#ifndef TITLE_DEBUG
-	if (fade_counter < FADE_TIME)
-	{
-		return this;
-	}
-#endif // !TITLE_DEBUG
 
 	// 操作間隔時間
 	const int max_input_margin = 15;
@@ -166,15 +154,15 @@ void Title::Draw()const
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{
 		// 文字列の最小Y座標
-		const int base_y = 600;
+		const int base_y = 480;
 
 		// 文字列のY座標間隔
-		const int margin_y = 100;
+		const int margin_y = 160;
 
 		// 文字色
 		int color = 0xFFFFFF;
 		// 文字外枠色
-		int border_color = 0x000000;
+		int border_color = 0x00FF00;
 
 		// 透明度
 		int transparency = 180;

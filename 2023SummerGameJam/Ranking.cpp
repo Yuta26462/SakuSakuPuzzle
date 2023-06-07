@@ -28,7 +28,26 @@ Ranking::Ranking()
 	//{
 	//	throw "Resource/Sounds/SE/cursor_move.mp3";
 	//}
+	 //構造体
 
+	//struct RankingData {
+		//int		no;
+		//char	name[11];
+		//long	score;
+	//};
+
+	//constexpr auto RANKING_DATA = 5;	//ランキングデータの数;
+
+	//RankingData gRanking[RANKING_DATA]{};
+
+	//struct RankingData		gRanking[RANKING_DATA]{};
+
+	//char MoziSmall[] = "abcdefghijklmnopqrstuvwxyz";
+	//char MoziBig[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	//char MoziNumber[] = "0123456789";
+
+	//char MoziFrame[11]{};
+	///char MoziWork[2]{};
 
 	select_se = 0;
 	decision_se = 0;
@@ -178,7 +197,15 @@ AbstractScene* Ranking::Update()
 //-----------------------------------
 void Ranking::Draw()const
 {
-
+	// ランキング一覧を表示
+	//SetFontSize(48);
+	//for (int i = 0; i < RANKING_DATA; i++) {
+		//DrawFormatString(240, 300 + i * 50, 0x000000,
+			//"%2d %-10s %10d",
+			//gRanking[i].no,
+			//gRanking[i].name,
+			//gRanking[i].score);
+	//}
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
 

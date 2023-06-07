@@ -1,6 +1,7 @@
 ﻿#include "Title.h"
 #include "GameMain.h"
 #include "DxLib.h"
+#include "GameMain.h"
 #include "PadInput.h"
 #include <iostream>
 
@@ -14,9 +15,11 @@
 //-----------------------------------
 Title::Title()
 {
-	title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	//title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
 
 	background_image = LoadGraph("Resource/Images/Scene/title.png");
 
@@ -26,18 +29,22 @@ Title::Title()
 
 	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
 
-	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
+	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/Cursor_Move.mp3");
+	title_bgm = LoadSoundMem("Resource/Sounds/BGM/Title.mp3");
 	select_se = 0;
 	decision_se = 0;
 
 	input_margin = 0;
+
+	// 明るさをリセット
+	SetDrawBright(0, 0, 0);
 
 
 	select_menu = static_cast<int>(MENU::PLAY);
 
 	fade_counter = 0;
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(title_bgm, DX_PLAYTYPE_LOOP, TRUE);
 
 }
 
@@ -48,7 +55,7 @@ Title::~Title()
 {
 	//DeleteGraph(background_image);
 	//StopSoundMem(background_music);
-	//DeleteSoundMem(background_music);
+	DeleteSoundMem(title_bgm);
 	DeleteSoundMem(enter_se);
 	DeleteSoundMem(cursor_move_se);
 	DeleteFontToHandle(title_font);
@@ -65,6 +72,13 @@ AbstractScene* Title::Update()
 	{
 		fade_counter++;
 	}
+
+#ifndef TITLE_DEBUG
+	if (fade_counter < FADE_TIME)
+	{
+		return this;
+	}
+#endif // !TITLE_DEBUG
 
 	// 操作間隔時間
 	const int max_input_margin = 15;
@@ -144,9 +158,10 @@ void Title::Draw()const
 
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
-
+	
 	//DrawGraph(0, 0, background_image, FALSE);
-	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "", 0x66290E, title_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "さくさくパズル", 0x66290E, title_font, 0xFFFFFF);
+
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{

@@ -1,13 +1,16 @@
 #pragma once
 #include"AbstractScene.h"
 #include "BlockManager.h"
+#include "Bomb.h"
+#include "Cursor.h"
 
 class GameMain :
     public AbstractScene
 {
 private:
     BlockManager* block_manager;
-
+    Bomb* bomb;
+    Cursor* cursor;
 
     //遅延アニメーション用カウンタ
     int delay_animation_count;
@@ -34,6 +37,10 @@ public:
     //描画に関することを実装
     void Draw() const override;
 
+
+    //描画するブロックの確認
+
+    void CheckBlock();
 
         /// <summary>
     /// シーン切替前の遅延アニメーション

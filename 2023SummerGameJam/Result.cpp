@@ -1,6 +1,7 @@
 #include "Result.h"
 #include "GameMain.h"//scoreが言っている変数を持ってきたいため
 #include "SceneManager.h"
+#include"Ranking.h"
 
 #include <math.h>
 #include "DxLib.h"
@@ -20,6 +21,8 @@
 //-----------------------------------
 Result::Result()//クラス　リザルト
 {
+	count = 0;
+
 	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
@@ -86,6 +89,18 @@ Result::~Result()
 //-----------------------------------
 AbstractScene* Result::Update()
 {
+	if (count < 180)
+	{
+		count++;
+		
+	}
+	else
+	{
+
+		return new Ranking();
+	}
+
+	printfDx("%d\n", count);
 
 	if (fade_counter < FADE_TIME)
 	{
@@ -202,7 +217,8 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 	SetFontSize(100);
 	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
 
-	WaitTimer(3000);//３秒たったら
+	
+
 	new GameMain();
 
 

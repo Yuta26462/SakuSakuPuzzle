@@ -4,7 +4,7 @@ class Result :
     public AbstractScene 
 {
 private:
-
+    int count;
     enum class MENU
     {
         PLAY,

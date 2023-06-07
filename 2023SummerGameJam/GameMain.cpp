@@ -15,7 +15,7 @@ int blockimg[6];
 int BlockFlg = TRUE;
 
 int CompblockList[8][4][4]{
-	
+
 	{{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}},
 	{{0,0,0,0},{0,2,3,0},{0,1,1,0},{0,0,0,0}},
 	{{0,0,0,0},{0,2,3,0},{0,4,5,0},{0,0,0,0}},
@@ -27,21 +27,23 @@ int CompblockList[8][4][4]{
 	//ひし形{{0,2,3,0},{2,1,1,3},{4,1,1,5},{0,4,5,0}}
 };
 
-int PBlockList[6][1][2]{
-	{{1,1}},
-	{{0.1}},
-	{{0,2}},
-	{{1,3}},
-	{{2,1}},
+
+int PBlockList[4][4][2]{
+	//4まで
+	{{0,0},{1,1},{1,1},{0,0}},
+	{{0,0},{4,1},{2,1},{0,0}},
+	{{2,0},{3,0},{4,0},{5,0}},
+	{{0,0},{2,5},{5,2},{0,0}},
+
 };
 
-int gNewBlock[4][4] = { 0 };	//新しいブロック用
-int gNextBlock[4][4] = { 0 };	//次のブロック用
+int CompBlock[4][4] = { 0 };	//お手本、影ブロック用
+int PartsBlock[4][4] = { 0 };	//次のブロック用
 
 
 int TimeCount = 0;
 int Time = 0;
-int r = 5;
+int r = 0;
 
 
 //-----------------------------------
@@ -99,25 +101,26 @@ AbstractScene* GameMain::Update()
 		BlockFlg = FALSE;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				gNewBlock[i][j] = CompblockList[r][i][j];
+				CompBlock[i][j] = CompblockList[r][i][j];
 
-				gNextBlock[i][j] = PBlockList[r][i][j];
+				//PartsBlock[i][j] = PBlockList[r][i][j];
 			}
 		}	
 
 
-		for (int c = 0; c < 3; c++) 
+		for (int c = 0; c < 2; c++) 
 		{
-
 			//iは行が下がる
 			//iはPBlockList[r][i][j]の見る中身を下げる
-			for (int i = 0; i < 1; i++) 
+
+			for (int i = 0; i < 4; i++) 
 			{
-				for (int j = 0; j < 3; j++) 
+				for (int j = 0; j < 4; j++) 
 				{
 					BlockHome[c][i][j] = PBlockList[r][i][j];
 				}
 			}
+
 		}
 
 		
@@ -125,8 +128,8 @@ AbstractScene* GameMain::Update()
 		{
 			for (int j = 0; j < 4; j++) 
 			{
-				if (gNewBlock[i][j] != 0) {
-					Stage[i][j] = gNewBlock[i][j];
+				if (CompBlock[i][j] != 0) {
+					Stage[i][j] = CompBlock[i][j];
 				}
 			}
 		}
@@ -169,8 +172,8 @@ void GameMain::Draw()const
 	//NEWブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j <4; j++) {
-			if (gNewBlock[i][j] != 0) {
-				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[gNewBlock[i][j]], TRUE);
+			if (CompBlock[i][j] != 0) {
+				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompBlock[i][j]], TRUE);
 			}
 		}
 	}
@@ -179,21 +182,22 @@ void GameMain::Draw()const
 	//お題ブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			if (gNewBlock[i][j] != 0) {
-				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[gNewBlock[i][j]], TRUE);
+			if (CompBlock[i][j] != 0) {
+				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompBlock[i][j]], TRUE);
 			}
 		}
 	}
 
 
-	//パーツブロックを表示　下の方
-	for (int c = 0; c < 3; c++) {
+	////パーツブロックを表示　下の方
+	for (int c = 0; c < 1; c++) {
 
 		for (int i = 0; i < 4; i++) 
 		{
 			for (int j = 0; j < 4; j++) 
 			{
-				if (BlockHome[c][i][j] != 0) {
+				if (BlockHome[c][i][j] != 0)
+				{
 					DrawGraph((j + 6) * 90+(c*250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
 				}
 			}
@@ -202,15 +206,6 @@ void GameMain::Draw()const
 	}
 		
 
-		
-
-		//for (int i = 0; i < HEIGHT; i++) {
-		//	for (int j = 0; j < WIDTH; j++) {
-		//		if (Stage[i][j] != 0) {
-		//			DrawGraph((j) * 90, (i) * 90, blockimg[Stage[i][j]], TRUE);
-		//		}
-		//	}
-		//}
 
 	SetFontSize(40);
 	DrawString(150, 20, "お題", 0x000000);

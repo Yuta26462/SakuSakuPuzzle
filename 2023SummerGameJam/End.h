@@ -11,7 +11,7 @@ private:
     {
         TITLE,
         EXIT,
-        MENU_SIZE
+        MENU_SIZE,
     };
 
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
@@ -22,9 +22,7 @@ private:
     // 選択しているメニュー
     int select_menu;
 
-
     int menu_font;
-
 
     //選択SE用サウンドハンドル
     int select_se;
@@ -33,6 +31,8 @@ private:
 
     //操作間隔時間
     int input_margin;
+
+    int WaitTime = 0;
 public:
 
     //コンストラクタ

@@ -11,7 +11,7 @@
 //-----------------------------------
 GameMain::GameMain()
 {
-	title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	//menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
@@ -19,6 +19,7 @@ GameMain::GameMain()
 
 	block_manager = new BlockManager();
 	bomb = new Bomb();
+	cursor = new Cursor();
 
 	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
@@ -39,6 +40,7 @@ GameMain::~GameMain()
 	SetDrawBright(255, 255, 255);
 	delete block_manager;
 	delete bomb;
+	delete cursor;
 }
 
 //-----------------------------------
@@ -46,6 +48,7 @@ GameMain::~GameMain()
 //-----------------------------------
 AbstractScene* GameMain::Update()
 {
+	cursor->Update();
 
 	block_manager->Update();
 	bomb->Update();
@@ -62,6 +65,7 @@ AbstractScene* GameMain::Update()
 //-----------------------------------
 void GameMain::Draw()const
 {
+
 	DrawGraph(0, 0, background_image, TRUE);
 
 	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
@@ -71,6 +75,9 @@ void GameMain::Draw()const
 
 	block_manager->Draw();
 	bomb->Draw();
+
+	// カーソル描画
+	cursor->Draw();
 }
 
 bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)

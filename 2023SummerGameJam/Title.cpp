@@ -18,9 +18,11 @@
 //-----------------------------------
 Title::Title()
 {
-	title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	//title_font = CreateFontToHandle("メイリオ", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
 
 	background_image = LoadGraph("Resource/Images/Scene/title.png");
 
@@ -151,7 +153,8 @@ void Title::Draw()const
 	SetDrawBright(bright, bright, bright);
 
 	//DrawGraph(0, 0, background_image, FALSE);
-	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "", 0x66290E, title_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("さくさくパズル", title_font), 100, "さくさくパズル", 0x66290E, title_font, 0xFFFFFF);
+
 
 	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
 	{

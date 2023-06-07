@@ -95,11 +95,6 @@ void Bomb::Draw()const
 	}
 }
 
-void Bomb::SelectBomb() 
-{ 
-	state = BOMB_STATE::SELECT;
-}
-
 void Bomb::SetPos(int x, int y)
 {
 	cursor_x = x;

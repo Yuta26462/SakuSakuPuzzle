@@ -29,9 +29,6 @@ public:
 	//描画に関することを実装
 	void Draw()const;
 
-	//爆弾を選択した状態にする
-	void SelectBomb();
-
 	//カーソルの座標を取得する
 	void SetPos(int x, int y);
 

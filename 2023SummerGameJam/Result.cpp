@@ -21,8 +21,8 @@ Result::Result(int score)//クラス　リザルト
 
 	background_image = LoadGraph("Resource/Images/Scene/clear.png");
 	//↑画像を差し込む
-	Result_BGM = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
-	PlaySoundMem(Result_BGM, DX_PLAYTYPE_LOOP, TRUE);
+	background_music = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 	Ranking::ReadRanking();
 	//↑音楽を差し込む
 

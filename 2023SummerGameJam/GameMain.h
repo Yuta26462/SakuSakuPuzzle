@@ -15,7 +15,6 @@ private:
     BlockManager* block_manager;
     Cursor* cursor;
     
-
     //遅延アニメーション用カウンタ
     int delay_animation_count;
 

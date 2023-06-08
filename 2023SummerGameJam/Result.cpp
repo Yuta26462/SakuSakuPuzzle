@@ -136,7 +136,7 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 	SetFontSize(100);
 	DrawFormatString(1450, 565, 0xffffff, "%d", Score); //スコア数表示（仮）
-
+	DrawString(425, 650, "press A", 0xff0000,true);
 #ifdef TITLE_DEBUG
 
 		// 文字色

@@ -1,10 +1,11 @@
 #include "Result.h"
 #include "GameMain.h"//scoreが言っている変数を持ってきたいため
 #include "SceneManager.h"
+#include"DrawRanking.h"
 #include"Ranking.h"
 #include"GameMain.h"
 #include"PadInput.h"
-
+#include "InputRankingScene.h"
 #include <math.h>
 #include "DxLib.h"
 #define FADE_TIME 300
@@ -12,10 +13,10 @@
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
-Result::Result()//クラス　リザルト
+Result::Result(int score)//クラス　リザルト
 {
 	count = 0;
-
+	Score = score;
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/clear.png");
@@ -69,9 +70,16 @@ AbstractScene* Result::Update()
 
 	//if(count1>180 && ランキング5位よりスコアが上なら){   return new InputName();  //}else{ return new Ranking}
 
-	if (count>=60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												
+	if (count >= 60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												
 	{
-		return new Ranking();//ボタンAが押されたらランキング、または名前入力画面に遷移
+		if (Score > Ranking::GetData(RANK - 1).score)
+		{
+			return new InputRankingScene(Score);
+		}
+		else
+		{
+			return new DrawRanking();//ボタンAが押されたらランキング、または名前入力画面に遷移
+		}
 	}
 
 	printfDx("%d\n", count);
@@ -122,10 +130,10 @@ void Result::Draw()const//処理したものをここに表示　Clear数の表�
 
 	/*追加したもの*/
 	DrawGraph(0, 0, background_image, TRUE);
-	int gScore = 3;//仮変数
+
 
 	SetFontSize(100);
-	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
+	DrawFormatString(1450, 565, 0xffffff, "%d", Score); //スコア数表示（仮）
 
 #ifdef TITLE_DEBUG
 

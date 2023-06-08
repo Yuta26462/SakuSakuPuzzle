@@ -1,79 +1,36 @@
 #pragma once
-#include "AbstractScene.h"
+#define RANK 5
+#define NAME_MAX 10
 
-class Ranking :
-    public AbstractScene
+struct RankingData
+{
+	int no;
+	char name[10];
+	int score;
+};
+
+class Ranking
 {
 private:
-  
-    enum class MENU
-    {
-        PLAY,
-        //OPTION,
-        HELP,
-        EXIT,
-        MENU_SIZE
-    };
 
-    const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "PLAY",
-        //"OPTION",
-        "HELP",
-        "EXIT"
-    };
+	static RankingData Data[RANK];
 
-    // 選択しているメニュー
-    int select_menu;
+	//ランキングの並べ替え
+	static void SortRanking();
 
-    //int MoziSelectW;
-    //int MoziSelectH;
-
-    //char MoziSmall;
-    //char MoziBig;
-    //char MoziNumber;
-
-    //char MoziFrame;
-    //char MoziWork;
-   //  #define RANKING_DATA
-   // struct RankingData		gRanking[RANKING_DATA];
-#ifdef TITLE_DEBUG
-    // デバックメニュー選択用フラグ
-    bool is_select_debug;
-#endif // TITLE_DEBUG
-
-    // フォントハンドル
-    int menu_font;
-
-    //選択SE用サウンドハンドル
-    int select_se;
-    //決定SE用サウンドハンドル
-    int decision_se;
-
-    //操作間隔時間
-    int input_margin;
-
-    //フェード用カウンタ
-    int fade_counter;
+	//ランキングデータの保存
+	static void SaveRanking();
 
 public:
-    struct RankingData
-    {
-        int no;
-        char name[11];
-        long score;
-    };
 
-    int ReadRanking(void);
-    
-    //コンストラクタ
-    Ranking();
+	//ランキングデータの更新
+	static void Insert(int score, char name[NAME_MAX]);
 
-    //デストラクタ
-    ~Ranking();
+	//ランキングデータ読み込み
+	static void ReadRanking();
 
-    //描画以外の更新を実行
-    AbstractScene* Update() override;
-
-    //描画に関することを実装
-    void Draw() const override;
+	//ランキングの取得の取得
+	static RankingData GetData(int n) { return Data[n]; }
 };
+
+

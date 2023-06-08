@@ -1,10 +1,11 @@
 #include "GameMain.h"
 #include "DxLib.h"
 #include "PadInput.h"
+#include "Result.h"
 
 #define FADE_TIME 300
 
-#define LIMIT 60
+#define LIMIT 5
 #define HEIGHT 9
 #define WIDTH 10
 
@@ -52,6 +53,7 @@ int r = 0;
 //-----------------------------------
 GameMain::GameMain()
 {
+	ClearStage = 3;
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
@@ -154,7 +156,7 @@ AbstractScene* GameMain::Update()
 	}
 
 	if (Time <= 0) {
-		Time = LIMIT;
+		return new Result(ClearStage);
 	}
 
 	bomb->Update();

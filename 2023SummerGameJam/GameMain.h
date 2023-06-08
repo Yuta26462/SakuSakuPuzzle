@@ -8,7 +8,7 @@ class GameMain :
     public AbstractScene
 {
 private:
-    BlockManager* block_manager;
+
     Bomb* bomb;
     Cursor* cursor;
 
@@ -22,7 +22,8 @@ private:
         DELAY_ANIMATION_TYPE_SIZE
     };
 
-
+    int time_image;    //制限時間画像用
+    int time_circle_image;    //制限時間画像用
 public:
 
     //コンストラクタ
@@ -48,4 +49,7 @@ public:
     /// <returns></returns>
     /// <remarks>シーン切替前に遅延アニメーションを行う</remarks>
     bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
+
+    //リセット処理
+    void Reset();
 };

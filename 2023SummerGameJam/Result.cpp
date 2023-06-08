@@ -1,50 +1,44 @@
 #include "Result.h"
+#include "GameMain.h"//scoreが言っている変数を持ってきたいため
+#include "SceneManager.h"
+#include"Ranking.h"
+#include"GameMain.h"
+#include"PadInput.h"
+
+#include <math.h>
 #include "DxLib.h"
 #define FADE_TIME 300
-
-
 
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
-Result::Result()
+Result::Result()//クラス　リザルト
 {
-	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	count = 0;
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	//background_image = LoadGraph("Images/Scene/Titleimage.png");
+	background_image = LoadGraph("Resource/Images/Scene/clear.png");
+	//↑画像を差し込む
+	Result_BGM = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
+	PlaySoundMem(Result_BGM, DX_PLAYTYPE_LOOP, TRUE);
 
-	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
-	//	throw "Sounds/BGM/Title.wav";
+	//↑音楽を差し込む
+
+	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
+	//	throw "Sounds/SE/enter.mp3";
 	//}
 
-	//if ((enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3")) == -1) {
-	//	throw "Resource/Sounds/SE/enter.mp3";
-	//}
+	//↑SEを差し込む
 
-	//if ((cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3")) == -1)
+	//if ((cursor_move_se = LoadSoundMem("Sounds/SE/cursor_move.mp3")) == -1)
 	//{
-	//	throw "Resource/Sounds/SE/cursor_move.mp3";
+	//	throw "Sounds/SE/cursor_move.mp3";
 	//}
-
-
-	select_se = 0;
-	decision_se = 0;
-
-	input_margin = 0;
 
 #ifdef TITLE_DEBUG
 	is_select_debug = false;
 #endif // TITLE_DEBUG
-
-
-	select_menu = static_cast<int>(MENU::PLAY);
-
-	fade_counter = 0;
-
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
-
 }
 
 //-----------------------------------
@@ -52,7 +46,7 @@ Result::Result()
 //-----------------------------------
 Result::~Result()
 {
-	//DeleteGraph(background_image);
+	DeleteGraph(background_image);
 	//StopSoundMem(background_music);
 	//DeleteSoundMem(background_music);
 	//DeleteSoundMem(enter_se);
@@ -67,6 +61,21 @@ Result::~Result()
 //-----------------------------------
 AbstractScene* Result::Update()
 {
+	if (count < 60)
+	{
+		count++;
+		
+	}
+
+	//if(count1>180 && ランキング5位よりスコアが上なら){   return new InputName();  //}else{ return new Ranking}
+
+	if (count>=60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												
+	{
+		return new Ranking();//ボタンAが押されたらランキング、または名前入力画面に遷移
+	}
+
+	printfDx("%d\n", count);
+
 	if (fade_counter < FADE_TIME)
 	{
 		fade_counter++;
@@ -91,28 +100,6 @@ AbstractScene* Result::Update()
 	}
 	else {
 
-		// スティックのY座標を取得
-		//int stick_y = PAD_INPUT::GetLStick().y;
-
-		//if (std::abs(stick_y) > stick_sensitivity) {
-
-		//	PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-
-		//	// スティックが上に移動した場合
-		//	if (stick_y > 0) {
-		//		// メニュー選択肢を一つ前に移動
-		//		select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-		//	// スティックが下に移動した場合
-		//	else if (stick_y < 0) {
-		//		// メニュー選択肢を一つ次に移動
-		//		select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
-		//	}
-
-		//	input_margin = 0;
-
-		//}
-
 #ifdef TITLE_DEBUG
 		if (std::abs(PAD_INPUT::GetLStick().x) > stick_sensitivity) {
 
@@ -124,78 +111,21 @@ AbstractScene* Result::Update()
 #endif // TITLE_DEBUG
 
 	}
-
-	//
-	//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-	//	{
-	//
-	//		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
-	//		while (CheckSoundMem(enter_se)) {}
-	//
-	//#ifdef TITLE_DEBUG
-	//		if (is_select_debug == true) {
-	//			return new DotByDot();
-	//		}
-	//#endif // TITLE_DEBUG
-	//
-	//
-	//		input_margin = 0;
-	//		MENU current_selection = static_cast<MENU>(select_menu);
-	//
-	//		switch (current_selection)
-	//		{
-	//		case Title::MENU::PLAY:
-	//			return new GameMain(1, element_volume, pouch);
-	//			break;
-	//
-	//		case Title::MENU::HELP:
-	//		{
-	//			GameMain* help = new GameMain(0, element_volume, pouch);
-	//			help->SetHelpMode(true);
-	//			return help;
-	//			break;
-	//		}
-	//		case Title::MENU::EXIT:
-	//			return new Credit();
-	//			break;
-	//
-	//		default:
-	//			printfDx("未実装な機能です。\n");
-	//			break;
-	//		}
-	//
-	//	}
-
 	return this;
 }
 
 //-----------------------------------
 // 描画
 //-----------------------------------
-void Result::Draw()const
+void Result::Draw()const//処理したものをここに表示　Clear数の表示はここ
 {
 
-	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
-	SetDrawBright(bright, bright, bright);
+	/*追加したもの*/
+	DrawGraph(0, 0, background_image, TRUE);
+	int gScore = 3;//仮変数
 
-	//DrawGraph(0, 0, background_image, FALSE);
-	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
-
-	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
-	{
-		// 文字列の最小Y座標
-		const int base_y = 400;
-
-		// 文字列のY座標間隔
-		const int margin_y = 100;
-
-		// 文字色
-		int color = 0xFFFFFF;
-		// 文字外枠色
-		int border_color = 0x000000;
-
-		// 透明度
-		int transparency = 180;
+	SetFontSize(100);
+	DrawFormatString(1450, 565, 0xffffff, "%d", gScore); //スコア数表示（仮）
 
 #ifdef TITLE_DEBUG
 
@@ -226,19 +156,7 @@ void Result::Draw()const
 
 #else
 
-		// カーソルが合っている場合、文字色と文字外枠色を反転させる
-		if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
-		}
-
+		
 #endif // TITLE_DEBUG
 
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
-
-
-}

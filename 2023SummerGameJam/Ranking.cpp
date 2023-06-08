@@ -1,20 +1,22 @@
 #include "Ranking.h"
 #include "DxLib.h"
 #define FADE_TIME 300
+#define RANKING_DATE 5
 #include "GameMain.h"
 #include "PadInput.h"
 #include "Title.h"
+
+Ranking::RankingData  gRanking[RANKING_DATE];
 
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
 Ranking::Ranking()
 {
-	//title_font = CreateFontToHandle("Algerian", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
-	//background_image = LoadGraph("Images/Scene/Titleimage.png");
+	background_image = LoadGraph("Resource/Images/Scene/title.png");
 
 	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
 	//	throw "Sounds/BGM/Title.wav";
@@ -119,7 +121,7 @@ AbstractScene* Ranking::Update()
 #ifndef TITLE_DEBUG
 	if (fade_counter < FADE_TIME)
 	{
-		return this;
+
 	}
 #endif // !TITLE_DEBUG
 
@@ -157,15 +159,7 @@ AbstractScene* Ranking::Update()
 
 		//}
 
-#ifdef TITLE_DEBUG
-		if (std::abs(PAD_INPUT::GetLStick().x) > stick_sensitivity) {
-
-			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-			is_select_debug = !is_select_debug;
-			input_margin = 0;
-
-		}
-#endif // TITLE_DEBUG
+	}
 
 	}
 	
@@ -294,6 +288,24 @@ AbstractScene* Ranking::Update()
 	return this;
 }
 
+int Ranking::ReadRanking(void)
+{
+	FILE* fp;
+#pragma warning(disable:4996)
+	//ファイルオープン
+	if ((fp = fopen("Resource/data/rankingdata.txt", "r")) == NULL) {
+		//エラー処理
+
+		printf("Ranking Data Error\n");
+		return -1;
+	}
+	//ランキングデータ配分列データを読み込む
+	for (int i = 0; i < RANKING_DATE; i++) {
+		int dammy = fscanf(fp, "%2d %10s %10d", &gRanking[i].no, gRanking[i].name, &gRanking[i].score);
+	}
+	return 0;
+}
+
 //-----------------------------------
 // 描画
 //-----------------------------------
@@ -402,27 +414,25 @@ void Ranking::Draw()const
 			border_color = ~border_color;
 			transparency = 255;
 		}
-
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, debug_transparency);
-		DrawStringToHandle(100, 600, "DEBUG", debug_color, menu_font, debug_border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-#else
-
-		// カーソルが合っている場合、文字色と文字外枠色を反転させる
-		if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
-		}
-
-#endif // TITLE_DEBUG
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	
+	FILE* fp;
+#pragma warning(disable:4996)
+	//ファイルオープン
+	fp = fopen("Resource/data/rankingdata.txt", "r");
+		
+	//ランキングデータ配分列データを読み込む
+	for (int i = 0; i < RANKING_DATE; i++) {
+		int dammy = fscanf(fp, "%2d %10s %10d", &gRanking[i].no, gRanking[i].name, &gRanking[i].score);
 	}
 
-
+	SetFontSize(48);
+	for (int i = 0; i < RANKING_DATE; i++) {
+		DrawFormatString(500, 400 + i * 50, 0xffffff,
+			"%2d %-10s %10d",
+			gRanking[i].no,
+			gRanking[i].name,
+			gRanking[i].score);
+	}
+	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
+		
 }

@@ -11,7 +11,7 @@ class Ranking :
     public AbstractScene
 {
 private:
-
+  
     enum class MENU
     {
         a,
@@ -93,7 +93,15 @@ private:
     int Uplow;
 
 public:
+    struct RankingData
+    {
+        int no;
+        char name[11];
+        long score;
+    };
 
+    int ReadRanking(void);
+    
     //コンストラクタ
     Ranking();
     

@@ -47,7 +47,7 @@ public:
 	/// <summary>
 	/// マウスカーソルの停止Setter
 	/// </summary>
-	/// <param name = "num">bool型：停止・移動可能</param>
+	/// <param name = "move">bool型：停止・移動可能</param>
 	void SetMouseMove(bool move) { is_stop = move; }
 };
 

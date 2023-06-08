@@ -4,7 +4,7 @@
 
 #define FADE_TIME 300
 
-#define Limit 60
+#define LIMIT 60
 #define HEIGHT 9
 #define WIDTH 10
 
@@ -54,19 +54,23 @@ GameMain::GameMain()
 {
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
-	//menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
-	block_manager = new BlockManager();
 	cursor = new Cursor();
 	bomb = new Bomb(cursor);
-	
+
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
+	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
+	time_image = LoadGraph("Resource/Images/Scene/Timer.png");
+	time_circle_image = LoadGraph("Resource/Images/TestCircle.png");
 	backImg = LoadGraph("img/backimg.png");
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(gamemain_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
@@ -75,15 +79,11 @@ GameMain::GameMain()
 //-----------------------------------
 GameMain::~GameMain()
 {
-	//DeleteGraph(background_image);
-	//StopSoundMem(background_music);
-	//DeleteSoundMem(background_music);
-	//DeleteSoundMem(enter_se);
-	//DeleteSoundMem(cursor_move_se);
-	//DeleteFontToHandle(title_font);
-	//DeleteFontToHandle(menu_font);
+	DeleteGraph(background_image);
+	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
+	DeleteFontToHandle(title_font);
 	SetDrawBright(255, 255, 255);
-	delete block_manager;
 	delete bomb;
 	delete cursor;
 }
@@ -98,7 +98,6 @@ GameMain::~GameMain()
 AbstractScene* GameMain::Update()
 {
 
-
 	//ブロック作成
 	//新しいブロックをセット＆次のブロックを生成
 	//一回だけ作るようにする
@@ -112,17 +111,17 @@ AbstractScene* GameMain::Update()
 
 				//PartsBlock[i][j] = PBlockList[r][i][j];
 			}
-		}	
+		}
 
 
-		for (int c = 0; c < 2; c++) 
+		for (int c = 0; c < 2; c++)
 		{
 			//iは行が下がる
 			//iはPBlockList[r][i][j]の見る中身を下げる
 
-			for (int i = 0; i < 4; i++) 
+			for (int i = 0; i < 4; i++)
 			{
-				for (int j = 0; j < 4; j++) 
+				for (int j = 0; j < 4; j++)
 				{
 					BlockHome[c][i][j] = PBlockList[r][i][j];
 				}
@@ -130,10 +129,10 @@ AbstractScene* GameMain::Update()
 
 		}
 
-		
-		for (int i = 0; i < 4; i++) 
+
+		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 4; j++) 
+			for (int j = 0; j < 4; j++)
 			{
 				if (CompBlock[i][j] != 0) {
 					Stage[i][j] = CompBlock[i][j];
@@ -148,26 +147,20 @@ AbstractScene* GameMain::Update()
 	cursor->Update();
 
 	//制限時間
-	TimeCount++;
-	if (TimeCount > 60) {
-		TimeCount = 0;
-		Time++;
+	TimeCount--;
+	if (TimeCount<=0) {
+		TimeCount = 60;
+		Time--;
 	}
 
-	if (Time > Limit) {
-		Time = 0;
+	if (Time <= 0) {
+		Time = LIMIT;
 	}
 
-		block_manager->Update();
-	block_manager->Update();
 	bomb->Update();
 
-	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		block_manager->GenerationExsampleBlock();
-	}
+	return this;
 
-		return this;
-	
 }
 
 //-----------------------------------
@@ -176,21 +169,17 @@ AbstractScene* GameMain::Update()
 void GameMain::Draw()const
 {
 
-	////DrawGraph(0, 0, background_image, TRUE);
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
-	//DrawBox(0, 0, 1920, 1080, 0x000000, TRUE);
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-
 	DrawBox(0, 0, 1920, 1080, 0xffffff, TRUE);
-	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 0, 400, 1080, 0x000000);
-	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
-	DrawLineBox(0, 850, 1920, 1080, 0x000000);
+	DrawBox(0, 0, 525, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 0, 525, 1080, 0x000000);
+	DrawBox(0, 800, 1920, 1080, 0x94fdff, TRUE);
+	DrawLineBox(0, 800, 1920, 1080, 0x000000);
 
+	DrawRotaGraph(255, 655, 0.27, 0, time_image, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//NEWブロックを描画
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j <4; j++) {
+		for (int j = 0; j < 4; j++) {
 			if (CompBlock[i][j] != 0) {
 				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompBlock[i][j]], TRUE);
 			}
@@ -211,28 +200,27 @@ void GameMain::Draw()const
 	////パーツブロックを表示　下の方
 	for (int c = 0; c < 1; c++) {
 
-		for (int i = 0; i < 4; i++) 
+		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 4; j++) 
+			for (int j = 0; j < 4; j++)
 			{
 				if (BlockHome[c][i][j] != 0)
 				{
-					DrawGraph((j + 6) * 90+(c*250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
+					DrawGraph((j + 6) * 90 + (c * 250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
 				}
 			}
 		}
 
 	}
-		
 
 
 	SetFontSize(40);
-	DrawString(150, 20, "お題", 0x000000);
-	DrawString(120, 400, "制限時間", 0x000000);
-	DrawFormatString(120, 500, 0x000000, "%d", Time);
+	DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
 
+	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
 
-	block_manager->Draw();
+	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
+
 	bomb->Draw();
 
 	// カーソル描画
@@ -273,4 +261,9 @@ bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
 	}
 
 	return false;
-}	
+}
+
+void GameMain::Reset()
+{
+	bomb->Reset();
+}

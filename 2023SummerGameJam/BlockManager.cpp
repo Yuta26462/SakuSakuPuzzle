@@ -1,6 +1,7 @@
 #include "BlockManager.h"
 #include "DxLib.h"
 #include "PadInput.h"
+#include <iostream>
 
 Block fff;
 
@@ -8,7 +9,7 @@ int a;
 
 BlockManager::BlockManager(Cursor* cursor, int stage)
 {
-	stage = 1;
+	stage = 0;
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
 	//POSITION sample_posittion = { 200,200};
@@ -56,7 +57,16 @@ BlockManager::BlockManager(Cursor* cursor, int stage)
 		}
 	}*/
 
-
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			Block block;
+			block.x = 90 * (j + 11);
+			block.y = 90 * (i + 2);
+			block.shape = CompblockList[r][i][j];
+			re_block.push_back(block);
+			printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
+		}
+	}
 }
 
 
@@ -68,27 +78,27 @@ void BlockManager::Draw()
 	for (Block& block : sampleBlocks) {
 		block.Draw(blockimg);
 
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-		//‰eƒuƒƒbƒN‚ð•`‰æ
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				if (block.shape != 0) {
-					DrawGraph(1080 + i * BLOCK_SIZE, 400 + j * BLOCK_SIZE, blockimg[block.shape], TRUE);
-				}
+		//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+		////‰eƒuƒƒbƒN‚ð•`‰æ
+		//for (int i = 0; i < 2; i++) {
+		//	for (int j = 0; j < 2; j++) {
+		//		if (block.shape != 0) {
+		//			DrawGraph(1080 + i * BLOCK_SIZE, 400 + j * BLOCK_SIZE, blockimg[block.shape], TRUE);
+		//		}
 
-			}
-		}
+		//	}
+		//}
 
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-		//‚¨‘èƒuƒƒbƒN‚ð•`‰æ
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j <2; j++) {
-				if (block.shape != 0) {
-					DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompblockList[block.shape][i][j]], TRUE);
-				}
-			}
-		}
+		////‚¨‘èƒuƒƒbƒN‚ð•`‰æ
+		//for (int i = 0; i < 2; i++) {
+		//	for (int j = 0; j <2; j++) {
+		//		if (block.shape != 0) {
+		//			DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompblockList[block.shape][i][j]], TRUE);
+		//		}
+		//	}
+		//}
 
 
 	}
@@ -111,23 +121,23 @@ void BlockManager::Draw()
 
 	DrawFormatString(0, 50, 0x000000, "BtnFlg%d", BtnFlg);
 
-	if (a == 1) {
+	//if (a == 1) {
 
-		DrawFormatString(300, 300, 0x000000, "Hit");
-	}
-	else if (a == 2) {
-		DrawFormatString(300, 300, 0x000000, "2Hit");
-	}
-	else {
+	//	DrawFormatString(300, 300, 0x000000, "Hit");
+	//}
+	//else if (a == 2) {
+	//	DrawFormatString(300, 300, 0x000000, "2Hit");
+	//}
+	//else {
 
-		DrawFormatString(300, 300, 0x000000, "No");
-	}
+	//	DrawFormatString(300, 300, 0x000000, "No");
+	//}
 
 }
 
 void BlockManager::Update()
 {
-
+	CheckBlock();
 	holdblock(cursor->GetMousePos().x, cursor->GetMousePos().y);
 
 	for (Block& block : sampleBlocks) {
@@ -307,11 +317,9 @@ void BlockManager::holdblock(int bx, int by) {
 
 				/*fff.Hit(1);
 				a = 1;*/
-				printfDx("hit");
+				//printfDx("hit");
 			}
-			else {
-				block.is_hold = false;
-			}
+
 			//else {
 			//	fff.Hit(0);
 			//	a = 0;
@@ -327,4 +335,35 @@ void BlockManager::holdblock(int bx, int by) {
 	//	}
 	//}
 
+}
+
+void BlockManager::CheckBlock()
+{
+	int margin = BLOCK_SIZE;
+
+
+	for (Block& block : sampleBlocks) {
+		for (Block& re_b : re_block) {
+			if (block.shape == 0) { continue; }
+			//printfDx("x:%d y:%d shape:%d\t rx:%d ry:%d rshape:%d", block.x, block.y, block.shape, re_block.x, re_block.y, re_block.shape);
+			if (std::abs(block.xp - re_b.x) <= margin && std::abs(block.yp - re_b.y) <= margin) {
+
+				if ((block.shape != re_b.shape) && block.is_hold == false) {
+					continue;
+				}
+
+				if (re_b.is_empty == true) {
+					continue;
+				}
+
+				printfDx("Hit!!!");
+				//printfDx("x:%d y:%d\n", block.x, block.y);
+				if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+					block.is_hold = false;
+					re_b.is_empty = true;
+				}
+
+			}
+		}
+	}
 }

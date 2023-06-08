@@ -191,7 +191,7 @@ void Title::Draw()const
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	}
+	}	
 
 
 }

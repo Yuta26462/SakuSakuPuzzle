@@ -151,42 +151,25 @@ void GameMain::Draw()const
 
 
 
-	////パーツブロックを表示　下の方
-	//NEWブロックを描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-	//NEWブロックを描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+	//合わせるブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			if (CompBlock[i][j] != 0) {
-				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompBlock[i][j]], TRUE);
+			if (CompblockList[r][i][j] != 0) {
+				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompblockList[r][i][j]], TRUE);
 			}
 		}
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	//お題ブロックを描画
+	//お手本ブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			if (CompBlock[i][j] != 0) {
-				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompBlock[i][j]], TRUE);
+			if (CompblockList[r][i][j] != 0) {
+				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompblockList[r][i][j]], TRUE);
 			}
 		}
 	}
-	////パーツブロックを表示　下の方
-	for (int c = 0; c < 1; c++) {
-
-		for (int c = 0; c < 1; c++) {
-
-			for (int i = 0; i < 4; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					if (BlockHome[c][i][j] != 0)
-					{
-						DrawGraph((j + 6) * 90 + (c * 250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
-					}
-				}
-			}
 
 
 
@@ -203,8 +186,8 @@ void GameMain::Draw()const
 			// カーソル描画
 			cursor->Draw();
 
-		}
-	}
+		
+	
 }
 
 

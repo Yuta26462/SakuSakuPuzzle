@@ -3,6 +3,8 @@
 #include "BlockManager.h"
 #include "Bomb.h"
 #include "Cursor.h"
+#include "Block.h"
+#include <vector>
 
 class GameMain :
     public AbstractScene
@@ -12,6 +14,7 @@ private:
     Bomb* bomb;
     BlockManager* block_manager;
     Cursor* cursor;
+    
 
     //遅延アニメーション用カウンタ
     int delay_animation_count;
@@ -25,6 +28,7 @@ private:
 
     int time_image;    //制限時間画像用
     int time_circle_image;    //制限時間画像用
+
 public:
 
     //コンストラクタ

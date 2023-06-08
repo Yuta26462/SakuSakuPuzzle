@@ -5,7 +5,7 @@
 const int BLOCK_SIZE = 90;
 
 class Block
-{
+{   
 private:
 
 public:
@@ -17,6 +17,7 @@ public:
 
     int mx, my;//ˆÚ“®—p
     bool is_hold;   // ’Í‚Ü‚ê‚Ä‚¢‚éƒtƒ‰ƒO
+    bool is_empty;
 
     //int blockimg[6];
 

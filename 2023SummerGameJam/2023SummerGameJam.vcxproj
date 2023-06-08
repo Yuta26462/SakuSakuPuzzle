@@ -24,9 +24,11 @@
     <ClCompile Include="BlockManager.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="DrawRanking.cpp" />
     <ClCompile Include="End.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Help.cpp" />
+    <ClCompile Include="InputRankingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Ranking.cpp" />
@@ -40,9 +42,11 @@
     <ClInclude Include="BlockManager.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="DrawRanking.h" />
     <ClInclude Include="End.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Help.h" />
+    <ClInclude Include="InputRankingScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Ranking.h" />

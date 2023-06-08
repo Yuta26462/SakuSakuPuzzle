@@ -8,7 +8,7 @@ class GameMain :
     public AbstractScene
 {
 private:
-
+    int ClearStage;
     Bomb* bomb;
     BlockManager* block_manager;
     Cursor* cursor;

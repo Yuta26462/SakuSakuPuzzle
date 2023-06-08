@@ -5,7 +5,7 @@
 #include "Help.h"
 #include "PadInput.h"
 #include <iostream>
-#include"Ranking.h"
+#include"DrawRanking.h"
 #include"Help.h"
 
 #include"Result.h"
@@ -133,7 +133,7 @@ AbstractScene* Title::Update()
 				break;
 
 			case Title::MENU::RANKING:
-				return new Ranking();
+				return new DrawRanking();
 				break;
 
 			case Title::MENU::EXIT:

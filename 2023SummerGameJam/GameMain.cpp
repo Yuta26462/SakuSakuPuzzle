@@ -45,7 +45,7 @@ int PartsBlock[4][4] = { 0 };	//次のブロック用
 
 int TimeCount = 0;
 int Time = 0;
-int r = 2;
+int r = 0;
 
 int BtnFlg = FALSE;
 
@@ -65,14 +65,13 @@ GameMain::GameMain()
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 
 	CreateBlock();
-	CheckBlock();
+	//CheckBlock();
 	//menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
 
-	block_manager = new BlockManager();
 	cursor = new Cursor();
-	block = new Block(cursor);
+	block_manager = new BlockManager(cursor,0);
 	bomb = new Bomb(cursor);
 	
 	backImg = LoadGraph("img/backimg.png");
@@ -135,7 +134,6 @@ AbstractScene* GameMain::Update()
 
 	block_manager->Update();
 	bomb->Update();
-	block->Update();
 
 	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
 		//block_manager->GenerationExsampleBlock();
@@ -151,7 +149,6 @@ AbstractScene* GameMain::Update()
 //-----------------------------------
 void GameMain::Draw()const
 {
-
 	//DrawGraph(0, 0, background_image, TRUE);
 	DrawBox(0, 0, 1920, 1080, 0xffffff,TRUE);
 	DrawBox(0, 0, 400, 1080, 0x94fdff, TRUE);
@@ -159,30 +156,11 @@ void GameMain::Draw()const
 	DrawBox(0, 850, 1920, 1080, 0x94fdff, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
-	/*
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
-	//影ブロックを描画
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (CompBlock[i][j] != 0) {
-				DrawGraph(BlockPos[i][j].x, BlockPos[i][j].y, blockimg[CompBlock[i][j]], TRUE);
-			}
-		}
-	}
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	//お題ブロックを描画
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (CompBlock[i][j] != 0) {
-				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompBlock[i][j]], TRUE);
-			}
-		}
-	}
+	
 
 
 	////パーツブロックを表示　下の方
-
+	/*
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -201,11 +179,15 @@ void GameMain::Draw()const
 	DrawFormatString(120, 500, 0x000000, "%d", Time);
 
 
+
 	block_manager->Draw();
 	bomb->Draw();
 
 	// カーソル描画
 	cursor->Draw();
+	DrawBlock();
+
+
 }
 
 
@@ -276,16 +258,14 @@ void GameMain::CreateBlock() {
 
 
 
-		////お題ブロックと影ブロック生成
-		//for (int i = 0; i < 4; i++) {
-		//	for (int j = 0; j < 4; j++) {
-		//		CompBlock[i][j] = CompblockList[r][i][j];
-		//		BlockPos[i][j].x = 90 * (j + 11);
-		//		BlockPos[i][j].y = 90 * (i + 2);
-		//		BlockPos[i][j].px = (j + 6) * 90 + (i * 270);
-		//		BlockPos[i][j].py = (j + 10) * 90;
-		//	}
-		//}
+		//お題ブロックと影ブロック生成
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				CompBlock[i][j] = CompblockList[r][i][j];
+				BlockPos[i][j].x = 90 * (j + 11);
+				BlockPos[i][j].y = 90 * (i + 2);
+			}
+		}
 
 
 
@@ -314,7 +294,7 @@ void GameMain::CreateBlock() {
 	
 }
 
-void GameMain::DrawBlock() {
+void GameMain::DrawBlock() const {
 
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
@@ -340,7 +320,7 @@ void GameMain::DrawBlock() {
 
 	////パーツブロックを表示　下の方
 
-	for (int i = 0; i < 4; i++)
+	/*for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 2; j++)
 		{
@@ -349,7 +329,7 @@ void GameMain::DrawBlock() {
 				DrawGraph(BlockPos[i][j].px, BlockPos[i][j].py, blockimg[PBlockList[r][i][j]], TRUE);
 			}
 		}
-	}
+	}*/
 
 
 

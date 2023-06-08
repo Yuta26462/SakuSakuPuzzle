@@ -15,6 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetOutApplicationLogValidFlag(FALSE);   //ÉçÉOèoóÕÇñ≥å¯Ç…Ç∑ÇÈ
 
 	SetGraphMode(1920, 1080, 32);
+	
 
 	ChangeFontType(DX_FONTTYPE_ANTIALIASING_4X4);
 

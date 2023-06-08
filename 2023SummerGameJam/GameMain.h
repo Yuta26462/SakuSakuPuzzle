@@ -3,16 +3,15 @@
 #include "BlockManager.h"
 #include "Bomb.h"
 #include "Cursor.h"
-#include "Block.h"
 
 class GameMain :
     public AbstractScene
 {
 private:
-    BlockManager* block_manager;
+
     Bomb* bomb;
+    BlockManager* block_manager;
     Cursor* cursor;
-    Block* block;
 
     //遅延アニメーション用カウンタ
     int delay_animation_count;
@@ -24,7 +23,8 @@ private:
         DELAY_ANIMATION_TYPE_SIZE
     };
 
-
+    int time_image;    //制限時間画像用
+    int time_circle_image;    //制限時間画像用
 public:
 
     //コンストラクタ
@@ -44,7 +44,6 @@ public:
 
     void CheckBlock();
     void CreateBlock();
-    void DrawBlock();
 
         /// <summary>
     /// シーン切替前の遅延アニメーション
@@ -52,4 +51,7 @@ public:
     /// <returns></returns>
     /// <remarks>シーン切替前に遅延アニメーションを行う</remarks>
     bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
+
+    //リセット処理
+    void Reset();
 };

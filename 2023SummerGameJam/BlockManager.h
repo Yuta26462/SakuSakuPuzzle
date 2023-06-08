@@ -19,9 +19,9 @@ private:
 	// お手本のブロックを格納するベクター
 	std::vector<Block> sampleBlocks;
 	// プレイヤーのブロックを格納するベクター
-	std::vector<Block> playerBlocks;
+	//std::vector<Block> playerBlocks;
 	// キャンバスのブロックを格納するベクター
-	std::vector<Block> canvas;
+	//std::vector<Block> canvas;
 
 
 	int CompblockList[8][4][4]{
@@ -37,14 +37,6 @@ private:
 	//ひし形{{0,2,3,0},{2,1,1,3},{4,1,1,5},{0,4,5,0}}
 	};
 
-	int PBlockList[5][4][2]{
-		//4まで
-		{{0,0},{1,1},{1,1},{0,0}},
-		{{0,0},{4,1},{2,1},{0,0}},
-		{{2,0},{3,0},{4,0},{5,0}},
-		{{0,0},{2,5},{5,2},{0,0}},
-
-	};
 
 
 	// ブロックの分割数（初期値は3）
@@ -53,12 +45,22 @@ private:
 public:
 
 	int blockimg[6];
-	int r = 0;
+	int r = 1;
 	int BtnFlg=0;
+
+
+	int PBlockList[5][4][2]{
+		//4まで
+		{{0,0},{1,1},{1,1},{0,0}},
+		{{4,0},{0,1},{2,0},{0,1}},
+		{{2,0},{3,0},{4,0},{5,0}},
+		{{0,0},{2,5},{5,2},{0,0}},
+
+	};
 
 	//std::vector<std::vector<int>> CompBlock;
 
-	BlockManager();
+	BlockManager(Cursor *cursor, int stage = 0);
 	~BlockManager();
 	void Draw();
 	void Update();
@@ -84,7 +86,7 @@ public:
 	};
 	
 	//パーツをつかむよう
-	void holdblock(int& bx,int& by);
+	void holdblock(int bx,int by);
 
 	void Split();
 	void Merge();

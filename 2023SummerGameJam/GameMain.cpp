@@ -8,7 +8,7 @@
 
 #define FADE_TIME 300
 
-#define LIMIT 5
+#define LIMIT 60
 #define HEIGHT 9
 #define WIDTH 10
 
@@ -43,9 +43,6 @@ int PBlockList[5][4][2]{
 int CompBlock[4][4] = { 0 };	//お手本、影ブロック用
 int PartsBlock[4][4] = { 0 };	//次のブロック用
 
-
-int TimeCount = 0;
-int Time = 0;
 int r = 0;
 
 int BtnFlg = FALSE;
@@ -82,7 +79,7 @@ GameMain::GameMain()
 	backImg = LoadGraph("img/backimg.png");
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
-
+	Time = 15;
 	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
@@ -149,9 +146,6 @@ void GameMain::Draw()const
 
 	DrawGraph(0, 0, background_image, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
-
-
-
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//合わせるブロックを描画

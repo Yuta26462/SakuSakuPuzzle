@@ -28,7 +28,8 @@ private:
 
     int time_image;    //制限時間画像用
     int time_circle_image;    //制限時間画像用
-
+    int TimeCount = 0;
+    int Time = 0;
 public:
 
     //コンストラクタ

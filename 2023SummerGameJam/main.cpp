@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Title.h"
 #include "PadInput.h"
+#include "End.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -25,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SceneManager* sceneMng;
 
-	sceneMng = new SceneManager((AbstractScene*)new Title());
+	sceneMng = new SceneManager((AbstractScene*)new END());
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {

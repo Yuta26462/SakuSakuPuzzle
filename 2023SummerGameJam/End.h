@@ -20,7 +20,8 @@ private:
     // 選択しているメニュー
     int select_menu;
 
-    int menu_font;
+    int menu_font1;
+    int menu_font2;
 
     //選択SE用サウンドハンドル
     int select_se;

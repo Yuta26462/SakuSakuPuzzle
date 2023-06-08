@@ -108,6 +108,21 @@ AbstractScene* Title::Update()
 			input_margin = 0;
 
 		}
+		else if(PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+		{
+			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
+			// メニュー選択肢を一つ前に移動
+			select_menu = (select_menu - 1 + static_cast<int>(MENU::MENU_SIZE)) % static_cast<int>(MENU::MENU_SIZE);
+
+		}
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+		{
+			PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
+
+			// メニュー選択肢を一つ次に移動
+			select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
+
+		}
 
 	}
 

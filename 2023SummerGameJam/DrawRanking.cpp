@@ -36,7 +36,7 @@ void DrawRanking::Draw() const
 	int color = 0xffffff;
 	for (int i = 0; i < RANK; i++)
 	{
-		//順位に応じて文字色を変える(1位:金(黄色) 2位:銀(銀色) 3位:銅(茶色))
+		//順位に応じて文字色を変える
 		switch (Ranking::GetData(i).no)
 		{
 		case 1:

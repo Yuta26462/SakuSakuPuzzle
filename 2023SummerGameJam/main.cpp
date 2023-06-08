@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SceneManager* sceneMng;
 
-	sceneMng = new SceneManager((AbstractScene*)new END());
+	sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {

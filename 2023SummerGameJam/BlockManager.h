@@ -45,6 +45,10 @@ private:
 	// ブロックの分割数（初期値は3）
 	int splitNum = 3;
 
+	bool is_hold;
+
+	int stage_num;
+
 public:
 
 	int blockimg[6];
@@ -70,7 +74,7 @@ public:
 
 
 
-
+	void Reset();
 	/// <summary>
 	/// お手本ブロックを生成
 	/// </summary>
@@ -97,6 +101,5 @@ public:
 	void Merge();
 	void Rotate();
 	void Move();
-	void Reset();
 };
 

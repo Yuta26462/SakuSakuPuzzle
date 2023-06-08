@@ -123,7 +123,7 @@ AbstractScene* GameMain::Update()
 	}
 
 	if (Time <= 0) {
-		return new Result(ClearStage);
+		//return new Result(ClearStage);
 	}
 
 
@@ -180,6 +180,8 @@ void GameMain::Draw()const
 			DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount * 0.0253));
 
 			DrawFormatString(242, 635, 0x000000, "%.2d", Time);
+
+			DrawStringToHandle(200, 800, "STARTƒ{ƒ^ƒ“‚Å‚è‚¹‚Á‚Æ", 0x000000, title_font);
 
 			block_manager->Draw();
 			bomb->Draw();

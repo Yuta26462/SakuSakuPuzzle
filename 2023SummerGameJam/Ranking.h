@@ -32,7 +32,7 @@ private:
         int no;
         char name[10];
         long score;
-    };
+    } gRanking[5];
 
     // ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[
     int select_menu;
@@ -93,12 +93,7 @@ private:
     int Uplow;
 
 public:
-    struct RankingData
-    {
-        int no;
-        char name[11];
-        long score;
-    };
+
 
     int ReadRanking(void);
     

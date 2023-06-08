@@ -1,12 +1,10 @@
-#include "Ranking.h"
 #include "DxLib.h"
+#include "Ranking.h"
 #define FADE_TIME 300
 #define RANKING_DATE 5
 #include "GameMain.h"
 #include "PadInput.h"
 #include "Title.h"
-
-Ranking::RankingData  gRanking[RANKING_DATE];
 
 //-----------------------------------
 // コンストラクタ
@@ -71,7 +69,7 @@ Ranking::Ranking()
 
 	i_space = 0;
 
-    Uplow = 0;
+	Uplow = 0;
 
 
 	KeyBoard_X = KEYBORA_X;
@@ -161,14 +159,12 @@ AbstractScene* Ranking::Update()
 
 	}
 
-	}
-	
 	for (int i = 0; i < RANKING_DATA; i++) {
 		color = 0xFFFFFF;
 		if (i == 0) { color = 0xfffd3d; }
 		else if (i == 1) { color = 0xffbc3d; }
 		else if (i == 2) { color = 0xc9c9c9; }
-		else { color = 0xFFFFFF; }	
+		else { color = 0xFFFFFF; }
 
 		DrawFormatStringToHandle(60, 160 + i * 50, color, menu_font, "%2d", g_Ranking[i].no);
 		DrawFormatStringToHandle(120, 160 + i * 50, color, menu_font, "%9s", g_Ranking[i].name);
@@ -194,7 +190,7 @@ AbstractScene* Ranking::Update()
 	static int KeyBoard_XMrgin = KEYBORA_XMARGIN;
 	static int KeyMap = 0;	//初期：アルファベット順
 	static int Uplow = 0;	//初期：小文字
-	
+
 	char input_char = '0';
 	if (KeyMap == 0) {
 		for (int j = 0; j < 5; j++) {
@@ -209,7 +205,7 @@ AbstractScene* Ranking::Update()
 			}
 		}
 	}
-	 if (KeyMap == 1) {
+	if (KeyMap == 1) {
 		DrawCircle(214, 397, 10, 0x000000, 1);
 		DrawString(210, 390, "Y", 0xffff00);
 		DrawString(234, 390, "大文字／小文字切り替え", 0xFF4500);
@@ -225,7 +221,8 @@ AbstractScene* Ranking::Update()
 						input_char = KeyMap_Qwerty[0][0];
 
 						if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
-						else {DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+						else {
+							DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
 							//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 							//DrawBoxAA((i * KEYBORA_XMARGIN + KeyBoard_X + i_space) - 5,(KEYBORA_Y + KEYBORA_YMARGIN * j)-5, (i * KEYBORA_XMARGIN + KeyBoard_X + i_space) + 20, (KEYBORA_Y + KEYBORA_YMARGIN * j) + 20, color, TRUE);
 							//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -361,7 +358,8 @@ void Ranking::Draw()const
 				}
 				if (j > 0) {
 					if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
-					else {DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+					else {
+						DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
 					}
 				}
 			}
@@ -393,8 +391,6 @@ void Ranking::Draw()const
 		// 透明度
 		int transparency = 180;
 
-#ifdef TITLE_DEBUG
-
 		// 文字色
 		int debug_color = 0xFFFFFF;
 		// 文字外枠色
@@ -403,36 +399,29 @@ void Ranking::Draw()const
 		// 透明度
 		int debug_transparency = 100;
 
-		if (is_select_debug == true) {
-			debug_color = ~color;
-			debug_border_color = ~border_color;
-			debug_transparency = 255;
-
-		}
-		else if (select_menu == i) {
+		if (select_menu == i) {
 			color = ~color;
 			border_color = ~border_color;
 			transparency = 255;
 		}
-	
-	FILE* fp;
-#pragma warning(disable:4996)
-	//ファイルオープン
-	fp = fopen("Resource/data/rankingdata.txt", "r");
-		
-	//ランキングデータ配分列データを読み込む
-	for (int i = 0; i < RANKING_DATE; i++) {
-		int dammy = fscanf(fp, "%2d %10s %10d", &gRanking[i].no, gRanking[i].name, &gRanking[i].score);
-	}
 
-	SetFontSize(48);
-	for (int i = 0; i < RANKING_DATE; i++) {
-		DrawFormatString(500, 400 + i * 50, 0xffffff,
-			"%2d %-10s %10d",
-			gRanking[i].no,
-			gRanking[i].name,
-			gRanking[i].score);
+		FILE* fp;
+#pragma warning(disable:4996)
+		//ファイルオープン
+		fp = fopen("Resource/data/rankingdata.txt", "r");
+
+		//ランキングデータ配分列データを読み込む
+		for (int i = 0; i < RANKING_DATE; i++) {
+			int dammy = fscanf(fp, "%2d %10s %10d", &gRanking[i].no, gRanking[i].name, &gRanking[i].score);
+		}
+
+		SetFontSize(48);
+		for (int i = 0; i < RANKING_DATE; i++) {
+			DrawFormatString(500, 400 + i * 50, 0xffffff,
+				"%2d %-10s %10d",
+				gRanking[i].no,
+				gRanking[i].name,
+				gRanking[i].score);
+		}
 	}
-	//DrawStringToHandle(GetDrawCenterX("Science Revenge", title_font), 100, "Science Revenge", 0x66290E, title_font, 0xFFFFFF);
-		
 }

@@ -146,6 +146,11 @@ void GameMain::Draw()const
 
 	DrawGraph(0, 0, background_image, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
+	DrawBox(0, 803, 1920, 1080, 0x00ffff,TRUE);
+	DrawLineBox(0, 0, 524, 1080, 0x000000);
+	DrawBox(0, 0, 524, 1080, 0x00ffff, TRUE);
+	DrawRotaGraph(255, 655,0.27,0, time_image, TRUE);
+
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	//çáÇÌÇπÇÈÉuÉçÉbÉNÇï`âÊ

@@ -13,6 +13,7 @@ private:
     {
         PLAY,
         HELP,
+        RANKING,
         EXIT,
         MENU_SIZE
     };
@@ -20,6 +21,7 @@ private:
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
         "‚Õ‚ê‚¢",
         "‚Ö‚é‚Õ",
+        "‚ç‚ñ‚«‚ñ‚®",
         "‚µ‚ã‚¤‚è‚å‚¤"
     };
 

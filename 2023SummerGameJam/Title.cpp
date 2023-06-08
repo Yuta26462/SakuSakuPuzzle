@@ -168,7 +168,7 @@ void Title::Draw()const
 		const int base_y = 480;
 
 		// 文字列のY座標間隔
-		const int margin_y = 160;
+		const int margin_y = 140;
 
 		// 文字色
 		int color = 0xFFFFFF;

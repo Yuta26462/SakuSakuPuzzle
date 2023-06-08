@@ -122,7 +122,7 @@ AbstractScene* GameMain::Update()
 	}
 
 	if (Time <= 0) {
-		//return new Result(ClearStage);
+		return new Result(ClearStage);
 	}
 
 
@@ -180,7 +180,7 @@ void GameMain::Draw()const
 
 			DrawFormatString(242, 635, 0x000000, "%.2d", Time);
 
-			DrawStringToHandle(200, 800, "STARTボタンでりせっと", 0x000000, title_font);
+			DrawStringToHandle(0, 800, "STARTボタンでりせっと", 0x000000, title_font);
 
 			block_manager->Draw();
 			bomb->Draw();

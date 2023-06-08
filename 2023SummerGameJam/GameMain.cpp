@@ -60,8 +60,7 @@ struct Blockp BlockPos[HEIGHT][WIDTH] = { 0 };
 //-----------------------------------
 GameMain::GameMain()
 {
-	ClearStage = 3;
-	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
+	ClearStage = 0;
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 

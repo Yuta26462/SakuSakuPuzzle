@@ -129,10 +129,12 @@ AbstractScene* Title::Update()
 				break;
 
 			case Title::MENU::HELP:
-				return new Help;
+				return new Help();
+				break;
 
 			case Title::MENU::RANKING:
-				return new Ranking;
+				return new Ranking();
+				break;
 
 			case Title::MENU::EXIT:
 				return nullptr;

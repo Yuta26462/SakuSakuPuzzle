@@ -298,7 +298,7 @@ void BlockManager::holdblock(int bx, int by) {
 
 
 		//printfDx("x:%d y:%d\n",block.xp,block.yp);
-		printfDx("x:%d y:%d\n", cursor->GetMousePos().x, cursor->GetMousePos().y);
+		//printfDx("x:%d y:%d\n", cursor->GetMousePos().x, cursor->GetMousePos().y);
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 			if (bx >= block.xp && bx <= (block.xp + BLOCK_SIZE) &&
 				by >= block.yp && by <= (block.yp + BLOCK_SIZE))

@@ -114,8 +114,7 @@ AbstractScene* GameMain::Update()
 	cursor_pos.x;
 	cursor_pos.y;
 
-
-	cursor->Update();
+	block_manager->Update();
 
 	//§ŒÀŠÔ
 	TimeCount--;

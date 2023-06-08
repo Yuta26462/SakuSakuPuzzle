@@ -1,6 +1,12 @@
 #pragma once
 #include "AbstractScene.h"
 
+#define RANKING_DATA  5
+#define KEYBORA_XMARGIN			30
+#define KEYBORA_YMARGIN			30
+#define KEYBORA_X				100
+#define KEYBORA_Y				260
+
 class Ranking :
     public AbstractScene
 {
@@ -8,18 +14,24 @@ private:
 
     enum class MENU
     {
-        PLAY,
+        a,
         //OPTION,
-        HELP,
-        EXIT,
+        b,
+        c,
         MENU_SIZE
     };
 
     const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "PLAY",
+        "a",
         //"OPTION",
-        "HELP",
-        "EXIT"
+        "b",
+        "c"
+    };
+
+    struct	RankingData {
+        int no;
+        char name[10];
+        long score;
     };
 
     // 選択しているメニュー
@@ -55,11 +67,36 @@ private:
     //フェード用カウンタ
     int fade_counter;
 
+    int color;
+
+    RankingData g_Ranking[RANKING_DATA];
+
+    int input_i;
+
+    char buf[10];
+
+    int display;
+
+    int selecterX;
+    int selecterY;
+
+    char input_char;
+
+    int KeyBoard_XMrgin;
+
+    int KeyBoard_X;
+
+    int i_space;
+
+    char KeyMap_Qwerty[3][12] = { "QWERTYUIOP","ASDFGHJKL", "ZXCVBNM" };
+        
+    int Uplow;
+
 public:
 
     //コンストラクタ
     Ranking();
-
+    
     //デストラクタ
     ~Ranking();
 

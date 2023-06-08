@@ -54,12 +54,36 @@ Ranking::Ranking()
 
 	input_margin = 0;
 
+	color = 0x000000;
+
+	input_i = 0;
+
+	buf[10];
+
+	display = 10;
+
+	selecterX = 0;
+	selecterY = 0;
+
+	input_char = '0';
+
+	i_space = 0;
+
+    Uplow = 0;
+
+
+	KeyBoard_X = KEYBORA_X;
+	for (int i = 0; i < RANKING_DATA; i++)
+	{
+		g_Ranking[i].no = i + 1;
+		g_Ranking[i].score = 0;
+	}
 #ifdef TITLE_DEBUG
 	is_select_debug = false;
 #endif // TITLE_DEBUG
 
 
-	select_menu = static_cast<int>(MENU::PLAY);
+	select_menu = static_cast<int>(MENU::a);
 
 	fade_counter = 0;
 
@@ -144,8 +168,86 @@ AbstractScene* Ranking::Update()
 #endif // TITLE_DEBUG
 
 	}
+	
+	for (int i = 0; i < RANKING_DATA; i++) {
+		color = 0xFFFFFF;
+		if (i == 0) { color = 0xfffd3d; }
+		else if (i == 1) { color = 0xffbc3d; }
+		else if (i == 2) { color = 0xc9c9c9; }
+		else { color = 0xFFFFFF; }	
 
-	//
+		DrawFormatStringToHandle(60, 160 + i * 50, color, menu_font, "%2d", g_Ranking[i].no);
+		DrawFormatStringToHandle(120, 160 + i * 50, color, menu_font, "%9s", g_Ranking[i].name);
+		DrawFormatStringToHandle(455, 160 + i * 50, color, menu_font, "%5d", g_Ranking[i].score);
+	}
+	static char default_char[10] = "_________";			//初期表示
+	static char buf[10] = "_________";					//入力値
+	static int input_i = 0;								//入力値(1文字)
+	static int errorflg = 0;							//エラー検出用フラグ
+	static char KeyMap_Qwerty[3][12] = { "QWERTYUIOP","ASDFGHJKL","ZXCVBNM" };
+
+	for (int i = 0; input_i > i; i++) {
+		DrawFormatStringToHandle(195 + i * 25, 205, 0xFFFFFF, menu_font, "%c", buf[i]);
+	}
+
+	for (int display = 10; input_i < display; display--) {
+		DrawFormatStringToHandle(170 + display * 25, 205, 0xFFFFFF, menu_font, "%c", buf[display - 1]);
+	}
+	static int selecterX = 0;
+	static int selecterY = 0;
+
+	static int KeyBoard_X = KEYBORA_X;
+	static int KeyBoard_XMrgin = KEYBORA_XMARGIN;
+	static int KeyMap = 0;	//初期：アルファベット順
+	static int Uplow = 0;	//初期：小文字
+	
+	char input_char = '0';
+	if (KeyMap == 0) {
+		for (int j = 0; j < 5; j++) {
+			for (int i = 1; i < 14; i++) {
+				if (input_char < '{' || input_char < '[') {
+
+					if (selecterX + 1 == i && selecterY == j) { DrawFormatString(i * KeyBoard_XMrgin + KeyBoard_X, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", input_char++); }
+					else { DrawFormatString(i * KeyBoard_XMrgin + KeyBoard_X, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", input_char++); }
+				}
+				if (input_char == ':') { input_char = 'a'; j = 1; i = 0; }
+				if (input_char == '{') { input_char = 'A'; j = 3; i = 0; }
+			}
+		}
+	}
+	 if (KeyMap == 1) {
+		DrawCircle(214, 397, 10, 0x000000, 1);
+		DrawString(210, 390, "Y", 0xffff00);
+		DrawString(234, 390, "大文字／小文字切り替え", 0xFF4500);
+		int i_space = 0;
+		for (int j = 0; j < 4; j++) {
+			for (int i = 1; i < 14; i++) {
+				if (input_char < '{' || input_char < '[') {
+					if (j == 0) {
+						if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", input_char++);
+						else { DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", input_char++); }
+					}
+					if (j > 0) {
+						input_char = KeyMap_Qwerty[0][0];
+
+						if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+						else {DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+							//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+							//DrawBoxAA((i * KEYBORA_XMARGIN + KeyBoard_X + i_space) - 5,(KEYBORA_Y + KEYBORA_YMARGIN * j)-5, (i * KEYBORA_XMARGIN + KeyBoard_X + i_space) + 20, (KEYBORA_Y + KEYBORA_YMARGIN * j) + 20, color, TRUE);
+							//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+						}
+						if (j == 1 && i == 10) { i_space = 15; break; }
+						if (j == 2 && i == 9) { i_space = 30; break; }
+						if (j == 3 && i == 7)break;
+					}
+				}
+				if (input_char == ':') {
+					j = 1; i = 0;
+				}
+			}
+		}
+	}
+
 	//	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 	//	{
 	//
@@ -197,15 +299,66 @@ AbstractScene* Ranking::Update()
 //-----------------------------------
 void Ranking::Draw()const
 {
-	// ランキング一覧を表示
-	//SetFontSize(48);
-	//for (int i = 0; i < RANKING_DATA; i++) {
-		//DrawFormatString(240, 300 + i * 50, 0x000000,
-			//"%2d %-10s %10d",
-			//gRanking[i].no,
-			//gRanking[i].name,
-			//gRanking[i].score);
-	//}
+	SetBackgroundColor(255, 255, 255);
+	DrawStringToHandle(58, 113, "No", 0xFFFFFF, menu_font, 0x000000);
+	DrawStringToHandle(240, 113, "名前", 0xFFFFFF, menu_font, 0x000000);
+	DrawStringToHandle(455, 113, "スコア", 0xFFFFFF, menu_font, 0x000000);
+
+	for (int i = 0; i < RANKING_DATA; i++) {
+		DrawFormatStringToHandle(60, 160 + i * 50, color, menu_font, "%2d", g_Ranking[i].no);
+		DrawFormatStringToHandle(120, 160 + i * 50, color, menu_font, "%9s", g_Ranking[i].name);
+		DrawFormatStringToHandle(455, 160 + i * 50, color, menu_font, "%5d", g_Ranking[i].score);
+	}
+
+	DrawFormatStringToHandle(120, 60, 0xFFFFFF, menu_font, "ランキングに登録します");
+	DrawFormatStringToHandle(65, 110, 0xFFFFFF, menu_font, "名前を英字で入力してください");
+	DrawString(180, 420, "---- STARTボタンをおして名前決定！ ----", 0xFFD700, 0);
+
+	DrawFormatStringToHandle(120, 60, 0xFFFFFF, menu_font, "ランキングに登録します");
+	DrawFormatStringToHandle(65, 110, 0xFFFFFF, menu_font, "名前を英字で入力してください");
+
+	DrawString(180, 420, "---- STARTボタンをおして名前決定！ ----", 0xFFD700, 0);
+
+	// 名前の入力
+	DrawFormatStringToHandle(120, 200, 0xFFFFFF, menu_font, "> ");
+	DrawBox(190, 200, 425, 250, 0x000055, TRUE);
+
+	DrawFormatStringToHandle(120, 220, 0xff1493, menu_font, "名前を入力してください");
+
+	for (int i = 0; input_i > i; i++) {
+		DrawFormatStringToHandle(195 + i * 25, 205, 0xFFFFFF, menu_font, "%c", buf[i]);
+	}
+	for (int display = 10; input_i < display; display--) {
+		DrawFormatStringToHandle(170 + display * 25, 205, 0xFFFFFF, menu_font, "%c", buf[display - 1]);
+	}
+	for (int j = 0; j < 5; j++) {
+		for (int i = 1; i < 14; i++) {
+			if (selecterX + 1 == i && selecterY == j) { DrawFormatString(i * KeyBoard_XMrgin + KeyBoard_X, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", input_char); }
+			else { DrawFormatString(i * KeyBoard_XMrgin + KeyBoard_X, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", input_char); }
+		}
+	}
+	DrawCircle(214, 397, 10, 0x000000, 1);
+	DrawString(210, 390, "Y", 0xffff00);
+	DrawString(234, 390, "大文字／小文字切り替え", 0xFF4500);
+	for (int j = 0; j < 4; j++) {
+		for (int i = 1; i < 14; i++) {
+			if (input_char < '{' || input_char < '[') {
+				if (j == 0) {
+					if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", input_char);
+					else { DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", input_char); }
+				}
+				if (j > 0) {
+					if (selecterX + 1 == i && selecterY == j)DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0xff4000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+					else {DrawFormatString(i * KEYBORA_XMARGIN + KeyBoard_X + i_space, KEYBORA_Y + KEYBORA_YMARGIN * j, 0x000000, "%c", KeyMap_Qwerty[j - 1][i - 1] + (Uplow == 1 ? 0 : (char)32));
+					}
+				}
+			}
+			if (input_char == ':') {
+				j = 1; i = 0;
+			}
+		}
+	}
+
 	int bright = static_cast<int>((static_cast<float>(fade_counter) / FADE_TIME * 255));
 	SetDrawBright(bright, bright, bright);
 

@@ -117,3 +117,9 @@ void Bomb::Draw()const
 		break;
 	}
 }
+void Bomb::Reset()
+{
+	uses_remaining = 1;
+	bomb_effect = 0;
+	state = BOMB_STATE::NOT_SELECT;
+}

@@ -50,5 +50,6 @@ public:
     /// <remarks>シーン切替前に遅延アニメーションを行う</remarks>
     bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
 
+    //リセット処理
     void Reset();
 };

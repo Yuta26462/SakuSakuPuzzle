@@ -262,3 +262,8 @@ bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
 
 	return false;
 }
+
+void GameMain::Reset()
+{
+	bomb->Reset();
+}

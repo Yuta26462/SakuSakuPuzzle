@@ -41,4 +41,5 @@ public:
 	//ó‘Ô‚ğæ“¾‚·‚é
 	BOMB_STATE GetState(){ return state; }
 
+	void Reset();
 };

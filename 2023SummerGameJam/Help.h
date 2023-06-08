@@ -5,12 +5,20 @@ class Help :
     public AbstractScene
 {
 private:
+
+    int page;
+    int star_x;
+    int star_y;
+    int angle_x;
+    int angle_y;
+
     // フォントハンドル
     int menu_font;
     int normal_font;
 
     //選択SE用サウンドハンドル
     int select_se;
+
     //決定SE用サウンドハンドル
     int decision_se;
 
@@ -25,13 +33,6 @@ private:
     int gamepad_image;
     int star_image;
     int bomb_image;
-
-    int page;
-
-    int star_x;
-    int star_y;
-    int angle_x;
-    int angle_y;
 public:
 
     //コンストラクタ

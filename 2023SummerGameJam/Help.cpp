@@ -21,16 +21,9 @@ Help::Help()
 	star_image = LoadGraph("Resource/Images/2-4a/Star.png");
 	bomb_image = LoadGraph("Resource/Images/2-4a/bomb_normal.png");
 
-	//if ((background_music = LoadSoundMem("Sounds/BGM/Title.wav")) == -1) {
-	//	throw "Sounds/BGM/Title.wav";
-	//}
-
-	//if ((enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3")) == -1) {
-	//	throw "Resource/Sounds/SE/enter.mp3";
-	//}
-
-
-	select_se = 0;
+	background_music = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
+	enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
+	cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
 	decision_se = 0;
 
 	input_margin = 0;
@@ -42,7 +35,7 @@ Help::Help()
 	star_y = 450;
 	angle_x = 1;
 	angle_y = 1;
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
 }
 
@@ -51,9 +44,11 @@ Help::Help()
 //-----------------------------------
 Help::~Help()
 {
+	StopSoundMem(background_music);
 	DeleteGraph(background_image);
 	DeleteGraph(gamepad_image);
-
+	DeleteSoundMem(enter_se);
+	DeleteSoundMem(cursor_move_se);
 	DeleteFontToHandle(menu_font);
 
 	SetDrawBright(255, 255, 255);
@@ -65,21 +60,28 @@ Help::~Help()
 AbstractScene* Help::Update()
 {
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)){
+		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
 		return new GameMain();
 	}
 
 	if(PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
 		return new Title();
+
 	}
 
-	if (PAD_INPUT::GetLStick().x > 20000 || PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+	if ((PAD_INPUT::GetLStick().x > 20000 || PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))&& page == 1)
 	{
 		page = 2;
+		PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
 	}
 
-	if (PAD_INPUT::GetLStick().x < -20000 || PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+	if ((PAD_INPUT::GetLStick().x < -20000 || PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) && page == 2)
 	{
 		page = 1;
+		star_x = 1600;
+		star_y = 450;
+		PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
 	}
 
 	if (page == 1 && PAD_INPUT::OnPressed(XINPUT_BUTTON_X) && PAD_INPUT::OnPressed(XINPUT_BUTTON_Y))

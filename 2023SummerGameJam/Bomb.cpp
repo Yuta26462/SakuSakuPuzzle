@@ -11,19 +11,17 @@ Bomb::Bomb(Cursor* cursor)
 	state = BOMB_STATE::NOT_SELECT;
 
 	//各画像の読み込み
-	if ((BmImage = LoadGraph("Resource/Images/2-4a/アセット 6.png")) == -1)
-	{
-		throw "Resource/Images/2-4a/アセット 6.png";
-	}
-	if ((ExImage = LoadGraph("Resource/Images/Explosion.png")) == -1)
-	{
-		throw "Resource/Images/Explosion.png";
-	}
+	BmImage = LoadGraph("Resource/Images/2-4a/アセット 6.png");
+	ExImage = LoadGraph("Resource/Images/Explosion.png");
+	
+	ExSE = LoadSoundMem("Resource/Sounds/SE/Bomb2.mp3");
+
+	ChangeVolumeSoundMem(400,ExSE);
 }
 
 Bomb::~Bomb()
 {
-
+	DeleteSoundMem(ExSE);
 }
 
 int Bomb::Update()
@@ -45,10 +43,13 @@ int Bomb::Update()
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			//残り使用回数を減らす
-			uses_remaining--;
+			//uses_remaining--;
 
 			//状態を"爆発中"にする
 			state = BOMB_STATE::EXPROSION;
+
+			//爆発音再生
+			PlaySoundMem(ExSE, DX_PLAYTYPE_BACK);
 
 			//カーソルを動かないようにする
 			cursor->SetMouseMove(true);
@@ -96,7 +97,6 @@ int Bomb::Update()
 
 void Bomb::Draw()const
 {
-	DrawString(10,10,"bomb",0xff0000);
 	switch (state)
 	{
 	case BOMB_STATE::SELECT:
@@ -117,4 +117,10 @@ void Bomb::Draw()const
 
 		break;
 	}
+}
+void Bomb::Reset()
+{
+	uses_remaining = 1;
+	bomb_effect = 0;
+	state = BOMB_STATE::NOT_SELECT;
 }

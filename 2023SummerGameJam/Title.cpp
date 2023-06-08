@@ -5,8 +5,9 @@
 #include "Help.h"
 #include "PadInput.h"
 #include <iostream>
-#include"DrawRanking.h"
-#include"Help.h"
+#include "DrawRanking.h"
+#include "Help.h"
+#include "End.h"
 
 #include"Result.h"
 
@@ -137,7 +138,7 @@ AbstractScene* Title::Update()
 				break;
 
 			case Title::MENU::EXIT:
-				return nullptr;
+				return new END();
 				break;
 	
 			default:

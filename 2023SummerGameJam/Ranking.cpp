@@ -4,6 +4,7 @@
 #include "GameMain.h"
 #include "PadInput.h"
 #include "Title.h"
+#include "Ranking.h"
 
 #define FILEPATH "Resource/data/rankingdata.txt"
 

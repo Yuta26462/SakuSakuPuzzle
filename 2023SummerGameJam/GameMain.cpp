@@ -55,7 +55,7 @@ struct Blockp {
 	int px, py;	//パーツ座標
 };
 
-struct Blockp BlockPos[HEIGHT][WIDTH]={0};
+struct Blockp BlockPos[HEIGHT][WIDTH] = { 0 };
 
 //-----------------------------------
 // コンストラクタ
@@ -70,7 +70,7 @@ GameMain::GameMain()
 	gamemain_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
 	cursor = new Cursor();
-	block_manager = new BlockManager(cursor,0);
+	block_manager = new BlockManager(cursor, 0);
 	bomb = new Bomb(cursor);
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
@@ -114,53 +114,12 @@ AbstractScene* GameMain::Update()
 	cursor_pos.x;
 	cursor_pos.y;
 
-	if (BlockFlg == TRUE) {
-
-		BlockFlg = FALSE;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				CompBlock[i][j] = CompblockList[r][i][j];
-
-				//PartsBlock[i][j] = PBlockList[r][i][j];
-			}
-		}	
-
-
-		for (int c = 0; c < 2; c++) 
-		{
-			//iは行が下がる
-			//iはPBlockList[r][i][j]の見る中身を下げる
-
-			for (int i = 0; i < 4; i++) 
-			{
-				for (int j = 0; j < 4; j++) 
-				{
-					BlockHome[c][i][j] = PBlockList[r][i][j];
-				}
-			}
-
-		}
-
-		
-		for (int i = 0; i < 4; i++) 
-		{
-			for (int j = 0; j < 4; j++) 
-			{
-				if (CompBlock[i][j] != 0) {
-					Stage[i][j] = CompBlock[i][j];
-				}
-			}
-		}
-
-
-	}
-
 
 	cursor->Update();
 
 	//制限時間
 	TimeCount--;
-	if (TimeCount<=0) {
+	if (TimeCount <= 0) {
 		TimeCount = 60;
 		Time--;
 	}
@@ -169,16 +128,16 @@ AbstractScene* GameMain::Update()
 		Time = LIMIT;
 	}
 
-	
-	
+
+
 	bomb->Update();
 
-	if(PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
 		block_manager->GenerationExsampleBlock();
 	}
 
-		return this;
-	
+	return this;
+
 }
 
 //-----------------------------------
@@ -190,7 +149,7 @@ void GameMain::Draw()const
 	DrawGraph(0, 0, background_image, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
 
-	
+
 
 
 	////パーツブロックを表示　下の方
@@ -198,7 +157,7 @@ void GameMain::Draw()const
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
 	//NEWブロックを描画
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j <4; j++) {
+		for (int j = 0; j < 4; j++) {
 			if (CompBlock[i][j] != 0) {
 				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompBlock[i][j]], TRUE);
 			}
@@ -217,71 +176,70 @@ void GameMain::Draw()const
 	////パーツブロックを表示　下の方
 	for (int c = 0; c < 1; c++) {
 
-	for (int c = 0; c < 1; c++) {
+		for (int c = 0; c < 1; c++) {
 
-		for (int i = 0; i < 4; i++) 
-		{
-			for (int j = 0; j < 4; j++) 
+			for (int i = 0; i < 4; i++)
 			{
-				if (BlockHome[c][i][j] != 0)
+				for (int j = 0; j < 4; j++)
 				{
-					DrawGraph((j + 6) * 90+(c*250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
+					if (BlockHome[c][i][j] != 0)
+					{
+						DrawGraph((j + 6) * 90 + (c * 250), (i + 10) * 90, blockimg[BlockHome[c][i][j]], TRUE);
+					}
 				}
 			}
+
+
+
+			SetFontSize(40);
+			DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
+
+			DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount * 0.0253));
+
+			DrawFormatString(242, 635, 0x000000, "%.2d", Time);
+
+			block_manager->Draw();
+			bomb->Draw();
+			
+			// カーソル描画
+			cursor->Draw();
+
 		}
-		
-
-
-	SetFontSize(40);
-	DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
-
-	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
-
-	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
-
-	block_manager->Draw();
-	bomb->Draw();
-	cursor->Draw();
-	DrawBlock();
-	// カーソル描画
-	cursor->Draw();
-	DrawBlock();
-
-
+	}
 }
 
 
-bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
-{
-	//アニメーションの遅延
-	if (delay_animation_count < static_cast<int>(time))
-	{
-		int bright;
-		switch (type)
+		bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
 		{
-		case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
-			// フェードイン
-			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
-			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
-			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
-			break;
-		case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
-			// フェードアウト
-			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
-			SetDrawBright(bright, bright, bright);
-			break;
-		default:
-			break;
+			//アニメーションの遅延
+			if (delay_animation_count < static_cast<int>(time))
+			{
+				int bright;
+				switch (type)
+				{
+				case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
+					// フェードイン
+					bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
+					SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
+					//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
+					break;
+				case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
+					// フェードアウト
+					bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
+					SetDrawBright(bright, bright, bright);
+					break;
+				default:
+					break;
+				}
+
+				delay_animation_count++;
+				return false;
+			}
+			else
+			{
+				delay_animation_count = 0;
+				return true;
+			}
+
+			return false;
 		}
-
-		delay_animation_count++;
-		return false;
-	}
-	else
-	{
-		delay_animation_count = 0;
-		return true;
-	}
-
-	return false;
-}	

@@ -10,6 +10,7 @@ class GameMain :
 private:
 
     Bomb* bomb;
+    BlockManager* block_manager;
     Cursor* cursor;
 
     //遅延アニメーション用カウンタ
@@ -43,7 +44,6 @@ public:
 
     void CheckBlock();
     void CreateBlock();
-    void DrawBlock() const;
 
         /// <summary>
     /// シーン切替前の遅延アニメーション

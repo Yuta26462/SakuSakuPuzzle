@@ -48,8 +48,8 @@ Result::Result(int score)//クラス　リザルト
 Result::~Result()
 {
 	DeleteGraph(background_image);
-	//StopSoundMem(background_music);
-	//DeleteSoundMem(background_music);
+	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
 	//DeleteSoundMem(enter_se);
 	//DeleteSoundMem(cursor_move_se);
 	//DeleteFontToHandle(title_font);

@@ -46,6 +46,7 @@ END::END()
 END::~END()
 {
 	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
 	DeleteFontToHandle(title_font);
 	DeleteFontToHandle(menu_font);
 

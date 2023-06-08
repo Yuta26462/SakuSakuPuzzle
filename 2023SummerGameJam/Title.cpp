@@ -2,6 +2,7 @@
 #include "GameMain.h"
 #include "DxLib.h"
 #include "GameMain.h"
+#include "Help.h"
 #include "PadInput.h"
 #include <iostream>
 
@@ -121,7 +122,9 @@ AbstractScene* Title::Update()
 			case Title::MENU::PLAY:
 				return new GameMain();
 				break;
-
+			case Title::MENU::HELP:
+				return new Help();
+				break;
 
 			case Title::MENU::EXIT:
 				return nullptr;

@@ -82,7 +82,7 @@ AbstractScene* Result::Update()
 		}
 	}
 
-	printfDx("%d\n", count);
+	//printfDx("%d\n", count);
 
 	if (fade_counter < FADE_TIME)
 	{

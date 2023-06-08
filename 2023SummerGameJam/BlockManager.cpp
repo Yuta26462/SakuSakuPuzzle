@@ -64,7 +64,7 @@ BlockManager::BlockManager(Cursor* cursor, int stage)
 			block.y = 90 * (i + 2);
 			block.shape = CompblockList[r][i][j];
 			re_block.push_back(block);
-			printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
+			//printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
 		}
 	}
 }
@@ -119,7 +119,7 @@ void BlockManager::Draw()
 	//}
 
 
-	DrawFormatString(0, 50, 0x000000, "BtnFlg%d", BtnFlg);
+	//DrawFormatString(0, 50, 0x000000, "BtnFlg%d", BtnFlg);
 
 	//if (a == 1) {
 
@@ -356,7 +356,7 @@ void BlockManager::CheckBlock()
 					continue;
 				}
 
-				printfDx("Hit!!!");
+				//printfDx("Hit!!!");
 				//printfDx("x:%d y:%d\n", block.x, block.y);
 				if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 					block.is_hold = false;

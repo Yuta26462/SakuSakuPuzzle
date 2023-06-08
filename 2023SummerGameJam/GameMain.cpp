@@ -4,6 +4,7 @@
 #include "Cursor.h"
 #include "Bomb.h"
 #include "Block.h"
+#include "Result.h"
 
 #define FADE_TIME 300
 

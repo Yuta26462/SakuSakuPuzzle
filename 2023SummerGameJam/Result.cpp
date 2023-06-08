@@ -23,7 +23,7 @@ Result::Result(int score)//クラス　リザルト
 	//↑画像を差し込む
 	Result_BGM = LoadSoundMem("Resource/Sounds/BGM/Result.mp3");
 	PlaySoundMem(Result_BGM, DX_PLAYTYPE_LOOP, TRUE);
-
+	Ranking::ReadRanking();
 	//↑音楽を差し込む
 
 	//if ((enter_se = LoadSoundMem("Sounds/SE/enter.mp3")) == -1) {
@@ -83,6 +83,8 @@ AbstractScene* Result::Update()
 	}
 
 	printfDx("%d\n", count);
+	printfDx("ranking=%d\n", Ranking::GetData(RANK - 1).score);
+	printfDx("now=%d\n", Score);
 
 	if (fade_counter < FADE_TIME)
 	{

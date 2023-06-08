@@ -67,6 +67,9 @@ BlockManager::BlockManager(Cursor* cursor, int stage)
 			//printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
 		}
 	}
+
+	is_hold = false;
+	stage_num = 0;
 }
 
 
@@ -137,11 +140,16 @@ void BlockManager::Draw()
 
 void BlockManager::Update()
 {
+
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_START)) {
+		Reset();
+	}
+
 	CheckBlock();
 	holdblock(cursor->GetMousePos().x, cursor->GetMousePos().y);
 
 	for (Block& block : sampleBlocks) {
-		if (block.is_hold == true) {
+		if (block.is_hold == true && is_hold == true) {
 			block.xp = cursor->GetMousePos().x;
 			block.yp = cursor->GetMousePos().y;
 		};
@@ -299,6 +307,40 @@ void BlockManager::Move()
 void BlockManager::Reset()
 {
 	// ブロックのリセット
+		// 初期のブロックの生成
+	for (int i = 0; i < 4; i++) {
+
+		for (int j = 0; j < 4; j++) {
+
+			Block block;
+
+			block.shape = CompblockList[stage_num][i][j];
+			block.x = 90 * (j + 11);
+			block.y = 90 * (i + 2);
+
+
+			block.xp = ((j + 6) * BLOCK_SIZE + (270 * i));
+			block.yp = 10 * BLOCK_SIZE;
+
+			block.rotation = 0;
+
+			sampleBlocks.push_back(block);
+		}
+	}
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			Block block;
+			block.x = 90 * (j + 11);
+			block.y = 90 * (i + 2);
+			block.shape = CompblockList[r][i][j];
+			re_block.push_back(block);
+			//printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
+		}
+	}
+
+	is_hold = false;
+
 }
 
 
@@ -314,6 +356,7 @@ void BlockManager::holdblock(int bx, int by) {
 				by >= block.yp && by <= (block.yp + BLOCK_SIZE))
 			{
 				block.is_hold = true;
+				is_hold = true;
 
 				/*fff.Hit(1);
 				a = 1;*/
@@ -348,7 +391,7 @@ void BlockManager::CheckBlock()
 			//printfDx("x:%d y:%d shape:%d\t rx:%d ry:%d rshape:%d", block.x, block.y, block.shape, re_block.x, re_block.y, re_block.shape);
 			if (std::abs(block.xp - re_b.x) <= margin && std::abs(block.yp - re_b.y) <= margin) {
 
-				if ((block.shape != re_b.shape) && block.is_hold == false) {
+				if ((block.shape != re_b.shape) && block.is_hold == false && is_hold == false) {
 					continue;
 				}
 
@@ -360,7 +403,11 @@ void BlockManager::CheckBlock()
 				//printfDx("x:%d y:%d\n", block.x, block.y);
 				if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 					block.is_hold = false;
+					is_hold = false;
 					re_b.is_empty = true;
+					block.x = re_b.x;
+					block.y = re_b.y;
+					//block.shape = re_b.shape;
 				}
 
 			}

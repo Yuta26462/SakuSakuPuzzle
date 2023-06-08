@@ -19,7 +19,7 @@ END::END()
 
 	background_image = LoadGraph("Resource/Images/Scene/end.png");
 	//background_image = LoadGraph("Images/Scene/end.png");
-
+	background_music = LoadSoundMem("Resource/Sounds/BGM/End.mp3");
 	select_se = 0;
 	decision_se = 0;
 
@@ -36,7 +36,8 @@ END::END()
 
 	time = 0;
 
-	state = STATE::START;
+
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 //-----------------------------------
@@ -44,13 +45,8 @@ END::END()
 //-----------------------------------
 END::~END()
 {
-	/*StopSoundMem(background_music);
-	DeleteSoundMem(background_music);*/
-	//DeleteSoundMem(enter_se);
-	//DeleteSoundMem(cursor_move_se);
-	//DeleteGraph(background_image);
+	StopSoundMem(background_music);
 	DeleteFontToHandle(title_font);
-
 	DeleteFontToHandle(menu_font);
 
 }
@@ -64,36 +60,7 @@ AbstractScene* END::Update()
 	if (fade_counter[0] < FADE_TIME)
 	{
 		fade_counter[0]++;
-		printfDx("！\n");
 	}
-	
-	/*else if (fade_counter[0] >= FADE_TIME)
-	{
-		fade_counter[1]--;
-		printfDx("ssss\n");
-	}*/
-
-	//DelayAnimation(DELAY_ANIMATION_TYPE::FADE_IN, 1.0f);
-
-	/*if (fade_counter[0] < FADE_TIME)
-	{
-		fade_counter[0]++;
-		printfDx("！\n");
-		state = STATE::MIDDLE;
-	}
-		
-	if(state = STATE::MIDDLE && watting_time < 180){
-		watting_time++;
-		printfDx("！！\n");
-	}
-	else { state = STATE::END; }
-	
-	
-	if (state == STATE::END && fade_counter[1] < 100) {
-		fade_counter[1]++;
-		printfDx("！！！\n");
-	}*/
-
 	
 	if (++WaitTime > 400) {
 		return new Title;
@@ -108,22 +75,9 @@ AbstractScene* END::Update()
 void END::Draw()const
 {
 	int bright = static_cast<int>((static_cast<float>(fade_counter[0]) / FADE_TIME * 255));
-	/*if (fade_counter[0] >= FADE_TIME) {
-		bright = static_cast<int>((static_cast<float>(fade_counter[1]) / FADE_TIME * -255));
-	}*/
+
 	SetDrawBright(bright, bright, bright);
-	
-	/*if (fade_counter[0] < FADE_TIME) {
 
-		int bright = static_cast<int>((static_cast<float>(fade_counter[0]) / FADE_TIME * 255));
-		SetDrawBright(bright, bright, bright);
-	}
-	
-	if (fade_counter[1] < 100) {
-
-		int bright = static_cast<int>((static_cast<float>(fade_counter[1]) / FADE_TIME * -255));
-		SetDrawBright(bright, bright, bright);
-	}*/
 	DrawGraph(0, 0, background_image, FALSE);
 
 	DrawStringToHandle(GetDrawCenterX("そざいていきょう", title_font), 80, "そざいていきょう", 0xE1D000, title_font, 0xFFFFFF);
@@ -135,38 +89,3 @@ void END::Draw()const
 	DrawStringToHandle(GetDrawCenterX("こうかおんラボ", menu_font), 780, "こうかおんラボ", 0x0000f0, menu_font, 0xFFFFFF);
 
 }
-
-//bool END::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
-//{
-//	//アニメーションの遅延
-//	if (delay_animation_count < static_cast<int>(time))
-//	{
-//		int bright;
-//		switch (type)
-//		{
-//		case END::DELAY_ANIMATION_TYPE::FADE_IN:
-//			// フェードイン
-//			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
-//			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
-//			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
-//			break;
-//		case END::DELAY_ANIMATION_TYPE::FADE_OUT:
-//			// フェードアウト
-//			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
-//			SetDrawBright(bright, bright, bright);
-//			break;
-//		default:
-//			break;
-//		}
-//
-//		delay_animation_count++;
-//		return false;
-//	}
-//	else
-//	{
-//		delay_animation_count = 0;
-//		return true;
-//	}
-//
-//	return false;
-//}

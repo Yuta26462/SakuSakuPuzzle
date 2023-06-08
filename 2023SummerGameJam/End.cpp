@@ -63,7 +63,7 @@ AbstractScene* END::Update()
 	}
 	
 	if (++WaitTime > 400) {
-		return new Title;
+		return nullptr;
 	}
 
 	return this;
@@ -87,5 +87,6 @@ void END::Draw()const
 	DrawStringToHandle(GetDrawCenterX("yuhei komatsu", menu_font), 520, "yuhei komatsu", 0x0000f0, menu_font, 0xFFFFFF);
 	DrawStringToHandle(GetDrawCenterX("SE", menu_font), 650, "SE", 0xff0000, menu_font, 0xFFFFFF);
 	DrawStringToHandle(GetDrawCenterX("‚±‚¤‚©‚¨‚ñƒ‰ƒ{", menu_font), 780, "‚±‚¤‚©‚¨‚ñƒ‰ƒ{", 0x0000f0, menu_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("‚Õ‚ê‚¢‚µ‚Ä‚­‚ê‚Ä‚ ‚è‚ª‚Æ‚¤", menu_font), 880, "‚Õ‚ê‚¢‚µ‚Ä‚­‚ê‚Ä‚ ‚è‚ª‚Æ‚¤", 0xff0000, menu_font, 0xFFFFFF);
 
 }

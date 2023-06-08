@@ -5,6 +5,12 @@
 #include "Help.h"
 #include "PadInput.h"
 #include <iostream>
+#include"Ranking.h"
+#include"Help.h"
+
+#include"Result.h"
+
+
 
 
 #define FADE_TIME 300
@@ -122,8 +128,13 @@ AbstractScene* Title::Update()
 			case Title::MENU::PLAY:
 				return new GameMain();
 				break;
+
 			case Title::MENU::HELP:
 				return new Help();
+				break;
+
+			case Title::MENU::RANKING:
+				return new Ranking();
 				break;
 
 			case Title::MENU::EXIT:
@@ -160,7 +171,7 @@ void Title::Draw()const
 		const int base_y = 480;
 
 		// 文字列のY座標間隔
-		const int margin_y = 160;
+		const int margin_y = 140;
 
 		// 文字色
 		int color = 0xFFFFFF;

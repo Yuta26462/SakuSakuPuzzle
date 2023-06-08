@@ -98,7 +98,6 @@ GameMain::~GameMain()
 AbstractScene* GameMain::Update()
 {
 
-
 	//ブロック作成
 	//新しいブロックをセット＆次のブロックを生成
 	//一回だけ作るようにする
@@ -216,7 +215,7 @@ void GameMain::Draw()const
 
 
 	SetFontSize(40);
-	DrawStringToHandle(150, 20, "おだい", 0x000000, title_font);
+	DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
 
 	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
 

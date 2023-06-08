@@ -5,39 +5,42 @@
 #include "GameMain.h"
 #include "End.h"
 
+#define FADE_TIME 300
+#define OUTFADE_TIME 600
+
 //-----------------------------------
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 //-----------------------------------
 END::END()
 {
-	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
+	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s240.dft");
 
-	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round.dft");
+	menu_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 
+	background_image = LoadGraph("Resource/Images/Scene/end.png");
 	//background_image = LoadGraph("Images/Scene/end.png");
-
 
 	select_se = 0;
 	decision_se = 0;
 
 	input_margin = 0;
 	
-	select_menu = static_cast<int>(MENU::TITLE);
+	for (int i = 0; i < 2; i++)
+	{
+		fade_counter[i] = 0;
+	}
 
-	/*if ((background_music = LoadSoundMem("Sounds/BGM/end.mp3")) == -1) {
-		;;
-	}*/
+	//fade_counter= 0;
 
-	//enter_se = LoadSoundMem("Resource/Sounds/SE/enter.mp3");
+	watting_time = 0;
 
-	//cursor_move_se = LoadSoundMem("Resource/Sounds/SE/cursor_move.mp3");
+	time = 0;
 
-	//PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
-
+	state = STATE::START;
 }
 
 //-----------------------------------
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 //-----------------------------------
 END::~END()
 {
@@ -47,101 +50,123 @@ END::~END()
 	//DeleteSoundMem(cursor_move_se);
 	//DeleteGraph(background_image);
 	DeleteFontToHandle(title_font);
+
 	DeleteFontToHandle(menu_font);
+
 }
 
 //-----------------------------------
-// æ›´æ–°
+// XV
 //-----------------------------------
 AbstractScene* END::Update()
 {
-	// æ“ä½œé–“éš”æ™‚é–“
-	const int max_input_margin = 15;
-
-	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ„Ÿåº¦
-	const int stick_sensitivity = 20000;
-
-	if (input_margin < max_input_margin)
+	
+	if (fade_counter[0] < FADE_TIME)
 	{
-		input_margin++;
+		fade_counter[0]++;
+		printfDx("I\n");
 	}
-	//else {
-
-		//if (std::abs(PAD_INPUT::GetLStick().y) > stick_sensitivity) {
-
-			//PlaySoundMem(cursor_move_se, DX_PLAYTYPE_BACK, TRUE);
-			//select_menu = (select_menu + 1) % static_cast<int>(MENU::MENU_SIZE);
-			//input_margin = 0;
-
-		//}
-	//}
-
-
-	/*if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+	
+	/*else if (fade_counter[0] >= FADE_TIME)
 	{
-		PlaySoundMem(enter_se, DX_PLAYTYPE_BACK, TRUE);
-		while (CheckSoundMem(enter_se)) {}
+		fade_counter[1]--;
+		printfDx("ssss\n");
+	}*/
 
-		input_margin = 0;
-		MENU current_selection = static_cast<MENU>(select_menu);
-		switch (current_selection)
-		{
-		case MENU::TITLE:
-			return new Title();
-			break;
+	//DelayAnimation(DELAY_ANIMATION_TYPE::FADE_IN, 1.0f);
 
-		case MENU::EXIT:
-			return nullptr;
-			break;
-
-		default:
-			printfDx("æœªå®Ÿè£…ãªæ©Ÿèƒ½ã§ã™ã€‚\n");
-			break;
-		}
-
+	/*if (fade_counter[0] < FADE_TIME)
+	{
+		fade_counter[0]++;
+		printfDx("I\n");
+		state = STATE::MIDDLE;
 	}
-	*/
-	if (++WaitTime > 300) {
-		return nullptr;
+		
+	if(state = STATE::MIDDLE && watting_time < 180){
+		watting_time++;
+		printfDx("II\n");
+	}
+	else { state = STATE::END; }
+	
+	
+	if (state == STATE::END && fade_counter[1] < 100) {
+		fade_counter[1]++;
+		printfDx("III\n");
+	}*/
+
+	
+	if (++WaitTime > 400) {
+		return new Title;
 	}
 
 	return this;
 }
 
 //-----------------------------------
-// æç”»
+// •`‰æ
 //-----------------------------------
 void END::Draw()const
 {
-	DrawGraph(0, 0, background_image, FALSE);
-	DrawStringToHandle(GetDrawCenterX("Thanks!", title_font), 100, "Thanks!", 0xE1D000, title_font, 0xFFFFFF);
+	int bright = static_cast<int>((static_cast<float>(fade_counter[0]) / FADE_TIME * 255));
+	/*if (fade_counter[0] >= FADE_TIME) {
+		bright = static_cast<int>((static_cast<float>(fade_counter[1]) / FADE_TIME * -255));
+	}*/
+	SetDrawBright(bright, bright, bright);
+	
+	/*if (fade_counter[0] < FADE_TIME) {
 
-	for (int i = 0; i < static_cast<int>(MENU::MENU_SIZE); i++)
-	{
-		// æ–‡å­—åˆ—ã®æœ€å°Yåº§æ¨™
-		const int base_y = 400;
-
-		// æ–‡å­—åˆ—ã®Yåº§æ¨™é–“éš”
-		const int margin_y = 100;
-
-		// æ–‡å­—è‰²
-		int color = 0xFFFFFF;
-		// æ–‡å­—å¤–æ è‰²
-		int border_color = 0x000000;
-		// é€æ˜åº¦
-		int transparency = 180;
-
-		// ã‚«ãƒ¼ã‚½ãƒ«ãŒåˆã£ã¦ã„ã‚‹å ´åˆã€æ–‡å­—è‰²ã¨æ–‡å­—å¤–æ è‰²ã‚’åè»¢ã•ã›ã‚‹
-		if (select_menu == i) {
-			color = ~color;
-			border_color = ~border_color;
-			transparency = 255;
-		}
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
-		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		int bright = static_cast<int>((static_cast<float>(fade_counter[0]) / FADE_TIME * 255));
+		SetDrawBright(bright, bright, bright);
 	}
+	
+	if (fade_counter[1] < 100) {
 
+		int bright = static_cast<int>((static_cast<float>(fade_counter[1]) / FADE_TIME * -255));
+		SetDrawBright(bright, bright, bright);
+	}*/
+	DrawGraph(0, 0, background_image, FALSE);
+
+	DrawStringToHandle(GetDrawCenterX("‚»‚´‚¢‚Ä‚¢‚«‚å‚¤", title_font), 80, "‚»‚´‚¢‚Ä‚¢‚«‚å‚¤", 0xE1D000, title_font, 0xFFFFFF);
+
+	DrawStringToHandle(GetDrawCenterX("BGM", menu_font), 300, "BGM", 0xff0000, menu_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("‚©‚Ü‚Ú‚±‚³‚¿‚±", menu_font), 420, "‚©‚Ü‚Ú‚±‚³‚¿‚±", 0x0000f0, menu_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("yuhei komatsu", menu_font), 520, "yuhei komatsu", 0x0000f0, menu_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("SE", menu_font), 650, "SE", 0xff0000, menu_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("‚±‚¤‚©‚¨‚ñƒ‰ƒ{", menu_font), 780, "‚±‚¤‚©‚¨‚ñƒ‰ƒ{", 0x0000f0, menu_font, 0xFFFFFF);
 
 }
+
+//bool END::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
+//{
+//	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì’x‰„
+//	if (delay_animation_count < static_cast<int>(time))
+//	{
+//		int bright;
+//		switch (type)
+//		{
+//		case END::DELAY_ANIMATION_TYPE::FADE_IN:
+//			// ƒtƒF[ƒhƒCƒ“
+//			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
+//			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
+//			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
+//			break;
+//		case END::DELAY_ANIMATION_TYPE::FADE_OUT:
+//			// ƒtƒF[ƒhƒAƒEƒg
+//			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
+//			SetDrawBright(bright, bright, bright);
+//			break;
+//		default:
+//			break;
+//		}
+//
+//		delay_animation_count++;
+//		return false;
+//	}
+//	else
+//	{
+//		delay_animation_count = 0;
+//		return true;
+//	}
+//
+//	return false;
+//}

@@ -1,37 +1,13 @@
 #pragma once
 #include "AbstractScene.h"
+
 class Help :
     public AbstractScene
 {
 private:
-
-    enum class MENU
-    {
-        PLAY,
-        //OPTION,
-        HELP,
-        EXIT,
-        MENU_SIZE
-    };
-
-    const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "PLAY",
-        //"OPTION",
-        "TITLE",
-        "EXIT"
-    };
-
-    // 選択しているメニュー
-    int select_menu;
-
-
-#ifdef TITLE_DEBUG
-    // デバックメニュー選択用フラグ
-    bool is_select_debug;
-#endif // TITLE_DEBUG
-
     // フォントハンドル
     int menu_font;
+    int normal_font;
 
     //選択SE用サウンドハンドル
     int select_se;
@@ -45,6 +21,17 @@ private:
     int fade_counter;
 
     int WaitTime = 0;
+
+    int gamepad_image;
+    int star_image;
+    int bomb_image;
+
+    int page;
+
+    int star_x;
+    int star_y;
+    int angle_x;
+    int angle_y;
 public:
 
     //コンストラクタ

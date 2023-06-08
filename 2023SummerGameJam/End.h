@@ -7,24 +7,20 @@ class END :
 {
 private:
 
-    enum class MENU
-    {
-        TITLE,
-        EXIT,
-        MENU_SIZE
-    };
+    //遅延アニメーション用カウンタ
+    int delay_animation_count;
 
-    const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "TITLE",
-        "EXIT"
+    enum class DELAY_ANIMATION_TYPE
+    {
+        FADE_IN,
+        FADE_OUT,
+        DELAY_ANIMATION_TYPE_SIZE
     };
 
     // 選択しているメニュー
     int select_menu;
 
-
     int menu_font;
-
 
     //選択SE用サウンドハンドル
     int select_se;
@@ -33,6 +29,26 @@ private:
 
     //操作間隔時間
     int input_margin;
+
+    int WaitTime = 0;
+
+    int time = 0;
+
+    int fade_counter[2];
+
+    //int fade_counter;
+
+    int watting_time;
+
+    enum class STATE
+        {
+        START,
+        MIDDLE,
+        END
+    } state;
+
+    //アニメーション管理
+   // int Bright = 0;			//フェードアウト(0で完全に暗転)
 public:
 
     //コンストラクタ
@@ -46,4 +62,11 @@ public:
 
     //描画に関することを実装
     void Draw() const override;
+
+    /// <summary>
+/// シーン切替前の遅延アニメーション
+/// </summary>
+/// <returns></returns>
+/// <remarks>シーン切替前に遅延アニメーションを行う</remarks>
+    bool DelayAnimation(DELAY_ANIMATION_TYPE type, float time);
 };

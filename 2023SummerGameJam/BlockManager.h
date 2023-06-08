@@ -23,6 +23,9 @@ private:
 	// キャンバスのブロックを格納するベクター
 	//std::vector<Block> canvas;
 
+	// お手本
+	std::vector<Block> re_block;
+
 
 	int CompblockList[8][4][4]{
 
@@ -87,6 +90,8 @@ public:
 	
 	//パーツをつかむよう
 	void holdblock(int bx,int by);
+
+	void CheckBlock();
 
 	void Split();
 	void Merge();

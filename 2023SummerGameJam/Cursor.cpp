@@ -23,7 +23,8 @@ Cursor::~Cursor()
 void Cursor::Draw() const
 {
 	if (is_display == true) {
-		DrawRotaGraph(mouse_pos.x, mouse_pos.y, 0.1, 0, cursor_image, TRUE);
+		
+		DrawRotaGraph(mouse_pos.x - 40, mouse_pos.y + 100 , 0.1, 0, cursor_image, TRUE);
 	}
 }
 

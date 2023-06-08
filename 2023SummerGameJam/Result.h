@@ -49,10 +49,11 @@ private:
     //フェード用カウンタ
     int fade_counter;
 
+    int Score;
 public:
 
     //コンストラクタ
-    Result();
+    Result(int score);
 
     //デストラクタ
     ~Result();

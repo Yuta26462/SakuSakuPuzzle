@@ -5,7 +5,7 @@
 #include "Help.h"
 #include "PadInput.h"
 #include <iostream>
-#include"Ranking.h"
+#include"DrawRanking.h"
 #include"Help.h"
 
 #include"Result.h"
@@ -133,7 +133,7 @@ AbstractScene* Title::Update()
 				break;
 
 			case Title::MENU::RANKING:
-				return new Ranking();
+				return new DrawRanking();
 				break;
 
 			case Title::MENU::EXIT:
@@ -191,7 +191,7 @@ void Title::Draw()const
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, transparency);
 		DrawStringToHandle(GetDrawCenterX(menu_items[i], menu_font), i * margin_y + base_y, menu_items[i], color, menu_font, border_color);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	}
+	}	
 
 
 }

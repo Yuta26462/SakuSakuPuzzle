@@ -1,111 +1,36 @@
 #pragma once
-#include "AbstractScene.h"
+#define RANK 5
+#define NAME_MAX 10
 
-#define RANKING_DATA  5
-#define KEYBORA_XMARGIN			30
-#define KEYBORA_YMARGIN			30
-#define KEYBORA_X				100
-#define KEYBORA_Y				260
+struct RankingData
+{
+	int no;
+	char name[10];
+	int score;
+};
 
-class Ranking :
-    public AbstractScene
+class Ranking
 {
 private:
-  
-    enum class MENU
-    {
-        a,
-        //OPTION,
-        b,
-        c,
-        MENU_SIZE
-    };
 
-    const char* menu_items[static_cast<int>(MENU::MENU_SIZE)] = {
-        "a",
-        //"OPTION",
-        "b",
-        "c"
-    };
+	static RankingData Data[RANK];
 
-    struct	RankingData {
-        int no;
-        char name[10];
-        long score;
-    } gRanking[5];
+	//ランキングの並べ替え
+	static void SortRanking();
 
-    // 選択しているメニュー
-    int select_menu;
-
-    //int MoziSelectW;
-    //int MoziSelectH;
-
-    //char MoziSmall;
-    //char MoziBig;
-    //char MoziNumber;
-
-    //char MoziFrame;
-    //char MoziWork;
-   //  #define RANKING_DATA
-   // struct RankingData		gRanking[RANKING_DATA];
-#ifdef TITLE_DEBUG
-    // デバックメニュー選択用フラグ
-    bool is_select_debug;
-#endif // TITLE_DEBUG
-
-    // フォントハンドル
-    int menu_font;
-
-    //選択SE用サウンドハンドル
-    int select_se;
-    //決定SE用サウンドハンドル
-    int decision_se;
-
-    //操作間隔時間
-    int input_margin;
-
-    //フェード用カウンタ
-    int fade_counter;
-
-    int color;
-
-    RankingData g_Ranking[RANKING_DATA];
-
-    int input_i;
-
-    char buf[10];
-
-    int display;
-
-    int selecterX;
-    int selecterY;
-
-    char input_char;
-
-    int KeyBoard_XMrgin;
-
-    int KeyBoard_X;
-
-    int i_space;
-
-    char KeyMap_Qwerty[3][12] = { "QWERTYUIOP","ASDFGHJKL", "ZXCVBNM" };
-        
-    int Uplow;
+	//ランキングデータの保存
+	static void SaveRanking();
 
 public:
 
+	//ランキングデータの更新
+	static void Insert(int score, char name[NAME_MAX]);
 
-    int ReadRanking(void);
-    
-    //コンストラクタ
-    Ranking();
-    
-    //デストラクタ
-    ~Ranking();
+	//ランキングデータ読み込み
+	static void ReadRanking();
 
-    //描画以外の更新を実行
-    AbstractScene* Update() override;
-
-    //描画に関することを実装
-    void Draw() const override;
+	//ランキングの取得の取得
+	static RankingData GetData(int n) { return Data[n]; }
 };
+
+

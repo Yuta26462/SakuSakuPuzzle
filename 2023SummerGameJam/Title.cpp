@@ -10,10 +10,7 @@
 
 #include"Result.h"
 
-
-
-
-#define FADE_TIME 300
+#define FADE_TIME 100
 
 
 

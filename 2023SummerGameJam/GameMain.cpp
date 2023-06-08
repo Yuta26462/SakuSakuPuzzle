@@ -215,7 +215,7 @@ void GameMain::Draw()const
 
 
 	SetFontSize(40);
-	DrawStringToHandle(150, 20, "‚¨‘è", 0x000000, title_font);
+	DrawStringToHandle(150, 20, "‚¨‚¾‚¢", 0x000000, title_font);
 
 	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount*0.0253));
 

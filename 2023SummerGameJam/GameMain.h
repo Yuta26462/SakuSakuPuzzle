@@ -15,6 +15,8 @@ private:
     BlockManager* block_manager;
     Cursor* cursor;
     
+    int stage_num;
+
     //遅延アニメーション用カウンタ
     int delay_animation_count;
 
@@ -32,7 +34,7 @@ private:
 public:
 
     //コンストラクタ
-    GameMain();
+    GameMain(int stage_num = 0);
 
     //デストラクタ
     ~GameMain();

@@ -58,8 +58,10 @@ struct Blockp BlockPos[HEIGHT][WIDTH] = { 0 };
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
-GameMain::GameMain()
+GameMain::GameMain(int stage_num)
 {
+	this->stage_num = 3;
+
 	ClearStage = 0;
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
@@ -68,8 +70,8 @@ GameMain::GameMain()
 	background_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
 	cursor = new Cursor();
-	block_manager = new BlockManager(cursor, 0);
 	bomb = new Bomb(cursor);
+	block_manager = new BlockManager(cursor,bomb, this->stage_num);
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
@@ -81,6 +83,8 @@ GameMain::GameMain()
 	Time = 15;
 	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, FALSE);
 
+
+	delay_animation_count = 0;
 }
 
 //-----------------------------------
@@ -113,6 +117,11 @@ AbstractScene* GameMain::Update()
 	cursor_pos.y;
 
 	block_manager->Update();
+
+
+	if (block_manager->GetClearFlg() == true) {
+		return new Result(stage_num);
+	}
 
 	//制限時間
 	TimeCount--;
@@ -156,7 +165,7 @@ void GameMain::Draw()const
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			if (CompblockList[r][i][j] != 0) {
-				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompblockList[r][i][j]], TRUE);
+				DrawGraph(90 * (j + 11), 90 * (i + 2), blockimg[CompblockList[stage_num][i][j]], TRUE);
 			}
 		}
 	}
@@ -166,7 +175,7 @@ void GameMain::Draw()const
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			if (CompblockList[r][i][j] != 0) {
-				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompblockList[r][i][j]], TRUE);
+				DrawRotaGraph(72 * (j + 1.2), 72 * (i + 2), 0.8, 0, blockimg[CompblockList[stage_num][i][j]], TRUE);
 			}
 		}
 	}

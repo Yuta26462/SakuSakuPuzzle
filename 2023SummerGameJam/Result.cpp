@@ -16,7 +16,7 @@
 Result::Result(int score)//クラス　リザルト
 {
 	count = 0;
-	Score = score;
+	this->Score = score;
 	menu_font = CreateFontToHandle("メイリオ", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 4);
 
 	background_image = LoadGraph("Resource/Images/Scene/clear.png");
@@ -36,10 +36,7 @@ Result::Result(int score)//クラス　リザルト
 	//{
 	//	throw "Sounds/SE/cursor_move.mp3";
 	//}
-
-#ifdef TITLE_DEBUG
-	is_select_debug = false;
-#endif // TITLE_DEBUG
+	fade_counter = 0;
 }
 
 //-----------------------------------

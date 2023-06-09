@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "PadInput.h"
 #include <iostream>
+#include <math.h>
 
 Block fff;
 
@@ -176,6 +177,8 @@ void BlockManager::Update()
 
 	CheckBlock();
 
+
+
 	// 全プレイヤーブロックが消えたらゲームクリア
 
 	// 残りのブロックを演算
@@ -319,7 +322,6 @@ void BlockManager::Rotate()
 		//作業用
 		int temp[4][4] = { 0 };
 
-
 		////ブロックを回転して一時保存
 		//for (int i = 0; i < 4; i++) {
 		//	for (int j = 0; j < 4; j++) {
@@ -393,6 +395,15 @@ void BlockManager::CheckBlock()
 
 	for (Block& block : sampleBlocks) {
 		for (Block& re_b : re_block) {
+
+
+			//block.xp +=  GetRand(3);
+			block.yp += GetRand(stage_num);
+
+			if (block.yp > 700) {
+				block.yp = 0;
+			}
+
 
 			// カーソルに追従させる
 			if (block.is_hold == true && is_hold == true) {

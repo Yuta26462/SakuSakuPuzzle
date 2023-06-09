@@ -34,7 +34,7 @@ BlockManager::BlockManager(Cursor* cursor, Bomb* bomb, int stage)
 
 			// 応急処置
 			block.xp = ((j + 6) * BLOCK_SIZE + (270 * i));
-			block.yp = 1 * BLOCK_SIZE;
+			block.yp = 3 * BLOCK_SIZE;
 			block.is_empty = true;
 			block.is_hold = false;
 			block.rotation = 0;
@@ -191,7 +191,7 @@ void BlockManager::Update()
 		is_clear = true;
 	}
 
-	printfDx("残りブロック:%d\t\t総数:%d\n", re_all_block_count, all_block_count);
+	//printfDx("残りブロック:%d\t\t総数:%d\n", re_all_block_count, all_block_count);
 	//holdblock(cursor->GetMousePos().x, cursor->GetMousePos().y);
 
 

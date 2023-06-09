@@ -60,18 +60,18 @@ struct Blockp BlockPos[HEIGHT][WIDTH] = { 0 };
 //-----------------------------------
 GameMain::GameMain(int stage_num)
 {
-	this->stage_num = 3;
+	this->stage_num = stage_num;
 
 	ClearStage = 0;
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_s120.dft");
 
-	
+
 	background_music = LoadSoundMem("Resource/Sounds/BGM/GameMain.mp3");
 
 	cursor = new Cursor();
 	bomb = new Bomb(cursor);
-	block_manager = new BlockManager(cursor,bomb, this->stage_num);
+	block_manager = new BlockManager(cursor, bomb, this->stage_num);
 
 	title_font = LoadFontDataToHandle("Resource/Fonts/funwari-round_title.dft");
 	background_image = LoadGraph("Resource/Images/Scene/game_main.png");
@@ -120,6 +120,7 @@ AbstractScene* GameMain::Update()
 
 
 	if (block_manager->GetClearFlg() == true) {
+		if (stage_num < 7) { return new GameMain(stage_num + 1); }
 		return new Result(stage_num);
 	}
 
@@ -154,13 +155,15 @@ void GameMain::Draw()const
 
 	DrawGraph(0, 0, background_image, TRUE);
 	DrawLineBox(0, 850, 1920, 1080, 0x000000);
-	DrawBox(0, 803, 1920, 1080, 0x00ffff,TRUE);
+	DrawBox(0, 803, 1920, 1080, 0x00ffff, TRUE);
 	DrawLineBox(0, 0, 524, 1080, 0x000000);
 	DrawBox(0, 0, 524, 1080, 0x00ffff, TRUE);
-	DrawRotaGraph(255, 655,0.27,0, time_image, TRUE);
+	DrawRotaGraph(255, 655, 0.27, 0, time_image, TRUE);
+	DrawString(40, 400,"ステージ：", 0x000000);
+	DrawFormatString(350, 400, 0x000000, "%d", stage_num + 1);
 
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	//合わせるブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -182,57 +185,57 @@ void GameMain::Draw()const
 
 
 
-			SetFontSize(40);
-			DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
+	SetFontSize(40);
+	DrawStringToHandle(20, 20, "おだい", 0x000000, title_font);
 
-			DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount * 0.0253));
+	DrawCircleGauge(262, 654, 100, time_circle_image, 101 - (Time * 1.666 + TimeCount * 0.0253));
 
-			DrawFormatString(242, 635, 0x000000, "%.2d", Time);
+	DrawFormatString(242, 635, 0x000000, "%.2d", Time);
 
-			DrawStringToHandle(0, 800, "STARTボタンでりせっと", 0x000000, title_font);
+	DrawStringToHandle(0, 800, "STARTボタンでりせっと", 0x000000, title_font);
 
-			block_manager->Draw();
-			bomb->Draw();
-			
-			// カーソル描画
-			cursor->Draw();
+	block_manager->Draw();
+	bomb->Draw();
 
-		
-	
+	// カーソル描画
+	cursor->Draw();
+
+
+
 }
 
 
-		bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
+bool GameMain::DelayAnimation(DELAY_ANIMATION_TYPE type, float time)
+{
+	//アニメーションの遅延
+	if (delay_animation_count < static_cast<int>(time))
+	{
+		int bright;
+		switch (type)
 		{
-			//アニメーションの遅延
-			if (delay_animation_count < static_cast<int>(time))
-			{
-				int bright;
-				switch (type)
-				{
-				case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
-					// フェードイン
-					bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
-					SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
-					//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
-					break;
-				case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
-					// フェードアウト
-					bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
-					SetDrawBright(bright, bright, bright);
-					break;
-				default:
-					break;
-				}
-
-				delay_animation_count++;
-				return false;
-			}
-			else
-			{
-				delay_animation_count = 0;
-				return true;
-			}
-
-			return false;
+		case GameMain::DELAY_ANIMATION_TYPE::FADE_IN:
+			// フェードイン
+			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * 255));
+			SetDrawBlendMode(DX_BLENDMODE_ADD_X4, bright);
+			//DrawBox(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, GetColor(0, 0, 0), TRUE);
+			break;
+		case GameMain::DELAY_ANIMATION_TYPE::FADE_OUT:
+			// フェードアウト
+			bright = static_cast<int>((static_cast<float>(delay_animation_count) / time * -255) + 255);
+			SetDrawBright(bright, bright, bright);
+			break;
+		default:
+			break;
 		}
+
+		delay_animation_count++;
+		return false;
+	}
+	else
+	{
+		delay_animation_count = 0;
+		return true;
+	}
+
+	return false;
+}

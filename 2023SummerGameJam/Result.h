@@ -34,9 +34,6 @@ private:
     // フォントハンドル
 
     int menu_font;
-    int Result_font;
-
-    int Result_BGM;
 
     //選択SE用サウンドハンドル
     int select_se;
@@ -51,6 +48,8 @@ private:
 
     int Score;
 public:
+
+    Result() = default;
 
     //コンストラクタ
     Result(int score);

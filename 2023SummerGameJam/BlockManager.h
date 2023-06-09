@@ -2,6 +2,7 @@
 #include <vector>
 #include "Block.h"
 #include "Cursor.h"
+#include "Bomb.h"
 
 struct POSITION
 {
@@ -16,6 +17,7 @@ class BlockManager
 private:
 	Cursor* cursor;
 	Block* block;
+	Bomb* bomb;
 	// お手本のブロックを格納するベクター
 	std::vector<Block> sampleBlocks;
 	// プレイヤーのブロックを格納するベクター
@@ -49,6 +51,11 @@ private:
 
 	int stage_num;
 
+	bool is_clear;
+
+	int all_block_count;
+	int re_all_block_count;
+
 public:
 
 	int blockimg[6];
@@ -67,7 +74,7 @@ public:
 
 	//std::vector<std::vector<int>> CompBlock;
 
-	BlockManager(Cursor *cursor, int stage = 0);
+	BlockManager(Cursor *cursor, Bomb *bomb,int stage = 0);
 	~BlockManager();
 	void Draw();
 	void Update();
@@ -91,9 +98,6 @@ public:
 		if(num < 0 || num > 10) return;
 		splitNum = num; 
 	};
-	
-	//パーツをつかむよう
-	void holdblock(int bx,int by);
 
 	void CheckBlock();
 
@@ -101,5 +105,7 @@ public:
 	void Merge();
 	void Rotate();
 	void Move();
+
+	bool GetClearFlg() { return is_clear; }
 };
 

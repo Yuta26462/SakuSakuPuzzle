@@ -6,17 +6,18 @@
 Block fff;
 
 int a;
+int rx, ry, bx, by;
 
-BlockManager::BlockManager(Cursor* cursor, int stage)
+BlockManager::BlockManager(Cursor* cursor, Bomb* bomb, int stage)
 {
-	stage = 0;
 	LoadDivGraph("Resource/Images/2-4a/block.png", 6, 6, 1, 90, 90, blockimg);
 
 	//POSITION sample_posittion = { 200,200};
 
 	this->cursor = cursor;
+	this->bomb = bomb;
 
-	// 初期のブロックの生成
+	// パーチのブロックの生成
 	for (int i = 0; i < 4; i++) {
 
 		for (int j = 0; j < 4; j++) {
@@ -28,12 +29,27 @@ BlockManager::BlockManager(Cursor* cursor, int stage)
 			block.y = 90 * (i + 2);
 
 
-			block.xp = ((j + 6) * BLOCK_SIZE + (270 * i));
-			block.yp = 10 * BLOCK_SIZE;
+			/*block.xp = ((j + 6) * BLOCK_SIZE + (270 * i));
+			block.yp = 10 * BLOCK_SIZE;*/
 
+			// 応急処置
+			block.xp = ((j + 6) * BLOCK_SIZE + (270 * i));
+			block.yp = 1 * BLOCK_SIZE;
+			block.is_empty = true;
+			block.is_hold = false;
 			block.rotation = 0;
 
 			sampleBlocks.push_back(block);
+		}
+	}
+
+
+	// 応急処置
+
+	all_block_count = 0;
+	for (Block& block : sampleBlocks) {
+		if (block.shape != 0) {
+			all_block_count++;
 		}
 	}
 
@@ -62,14 +78,18 @@ BlockManager::BlockManager(Cursor* cursor, int stage)
 			Block block;
 			block.x = 90 * (j + 11);
 			block.y = 90 * (i + 2);
-			block.shape = CompblockList[r][i][j];
+			block.shape = CompblockList[stage][i][j];
+			block.is_empty = false;
+			block.is_hold = false;
 			re_block.push_back(block);
 			//printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
 		}
 	}
 
 	is_hold = false;
-	stage_num = 0;
+	stage_num = stage;
+
+	is_clear = false;
 }
 
 
@@ -77,6 +97,7 @@ BlockManager::~BlockManager() = default;
 
 void BlockManager::Draw()
 {
+
 	// ブロックの描画
 	for (Block& block : sampleBlocks) {
 		block.Draw(blockimg);
@@ -91,7 +112,6 @@ void BlockManager::Draw()
 
 		//	}
 		//}
-
 		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 		////お題ブロックを描画
@@ -136,6 +156,15 @@ void BlockManager::Draw()
 	//	DrawFormatString(300, 300, 0x000000, "No");
 	//}
 
+	// デバック表示
+	//for (Block& block : sampleBlocks) {
+	//	for (Block& re_b : re_block) {
+	//		//DrawCircle(re_b.x, re_b.y, 10.0f, 0x00ffff, TRUE);
+	//		//if (block.shape == 0 || re_b.shape == 0)continue;
+	//		DrawBox(re_b.x, re_b.y, re_b.x + BLOCK_SIZE, re_b.y + BLOCK_SIZE, 0x00ffff, FALSE);
+	//		DrawBox(block.xp, block.yp, block.xp + BLOCK_SIZE, block.yp + BLOCK_SIZE, 0xffffff, FALSE);
+	//	}
+	//}
 }
 
 void BlockManager::Update()
@@ -146,31 +175,43 @@ void BlockManager::Update()
 	}
 
 	CheckBlock();
-	holdblock(cursor->GetMousePos().x, cursor->GetMousePos().y);
 
+	// 全プレイヤーブロックが消えたらゲームクリア
+
+	// 残りのブロックを演算
+	re_all_block_count = 0;
 	for (Block& block : sampleBlocks) {
-		if (block.is_hold == true && is_hold == true) {
-			block.xp = cursor->GetMousePos().x;
-			block.yp = cursor->GetMousePos().y;
-		};
-	}
-
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && BtnFlg == 0)
-	{
-		BtnFlg = 1;
-		fff.flg(1);
-	}
-	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && BtnFlg == 1)
-	{
-		BtnFlg = 0;
-		fff.flg(0);
+		if (block.shape != 0) {
+			re_all_block_count++;
+		}
 	}
 
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y))
-	{
-		fff.rotate();
+	if (re_all_block_count <= 0) {
+		is_clear = true;
 	}
+
+	printfDx("残りブロック:%d\t\t総数:%d\n", re_all_block_count, all_block_count);
+	//holdblock(cursor->GetMousePos().x, cursor->GetMousePos().y);
+
+
+
+	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && BtnFlg == 0)
+	//{
+	//	BtnFlg = 1;
+	//	fff.flg(1);
+	//}
+	//else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && BtnFlg == 1)
+	//{
+	//	BtnFlg = 0;
+	//	fff.flg(0);
+	//}
+
+
+	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y))
+	//{
+	//	fff.rotate();
+	//}
 
 
 	/* if (BtnFlg == 1) {
@@ -333,7 +374,7 @@ void BlockManager::Reset()
 			Block block;
 			block.x = 90 * (j + 11);
 			block.y = 90 * (i + 2);
-			block.shape = CompblockList[r][i][j];
+			block.shape = CompblockList[stage_num][i][j];
 			re_block.push_back(block);
 			//printfDx("x:%d y:%d shape:%d\n", block.x, block.y, block.shape);
 		}
@@ -344,72 +385,66 @@ void BlockManager::Reset()
 }
 
 
-void BlockManager::holdblock(int bx, int by) {
-
-	for (Block& block : sampleBlocks) {
-
-
-		//printfDx("x:%d y:%d\n",block.xp,block.yp);
-		//printfDx("x:%d y:%d\n", cursor->GetMousePos().x, cursor->GetMousePos().y);
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-			if (bx >= block.xp && bx <= (block.xp + BLOCK_SIZE) &&
-				by >= block.yp && by <= (block.yp + BLOCK_SIZE))
-			{
-				block.is_hold = true;
-				is_hold = true;
-
-				/*fff.Hit(1);
-				a = 1;*/
-				//printfDx("hit");
-			}
-
-			//else {
-			//	fff.Hit(0);
-			//	a = 0;
-			//}
-		}
-	}
-	//	if (bx >= block.xp+270 && bx <= (block.xp + BLOCK_SIZE * 2) &&
-	//		by >= 910 && by <= (910 + BLOCK_SIZE))
-	//	{
-
-	//		fff.Hit(2);
-	//		a = 2;
-	//	}
-	//}
-
-}
-
 void BlockManager::CheckBlock()
 {
 	int margin = BLOCK_SIZE;
-
+	Cursor::POSITION _cursor = cursor->GetMousePos();
+	//printfDx("%d", all_block_count);
 
 	for (Block& block : sampleBlocks) {
 		for (Block& re_b : re_block) {
+
+			// カーソルに追従させる
+			if (block.is_hold == true && is_hold == true) {
+				block.xp = _cursor.x;
+				block.yp = _cursor.y;
+			};
+
+			// ブロックを掴む
+			if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				/*if (_cursor.x >= block.xp && _cursor.x <= (block.xp + BLOCK_SIZE) &&
+					_cursor.y >= block.yp && _cursor.y <= (block.yp + BLOCK_SIZE))*/
+				if (std::abs(block.xp - _cursor.x) <= margin && std::abs(block.yp - _cursor.y) <= margin)
+				{
+					if (bomb->GetState() == BOMB_STATE::SELECT) {
+						block.xp = 0;
+						block.yp = 0;
+						block.shape = 0;
+					}
+					block.is_hold = true;
+					is_hold = true;
+				}
+			}
+
+			// 0ブロックは無視する
 			if (block.shape == 0) { continue; }
 			//printfDx("x:%d y:%d shape:%d\t rx:%d ry:%d rshape:%d", block.x, block.y, block.shape, re_block.x, re_block.y, re_block.shape);
 			if (std::abs(block.xp - re_b.x) <= margin && std::abs(block.yp - re_b.y) <= margin) {
 
-				if ((block.shape != re_b.shape) && block.is_hold == false && is_hold == false) {
-					continue;
-				}
-
-				if (re_b.is_empty == true) {
-					continue;
-				}
-
-				//printfDx("Hit!!!");
-				//printfDx("x:%d y:%d\n", block.x, block.y);
 				if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+
+					if ((block.shape != re_b.shape) && block.is_hold == false && is_hold == false) {
+						continue;
+					}
+
+					if (re_b.is_empty == true) {
+						//printfDx("埋まっています");
+						continue;
+					}
+
+					if (is_hold == true && block.is_hold == true) {
+						//printfDx("動いている");
+						block.xp = re_b.x;
+						block.yp = re_b.y;
+					}
+
 					block.is_hold = false;
 					is_hold = false;
 					re_b.is_empty = true;
-					block.x = re_b.x;
-					block.y = re_b.y;
-					//block.shape = re_b.shape;
-				}
 
+					//block.shape = re_b.shape;
+
+				}
 			}
 		}
 	}

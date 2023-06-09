@@ -6,7 +6,7 @@
 #include "Title.h"
 #include "Ranking.h"
 
-#define FILEPATH "rankingdata.txt"
+#define FILEPATH "Resource/data/rankingdata.txt"
 
 RankingData Ranking::Data[RANK];
 

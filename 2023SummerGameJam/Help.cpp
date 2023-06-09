@@ -117,6 +117,7 @@ AbstractScene* Help::Update()
 //-----------------------------------
 void Help::Draw()const
 {
+	SetFontSize(50);
 	DrawGraph(0, 0, background_image, TRUE);
 	DrawStringToHandle(0, 1000, "Bでタイトルへ", 0xff0000, normal_font);
 	DrawStringToHandle(1300, 1000, "Aでゲームかいし", 0x00ff00, normal_font);
@@ -150,10 +151,12 @@ void Help::Draw()const
 		DrawStringToHandle(552, 272, "Yボタン", 0x000000, normal_font);
 		DrawStringToHandle(550, 270, "Yボタン", 0xffff00, normal_font);
 		DrawStringToHandle(850, 270, ":はこをまわす", 0x000000, normal_font);
+		DrawString(1350, 290,"（未実装）" ,0x000000);
 
 		DrawStringToHandle(322, 362, "STARTボタン", 0x000000, normal_font);
 		DrawStringToHandle(320, 360, "STARTボタン", 0x777777, normal_font);
 		DrawStringToHandle(850, 360, ":リセット", 0x000000, normal_font);
+		DrawString(1200, 380, "（未実装）", 0x000000);
 
 		DrawGraph(1700, 500, bomb_image, TRUE);
 		DrawStringToHandle(GetDrawCenterX("ばくだんについて", menu_font), 500, "ばくだんについて", 0x66290E, menu_font);
@@ -165,7 +168,7 @@ void Help::Draw()const
 		DrawStringToHandle(GetDrawCenterX("せんたくちゅう　Aボタンで 　ブロックを　けせる！", normal_font) + 2, 757, "　　　　　　　　Aボタン", 0x000000, normal_font);
 		DrawStringToHandle(GetDrawCenterX("せんたくちゅう　Aボタンで 　ブロックを　けせる！", normal_font),755, "　　　　　　　　Aボタン", 0x00ff00, normal_font);
 		DrawStringToHandle(GetDrawCenterX("せんたくちゅう　Aボタンで　ブロックを　けせる！", normal_font), 755, "せんたくちゅう　 　　　で　ブロックを　けせる！", 0x000000, normal_font);
-
+		DrawString(1650, 825, "（けせない）", 0x000000);
 		DrawStringToHandle(GetDrawCenterX("Bボタンで　 せんたくを　キャンセル", normal_font) + 2, 847, "Bボタン", 0x000000, normal_font);
 		DrawStringToHandle(GetDrawCenterX("Bボタンで　 せんたくを　キャンセル", normal_font), 845, "Bボタン", 0xff0000, normal_font);
 		DrawStringToHandle(GetDrawCenterX("Bボタンで　せんたくを　キャンセル", normal_font), 845, " 　　　で　せんたくを　キャンセル", 0x000000, normal_font);
